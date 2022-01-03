@@ -24,7 +24,7 @@ hs_err_pid*
 
 
 # react files
-/node_modules
+**/node_modules
 /.pnp
 .pnp.js
 
@@ -44,3 +44,4 @@ hs_err_pid*
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+src/client/node_modules/xtend/test.js
