@@ -93,6 +93,48 @@ CREATE TABLE IF NOT EXISTS `Group-Activity-Organizer`.`contact` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
+delimiter //
+create procedure set_known_good_state()
+begin  
+
+    delete from user_data;	
+    delete from points;
+    delete from activities;
+    alter table activities auto_increment = 1;    
+    delete from users;
+    alter table users auto_increment = 1;
+      
+      
+      insert into users(username, password, userRole) values
+        ('frigiid', 'SecretPassword', 'admin'),
+        ('loneWolf', 'IStrikeFirst', 'admin'),
+        ('guardians', 'OutOfTheBlue', 'admin');
+    
+    insert into point(userId)
+    values
+    ('1'),
+    ('2'),  
+    ('3');   
+        
+	insert into activities(activityName, description, location, time, points, userId)
+    values
+    ('soccer','9v9', 'That one place in Milwaukee','2022-01-11 15:00', '1', 1),
+    ('basketball','5v5', 'Court beside the waterfall','2022-01-15 05:00', '1', 2),
+	('football','5v5, flag football', 'Outer Space','2022-01-23 12:00', '1', 3);
+    
+    
+    insert into contact (firstName, lastName, email, userLocation)
+    values -- userId is AI
+	('Stepfan', 'Thelemaque', null, 'Milwaukee'),
+  	('John', 'Rambo', null, 'The Forest'),
+    ('Mister', 'Blue Sky', 'ELO@old.com', 'Sydney');
+    
+end //
+-- 4. Change the statement terminator back to the original.
+delimiter ;
+
+
+
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
