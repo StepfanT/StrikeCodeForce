@@ -111,12 +111,12 @@ begin
         ('guardians', 'OutOfTheBlue', 'admin');
     
     insert into points(userId)
-    values
+    values -- default values are 1 point and uncompleted(0) for Points and activityStatus    
     ('1'),
     ('2'),  
     ('3');   
         
-	insert into activities(activityName, description, location, time, points, userId)
+	insert into activities(activityName, description, location, dateTime, points, userId)
     values
     ('soccer','9v9', 'That one place in Milwaukee','2022-01-11 15:00', '1', 1),
     ('basketball','5v5', 'Court beside the waterfall','2022-01-15 05:00', '1', 2),
