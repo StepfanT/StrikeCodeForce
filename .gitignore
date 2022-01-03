@@ -24,6 +24,7 @@ hs_err_pid*
 
 
 # react files
+/node_modules
 /.pnp
 .pnp.js
 
