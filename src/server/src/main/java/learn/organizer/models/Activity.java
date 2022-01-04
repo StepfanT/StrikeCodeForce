@@ -14,6 +14,8 @@ public class Activity {
     private int max;
     private int min;
     private String createBy;
+    private int userId;
+    private String description;
 
     public int getActivityId() {
         return activityId;
@@ -77,5 +79,21 @@ public class Activity {
 
     public void setCreateBy(String createBy) {
         this.createBy = createBy;
+    }
+
+    public void setUserId(int userId) {
+        this.userId=userId;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setDescription(String description) {
+        this.description=description;
+    }
+
+    public String getDescription() {
+        return description;
     }
 }

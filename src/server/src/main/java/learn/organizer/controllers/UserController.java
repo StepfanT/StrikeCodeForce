@@ -4,6 +4,7 @@ package learn.organizer.controllers;
 import learn.organizer.domain.UserService;
 import learn.organizer.domain.exceptions.AccountCreationException;
 import learn.organizer.models.AppUser;
+import learn.organizer.models.Contact;
 import learn.organizer.security.JWTUtil;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -51,7 +52,7 @@ public class UserController {
 
                 HashMap<String, String> map = new HashMap<>();
                 map.put("jwt_token", jwtToken);
-
+                //add contact into map here
                 return new ResponseEntity<>(map, HttpStatus.OK);
             }
         } catch (AuthenticationException ex) {
@@ -62,16 +63,20 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<?> createAccount(@RequestBody Map<String, String> credentials) {
+    public ResponseEntity<?> createAccount(@RequestBody String userName,String pwd,String firstName,String lastName
+    ,String email, String location) {
 
         AppUser appUser=null;
         try {
-            String username = credentials.get("username");
-            String password = credentials.get("password");
+            String username = userName;
+            String password = pwd;
             BCryptPasswordEncoder bCryptPasswordEncoder=new BCryptPasswordEncoder();
             password=bCryptPasswordEncoder.encode(password);
+            Contact contact= new Contact(-1,firstName,lastName,email,location);
             appUser = new AppUser(username,password);
+            appUser.setContact(contact);
             appUser = authService.createAccount(appUser);
+            //add contact here as well. parse data create new contact. upload with user, maybe transactional
         } catch (DuplicateKeyException ex) {
             return new ResponseEntity<>(List.of("The provided username already exists"), HttpStatus.BAD_REQUEST);
         } catch (AccountCreationException e) {

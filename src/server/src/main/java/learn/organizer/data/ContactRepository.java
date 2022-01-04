@@ -10,7 +10,6 @@ public interface ContactRepository {
     public List<Contact> getAllContacts();
     public Contact getContactByUserId(int userId);
     public boolean addContact(Contact contact);
-    public boolean addContact(int id);
-    public boolean editActivity(Contact contact);
+    public boolean editContact(Contact contact);
 
 }

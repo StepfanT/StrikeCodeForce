@@ -11,12 +11,15 @@ import java.util.Objects;
 
 public class AppUser extends User {
     private int appUserId;
-
-    public AppUser(int appUserId, String username, String password, boolean disabled, List<AppRole> roles) {
+    private String role;
+    private Contact contact;
+    public AppUser(int appUserId, String username, String password, boolean disabled, List<AppRole> roles,Contact contact) {
         super(username, password, !disabled,
                 true, true, true,
                 convertRolesToAuthorities(roles));
         this.appUserId = appUserId;
+        this.role=roles.get(0).getName();
+        this.contact=contact;
     }
 
     public AppUser(String username,String password){
@@ -53,5 +56,18 @@ public class AppUser extends User {
     @Override
     public int hashCode() {
         return Objects.hash(super.hashCode(), appUserId);
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setContact(Contact contact) {
+        this.contact = contact;
+    }
+
+
+    public Contact getContact() {
+        return contact;
     }
 }
