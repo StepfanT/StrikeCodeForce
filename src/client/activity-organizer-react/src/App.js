@@ -9,16 +9,18 @@ export default function App() {
           borderBottom: "solid 1px",
           paddingBottom: "1rem"
         }}
-      >       
+      >
         <Link to="/activity">View Activities</Link> |{" "}
         <Link to="/activity/browse">Browse Activities</Link> |{" "}
         <Link to="/activity/create">Create An Activity</Link> |{" "}
         <Link to="/activity/points">View Points</Link>|{" "}
         <Link to="/home">About Us</Link> |{" "}
-        <Link to="/contact">Contact</Link> 
+        <Link to="/contact">Contact</Link>
 
       </nav>
 
     </div>
   );
 }
+
+//       <Link to="/table">Table</Link> 

@@ -1,8 +1,12 @@
+import { Link, useNavigate, useParams } from 'react-router-dom';
 
-function Contact() {
+export default function Contact() {
     return (
-        <h2> Contact us via telegram!.</h2>        
+        <>
+            <h2> Contact us via telegram!.</h2>
+            <Link to={`/`} className="btn btn-success btn-sm">
+                Return Home
+            </Link>
+        </>
     );
 }
-
-export default Contact;
