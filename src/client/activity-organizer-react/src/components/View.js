@@ -1,13 +1,11 @@
-import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { useParams, Link } from 'react-router-dom';
 import { getData } from "../testData";
+import '../App.css';
 
-export default function View() { 
+export default function View() {
 
-    // this is the test data that we 'fetch' for testing while server is not yet running
-    let activityData = getData();
-
- //  const [activities, setActivity] = useState([]);
+    //  const [activities, setActivity] = useState([]);
     // implement when server is running
     // const getData = () => {
     //     fetch('http://localhost:8080/activity')
@@ -19,13 +17,14 @@ export default function View() {
     //     getData();
     // }, []);
 
-    return (
+    // this is the test data that we 'fetch' for testing while server is not yet running
+    let activityData = getData();
+
+    return (    
         <>
             <style>{"table{border:1px solid black;}"}
             </style>
-
             <div>
-
                 <h2 className="my-4">Activities</h2>
                 <table style={{ "borderWidth": "1px", 'borderColor': "#aaaaaa", 'borderStyle': 'solid' }}
                     className="table table-striped table-hover">
@@ -61,7 +60,6 @@ export default function View() {
                 <Link to={`/`} className="btn btn-success btn-sm">
                     Return Home
                 </Link>
-
             </div>
         </>
     );

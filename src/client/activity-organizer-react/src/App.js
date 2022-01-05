@@ -13,14 +13,12 @@ export default function App() {
         <Link to="/activity">View Activities</Link> |{" "}
         <Link to="/activity/browse">Browse Activities</Link> |{" "}
         <Link to="/activity/create">Create An Activity</Link> |{" "}
-        <Link to="/activity/points">View Points</Link>|{" "}
+        <Link to="/activity/points">View Points</Link> |{" "}
         <Link to="/home">About Us</Link> |{" "}
         <Link to="/contact">Contact</Link>
+        <Link to="/test">Test</Link>
 
       </nav>
-
     </div>
   );
 }
-
-//       <Link to="/table">Table</Link> 

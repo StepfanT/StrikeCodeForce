@@ -66,3 +66,48 @@
   background-color: #4CAF50;
   color: white;
 }
+
+
+.container {
+  padding-top: 30px;
+  width: 500px;
+  margin: auto;
+}
+
+.input {
+  padding: 5px 15px;
+  width: 300px;
+}
+
+.activity-list {
+  margin-bottom: 10px;
+}
+
+.activity {
+  list-style: none;
+  margin: 10px 0;
+  padding: 10px;
+  background: #eee;
+  display: flex;
+  justify-content: normal;
+}
+
+.activity-id {
+  color: red;  
+  margin: auto;
+}
+
+.activity-name {
+  color: green;  
+  margin: auto;
+}
+.activity-time {
+  color: blue;
+  margin: auto;
+ 
+}
+
+.activity-date {
+  color: black;
+  margin: auto;
+}

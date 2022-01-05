@@ -71,8 +71,6 @@ export default function Detail() {
     }, [activityId]);
 
 
-
-
     const editToDoFormSubmitHandler = (event) => {
         event.preventDefault();
 
@@ -94,7 +92,78 @@ export default function Detail() {
             },
             body: JSON.stringify(updatedDetail)
         };
+        fetch(`http://localhost:8080/api/agent/${updatedDetail.userId}`, init)
+            .then(response => {
+                if (response.status === 204) {
+                    return null;
+                } else if (response.status === 400) {
+                    return response.json();
+                }
+                return Promise.reject('Something unexpected went wrong ');
+            })
+            .then(data => {
+                if (!data) {
+                    // redirect the user back to the /todos route
+                    history.push('/');
+                } else {
+                    // we have errors to display
+                    // setErrors(data);
+                    console.log("This is where the errors would be!")
+                }
+            })
+            .catch(error => console.log(error));
     };
+
+    // <Errors errors={errors} />
+
+    return (
+        <>
+            <style>{"table{border:1px solid black;}"}
+            </style>
+            <div>
+                <h2 className="my-4">Activities</h2>
+                <table style={{ "borderWidth": "1px", 'borderColor': "#aaaaaa", 'borderStyle': 'solid' }}
+                    className="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>Activity</th>
+                            <th>Location</th>
+                            <th>Date</th>
+                            <th>Time</th>
+                            <th>Owner</th>
+                            <th>Description</th>
+                            <th>Max Participants</th>
+                            <th>Min Participants</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {activityData.map(activity => (
+                            <tr key={activity.activityId}>
+                                <td>{activity.activityName}</td>
+                                <td>{activity.location}</td>
+                                <td>{activity.date}</td>
+                                <td>{activity.time}</td>
+                                <td>{activity.createBy}</td>
+                                <td>{activity.description}</td>
+                                <td>{activity.maxParticipant}</td>
+                                <td>{activity.minParticipant}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+
+                <Link to={`/activity`} className="btn btn-success btn-sm">
+                    Return to List
+                </Link>
+            </div>
+        </>
+    );
+};
+
+
+
+/*
+
 
     return (
         <>
@@ -158,7 +227,7 @@ export default function Detail() {
     );
 };
 
-/*
+
      <div>
                     <label htmlFor="createBy">Created By</label>
                     <input type="text" id="createBy" name="createBy"

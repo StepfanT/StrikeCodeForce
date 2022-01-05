@@ -3,7 +3,7 @@ package learn.organizer.domain;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Result <T>{
+public class Result<T> {
 
     private final ArrayList<String> messages = new ArrayList<>();
     private ResultType type = ResultType.SUCCESS;
