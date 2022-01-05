@@ -11,7 +11,7 @@ import Register from './components/Register';
 import Login from './components/Login';
 import Contact from './components/Contact';
 import Detail from './components/Detail';
-import Table from "./components/Table";
+import TestApp from './TestApp';
 
 const rootElement = document.getElementById("root");
 render(
@@ -29,6 +29,9 @@ render(
       <Route path="/activity/create" element={<Create />} />
       <Route path="/activity/points" element={<Points />} />
       <Route path="/activity/detail/:activityId" element={<Detail />} />
+
+
+      <Route path="/test" element={<TestApp />} />
 
       <Route
         path="*"
