@@ -8,16 +8,16 @@ public class ContactService {
     public Result<Contact> validate(Contact contact){
         Result<Contact> result=new Result<>();
         if(contact.getFirstName().isBlank()){
-            result.addMessage("Blank Name",ResultType.INVALID);
+            result.addMessage("Input a valid Name",ResultType.INVALID);
         }
         if(contact.getLastName().isBlank()){
-            result.addMessage("Blank Contact",ResultType.INVALID);
+            result.addMessage("Input a valid Lastname",ResultType.INVALID);
         }
         if(contact.getLocation().isBlank()){
-            result.addMessage("Blank Location",ResultType.INVALID);
+            result.addMessage("Input a valid Location",ResultType.INVALID);
         }
         if(contact.getEmail().isBlank()){
-            result.addMessage("Blank Email",ResultType.INVALID);
+            result.addMessage("Input a valid Email",ResultType.INVALID);
         }
         return result;
     }

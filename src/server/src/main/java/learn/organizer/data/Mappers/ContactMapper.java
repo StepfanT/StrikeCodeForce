@@ -20,7 +20,7 @@ public class ContactMapper implements RowMapper<Contact> {
         String firstName = resultSet.getString("firstName");
         String lastName = resultSet.getString("lastName");
         String email = resultSet.getString("email");
-        String location = resultSet.getString("userLocation");
+        String location = resultSet.getString("location");
 
         return new Contact(userId,firstName,lastName,email,location);
     }

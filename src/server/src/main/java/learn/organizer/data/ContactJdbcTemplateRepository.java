@@ -27,7 +27,7 @@ public class ContactJdbcTemplateRepository implements ContactRepository{
 
     @Override
     public Contact getContactByUserId(int userId) {
-        String sql= "select * from contact" +
+        String sql= "select * from contact " +
                 "where userId=?";
         return jdbcTemplate.queryForObject(sql,contactMapper,userId);
 
@@ -35,7 +35,7 @@ public class ContactJdbcTemplateRepository implements ContactRepository{
 
     @Override
     public boolean addContact(Contact contact) {
-        String sql="insert into contact (userId,firstName,lastName,email,location)" +
+        String sql="insert into contact (userId,firstName,lastName,email,location) " +
                 "values (?,?,?,?,?)";
         return jdbcTemplate.update(sql,contact.getUserId(),contact.getFirstName(),contact.getLastName(),contact.getEmail(),contact.getLocation())>0;
     }
@@ -43,7 +43,7 @@ public class ContactJdbcTemplateRepository implements ContactRepository{
     @Override
     public boolean editContact(Contact contact) {
         String sql="update contact " +
-                "set firstName=?,lastName=?,email=?,location=?)" +
+                "set firstName=?,lastName=?,email=?,location=?) " +
                 "where userId=?";
         return jdbcTemplate.update(sql,contact.getFirstName(),contact.getLastName(),contact.getEmail(),contact.getLocation(),contact.getUserId())>0;
 

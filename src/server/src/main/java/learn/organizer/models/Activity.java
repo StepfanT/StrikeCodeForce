@@ -10,12 +10,10 @@ public class Activity {
     private String activityName;
     private String location;
     private LocalDate date;
-    private String time;
+    private LocalTime time;
     private int max;
     private int min;
-    //is contact required here
-    private String contact;
-    //is userId required here
+    private String createBy;
     private int userId;
     private String description;
 
@@ -51,11 +49,11 @@ public class Activity {
         this.date = date;
     }
 
-    public String getTime() {
+    public LocalTime getTime() {
         return time;
     }
 
-    public void setTime(String time) {
+    public void setTime(LocalTime time) {
         this.time = time;
     }
 
@@ -75,12 +73,12 @@ public class Activity {
         this.min = min;
     }
 
-    public String getContact() {
-        return contact;
+    public String getCreateBy() {
+        return createBy;
     }
 
-    public void setContact(String contact) {
-        this.contact = contact;
+    public void setCreateBy(String createBy) {
+        this.createBy = createBy;
     }
 
     public void setUserId(int userId) {

@@ -63,24 +63,17 @@ public class AppUserJdbcTemplateRepository implements AppUserRepository {
     @Override
     @Transactional
     public AppUser add(AppUser appUser) {
-
-        final String sql = "insert into user (username, password,userRole) values (?,?,?);";
+        System.out.println("called add");
+        final String sql = "insert into user (username, password, userRole) values (?,?,?);";
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
-        int rowsAffected = jdbcTemplate.update(connection -> {
-            PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-
-            ps.setString(1, appUser.getUsername());
-            ps.setString(2, appUser.getPassword());
-            ps.setString(2, appUser.getRole());
-
-            return ps;
-        }, keyHolder);
-
+        int rowsAffected = jdbcTemplate.update(sql,appUser.getUsername(),appUser.getPassword(),appUser.getRole());
+        System.out.println(rowsAffected);
         if (rowsAffected <= 0) {
+            System.out.println("Nada");
             return null;
         }
-
+        System.out.println("contact time");
         appUser.setAppUserId(keyHolder.getKey().intValue());
 
         //update contact userId with newly generated id for app user
@@ -99,7 +92,7 @@ public class AppUserJdbcTemplateRepository implements AppUserRepository {
                 + "username = ?, "
                 + "password = ?, "
                 + "role = ? "
-                + "where app_user_id = ?";
+                + "where userId = ?";
 
         return jdbcTemplate.update(sql, appUser.getUsername(), appUser.getPassword(), appUser.getRole(), appUser.getAppUserId()) > 0;
     }

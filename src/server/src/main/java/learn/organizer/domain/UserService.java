@@ -18,6 +18,8 @@ public class UserService {
 
     public AppUser createAccount(AppUser appUser) throws AccountCreationException {
         if (appUsers.findByUsername(appUser.getUsername()) != null) {
+
+                System.out.println("found");
             throw new AccountCreationException("Username already exists");
         }
 
