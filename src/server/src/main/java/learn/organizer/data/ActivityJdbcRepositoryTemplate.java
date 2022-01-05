@@ -17,10 +17,20 @@ public class ActivityJdbcRepositoryTemplate implements ActivityRepository{
     public Activity findByAppUserId(int userId) {
         return null;
 
-//        public List<Activity> findByUserId(int userId) throws DataAccessException {
-//            ArrayList<Activity> result = new ArrayList<>();
-//            List<Activity> activities = findAll();
-//            for(Activity activity : activities){
-//                if(AppUser.getAppUserId() = )
+    }
+
+    @Override
+    public Activity add(Activity activity) {
+        return null;
+    }
+
+    @Override
+    public boolean update(Activity activity) {
+        return false;
+    }
+
+    @Override
+    public boolean deleteById(int activityId) {
+        return false;
     }
 }
