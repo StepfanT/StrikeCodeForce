@@ -40,13 +40,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/authenticate").permitAll()
                 .antMatchers("/authenticate/register").permitAll()
                 .antMatchers(HttpMethod.GET,
-                        "/api/agent", "/api/agent/*").permitAll()
+                        "/api/activity", "/api/activity/*").permitAll()
                 .antMatchers(HttpMethod.POST,
-                        "/api/agent").hasAnyRole("USER", "ADMIN")
+                        "/api/activity").hasAnyRole("USER", "ADMIN")
                 .antMatchers(HttpMethod.PUT,
-                        "/api/agent/*").hasAnyRole("USER", "ADMIN")
+                        "/api/activity").hasAnyRole("USER", "ADMIN")
                 .antMatchers(HttpMethod.DELETE,
-                        "/api/agent/*").hasAnyRole("ADMIN")
+                        "/api/activity/*").hasAnyRole("ADMIN")
                 .antMatchers("/**").denyAll()
                 .anyRequest().authenticated()
                 .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
