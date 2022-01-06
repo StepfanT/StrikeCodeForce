@@ -25,7 +25,7 @@ DROP TABLE IF EXISTS `Group-Activity-Organizer`.`user` ;
 CREATE TABLE IF NOT EXISTS `Group-Activity-Organizer`.`user` (
   `userId` INT NOT NULL AUTO_INCREMENT,
   `username` VARCHAR(45) NOT NULL,
-  `password` VARCHAR(45) NOT NULL,
+  `password` VARCHAR(2040) NOT NULL,
   `userRole` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`userId`))
 ENGINE = InnoDB;

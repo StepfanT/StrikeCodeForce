@@ -65,7 +65,7 @@ export default function Create() {
             body: JSON.stringify(newActivity)
         };
 
-        fetch('http://localhost:8080/api/agent', init)
+        fetch('http://localhost:8080/activity', init)
             .then(response => {
                 if (response.status === 201 || response.status === 400) {
                     return response.json();

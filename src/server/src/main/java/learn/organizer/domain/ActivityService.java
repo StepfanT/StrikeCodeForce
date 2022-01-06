@@ -2,21 +2,30 @@ package learn.organizer.domain;
 
 import learn.organizer.data.ActivityRepository;
 import learn.organizer.models.Activity;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
 import java.util.List;
 
+@Service
 public class ActivityService {
+
 
     private final ActivityRepository repository;
 
-    public ActivityService(ActivityRepository repository){this.repository = repository;}
+    public ActivityService(ActivityRepository repository) {
+        this.repository = repository;
+    }
 
-    public List<Activity> getAllActivities() {return repository.getAllActivities();}
+    public List<Activity> getAllActivities() {
+        return repository.getAllActivities();
+    }
 
-    public List<Activity> findByAppUserId(int appUserId) {return repository.findByAppUserId(appUserId);}
+    public List<Activity> findByAppUserId(int appUserId) {
+        return repository.findByAppUserId(appUserId);
+    }
 
 
     public Result<Activity> addActivity(Activity activity) {
@@ -27,7 +36,7 @@ public class ActivityService {
 
         boolean isAdded = repository.addActivity(activity);
         result.setPayload(activity);
-        if(isAdded != true){
+        if (isAdded != true) {
             result.addMessage("failed to add activity", ResultType.INVALID);
         }
         return result;
@@ -71,7 +80,7 @@ public class ActivityService {
             result.addMessage("location is required", ResultType.INVALID);
         }
 
-        if (activity.getDate() != null && activity.getDate().isAfter(LocalDate.now())){
+        if (activity.getDate() != null && activity.getDate().isAfter(LocalDate.now())) {
             result.addMessage("activity date must be in the future", ResultType.INVALID);
         }
 //  -ToDo: design way to enforce time input formatting and create validation if necessary
@@ -89,7 +98,7 @@ public class ActivityService {
             result.addMessage("number of participants cannot exceed 100", ResultType.INVALID);
         }
         //min participant validation
-        if (activity.getMin() <= 0){
+        if (activity.getMin() <= 0) {
             result.addMessage("number of participants must be greater than zero", ResultType.INVALID);
         }
         //contact validation not required?

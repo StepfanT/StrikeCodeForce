@@ -63,16 +63,15 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<?> createAccount(@RequestBody String userName,String pwd,String firstName,String lastName
-    ,String email, String location) {
-
+    public ResponseEntity<?> createAccount( @RequestBody List<String> data) {
         AppUser appUser=null;
         try {
-            String username = userName;
-            String password = pwd;
+            String username = data.get(0);
+            String password = data.get(1);
+            System.out.println(username);
             BCryptPasswordEncoder bCryptPasswordEncoder=new BCryptPasswordEncoder();
             password=bCryptPasswordEncoder.encode(password);
-            Contact contact= new Contact(-1,firstName,lastName,email,location);
+            Contact contact= new Contact(-1,data.get(2),data.get(3),data.get(4),data.get(5));
             appUser = new AppUser(username,password);
             appUser.setContact(contact);
             appUser = authService.createAccount(appUser);

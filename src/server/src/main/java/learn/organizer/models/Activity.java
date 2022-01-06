@@ -13,6 +13,10 @@ public class Activity {
     private String time;
     private int max;
     private int min;
+
+    private String createBy;
+    private int userId;
+
     private String description;
 
     public int getActivityId() {
@@ -70,6 +74,23 @@ public class Activity {
     public void setMin(int min) {
         this.min = min;
     }
+
+    public String getCreateBy() {
+        return createBy;
+    }
+
+    public void setCreateBy(String createBy) {
+        this.createBy = createBy;
+    }
+
+    public void setUserId(int userId) {
+        this.userId=userId;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
 
     public void setDescription(String description) {
         this.description=description;

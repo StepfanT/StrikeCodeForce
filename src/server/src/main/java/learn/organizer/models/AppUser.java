@@ -25,8 +25,9 @@ public class AppUser extends User {
     public AppUser(String username,String password){
         super(username, password, false,
                 true, true, true,
-                convertRolesToAuthorities(List.of(new AppRole("USER"))));
+                convertRolesToAuthorities(List.of(new AppRole("user"))));
         this.appUserId =0;
+        this.role="user";
     }
     private static Collection<? extends GrantedAuthority> convertRolesToAuthorities(List<AppRole> roles) {
         List<GrantedAuthority> result = new ArrayList<>();

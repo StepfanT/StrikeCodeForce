@@ -1,5 +1,6 @@
 package learn.organizer.controllers;
 
+
 import learn.organizer.domain.ActivityService;
 import learn.organizer.domain.Result;
 import learn.organizer.models.Activity;
@@ -22,7 +23,9 @@ public class ActivityController {
     }
 
     @GetMapping
-    public List<Activity> getAllActivities() {return service.getAllActivities();}
+    public List<Activity> getAllActivities() {
+        return service.getAllActivities();
+    }
 
 
     @GetMapping("/{userId}")
@@ -61,4 +64,3 @@ public class ActivityController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 }
-
