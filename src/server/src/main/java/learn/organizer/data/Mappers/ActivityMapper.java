@@ -25,7 +25,7 @@ public class ActivityMapper implements RowMapper<Activity> {
         activity.setMax(resultSet.getInt("max"));
         activity.setUserId(resultSet.getInt("userId"));
         activity.setDate(LocalDate.parse(resultSet.getString("date")));
-//        activity.setTime(LocalTime.parse(resultSet.getString("time")));
+        activity.setTime(resultSet.getString("time"));
 
         return activity;
     }

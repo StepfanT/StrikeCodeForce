@@ -13,10 +13,6 @@ public class Activity {
     private String time;
     private int max;
     private int min;
-    //is contact required here
-    private String contact;
-    //is userId required here
-    private int userId;
     private String description;
 
     public int getActivityId() {
@@ -73,22 +69,6 @@ public class Activity {
 
     public void setMin(int min) {
         this.min = min;
-    }
-
-    public String getContact() {
-        return contact;
-    }
-
-    public void setContact(String contact) {
-        this.contact = contact;
-    }
-
-    public void setUserId(int userId) {
-        this.userId=userId;
-    }
-
-    public int getUserId() {
-        return userId;
     }
 
     public void setDescription(String description) {

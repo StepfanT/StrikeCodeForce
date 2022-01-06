@@ -5,13 +5,13 @@ import learn.organizer.models.Activity;
 import java.util.List;
 
 public interface ActivityRepository {
-    List<Activity> findAll();
+    List<Activity> getAllActivities();
 
-    Activity findByAppUserId(int userId);
+    List<Activity> findByAppUserId(int userId);
 
-    Activity add(Activity activity);
+    boolean addActivity(Activity activity);
 
-    boolean update(Activity activity);
+    boolean editActivity(Activity activity);
 
-    boolean deleteById(int activityId);
+    boolean deleteActivity(int activityId);
 }

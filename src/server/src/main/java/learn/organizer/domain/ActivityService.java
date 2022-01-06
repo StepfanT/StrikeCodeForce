@@ -14,23 +14,26 @@ public class ActivityService {
 
     public ActivityService(ActivityRepository repository){this.repository = repository;}
 
-    public List<Activity> findAll() {return repository.findAll();}
+    public List<Activity> getAllActivities() {return repository.getAllActivities();}
 
-    public Activity findByAppUserId(int appUserId) {return repository.findByAppUserId(appUserId);}
+    public List<Activity> findByAppUserId(int appUserId) {return repository.findByAppUserId(appUserId);}
 
 
-    public Result<Activity> add(Activity activity) {
+    public Result<Activity> addActivity(Activity activity) {
         Result<Activity> result = validate(activity);
         if (!result.isSuccess()) {
             return result;
         }
 
-        activity = repository.add(activity);
+        boolean isAdded = repository.addActivity(activity);
         result.setPayload(activity);
+        if(isAdded != true){
+            result.addMessage("failed to add activity", ResultType.INVALID);
+        }
         return result;
     }
 
-    public Result<Activity> update(Activity activity) {
+    public Result<Activity> EditActivity(Activity activity) {
         Result<Activity> result = validate(activity);
         if (!result.isSuccess()) {
             return result;
@@ -41,7 +44,7 @@ public class ActivityService {
             return result;
         }
 
-        if (!repository.update(activity)) {
+        if (!repository.editActivity(activity)) {
             String msg = String.format("activity id: %s, not found", activity.getActivityId());
             result.addMessage(msg, ResultType.NOT_FOUND);
         }
@@ -50,7 +53,7 @@ public class ActivityService {
     }
 
     public boolean deleteById(int activityId) {
-        return repository.deleteById(activityId);
+        return repository.deleteActivity(activityId);
     }
 
     private Result<Activity> validate(Activity activity) {

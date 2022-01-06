@@ -3,8 +3,14 @@ package learn.organizer.data;
 import learn.organizer.data.Mappers.ActivityMapper;
 import learn.organizer.models.Activity;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.List;
 import learn.organizer.models.Activity;
 import java.util.List;
@@ -26,6 +32,19 @@ public class ActivityJdbcTemplateRepository implements ActivityRepository{
     }
 
     @Override
+    public List<Activity> findByAppUserId(int appUserId) {
+
+        final String sql = "select activity_id, activity_name, location, date, time, max, min, description "
+                + "from activity "
+                + "where user_id = ?";
+
+        List<Activity> result = jdbcTemplate.query(sql, new ActivityMapper(), appUserId);
+
+
+        return result;
+    }
+
+    @Override
     public boolean addActivity(Activity activity) {
         String sql="insert into activity" +
                 "Values()";
@@ -39,8 +58,21 @@ public class ActivityJdbcTemplateRepository implements ActivityRepository{
         return jdbcTemplate.update(sql,id)>0;
     }
 
+    //change editActivity to match AppUser repository method
     @Override
     public boolean editActivity(Activity activity) {
-        return false;
+
+        final String sql = "update activity set "
+                + "activity_name = ?, "
+                + "description = ?, "
+                + "location = ?, "
+                + "date = ?, "
+                + "time = ?, "
+                + "min = ?, "
+                + "max = ?, ";
+
+
+        return jdbcTemplate.update(sql, activity.getActivityName(), activity.getDescription(),
+                activity.getLocation(), activity.getDate(), activity.getTime(), activity.getMin(), activity.getMax()) > 0;
     }
 }

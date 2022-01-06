@@ -12,7 +12,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(origins = {"http://localhost:3000"})
-@RequestMapping("/authenticate")
+@RequestMapping("api/activity")
 public class ActivityController {
 
     private final ActivityService service;
@@ -22,21 +22,17 @@ public class ActivityController {
     }
 
     @GetMapping
-    public List<Activity> findAll() {return service.findAll();}
+    public List<Activity> getAllActivities() {return service.getAllActivities();}
 
 
-    @GetMapping("/{agencyId}")
-    public ResponseEntity<Activity> findByAppUserId(@PathVariable int userId) throws DataAccessException {
-        Activity activity = service.findByAppUserId(userId);
-        if(activity == null){
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        return ResponseEntity.ok(activity);
+    @GetMapping("/{userId}")
+    public List<Activity> findByAppUserId(@PathVariable int userId) throws DataAccessException {
+        return service.findByAppUserId(userId);
     }
 
     @PostMapping
-    public ResponseEntity<Object> add(@RequestBody Activity activity) {
-        Result<Activity> result = service.add(activity);
+    public ResponseEntity<Object> addActivity(@RequestBody Activity activity) {
+        Result<Activity> result = service.addActivity(activity);
         if (result.isSuccess()) {
             return new ResponseEntity<>(result.getPayload(), HttpStatus.CREATED);
         }
@@ -49,7 +45,7 @@ public class ActivityController {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
 
-        Result<Activity> result = service.update(activity);
+        Result<Activity> result = service.EditActivity(activity);
         if (result.isSuccess()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
@@ -57,9 +53,9 @@ public class ActivityController {
         return ErrorResponse.build(result);
     }
 
-    @DeleteMapping("/{agentId}")
-    public ResponseEntity<Void> deleteById(@PathVariable int agentId) {
-        if (service.deleteById(agentId)) {
+    @DeleteMapping("/{activityId}")
+    public ResponseEntity<Void> deleteById(@PathVariable int activityId) {
+        if (service.deleteById(activityId)) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
