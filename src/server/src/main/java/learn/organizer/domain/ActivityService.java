@@ -80,7 +80,7 @@ public class ActivityService {
             result.addMessage("location is required", ResultType.INVALID);
         }
 
-        if (activity.getDate() != null && activity.getDate().isAfter(LocalDate.now())) {
+        if (activity.getDate() != null && !activity.getDate().isAfter(LocalDate.now())) {
             result.addMessage("activity date must be in the future", ResultType.INVALID);
         }
 //  -ToDo: design way to enforce time input formatting and create validation if necessary
