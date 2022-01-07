@@ -1,6 +1,7 @@
 package learn.organizer.security;
 
 import io.jsonwebtoken.*;
+import learn.organizer.models.AppUser;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +16,7 @@ import java.util.stream.Collectors;
 public class JWTUtil {
     private static final String secret = "thisisthesongthatwould'tend";
 
-    public String buildJwt(UserDetails user) {
+    public String buildJwt(AppUser user) {
         LocalDateTime exp = LocalDateTime.now().plusDays(7);
         ZonedDateTime zonedExp = exp.atZone(ZoneId.systemDefault());
 
@@ -28,6 +29,7 @@ public class JWTUtil {
                 .signWith(SignatureAlgorithm.HS256, secret.getBytes(StandardCharsets.UTF_8))
                 .setExpiration(Date.from(zonedExp.toInstant()))
                 .claim("authorities", authorities)
+                .claim("userId", user.getAppUserId())
                 .compact();
     }
 
