@@ -1,26 +1,26 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { getData } from "../testData";
 import '../App.css';
 
 export default function View() {
 
-    //  const [activities, setActivity] = useState([]);
-    // implement when server is running
-    // const getData = () => {
-    //     fetch('http://localhost:8080/activity')
-    //         .then(response => response.json())
-    //         .then(data => setAgents(data))
-    //         .catch(error => console.log(error));
-    // };    
-    // useEffect(() => {
-    //     getData();
-    // }, []);
+    const [activities, setActivity] = useState([]);
+    //implement when server is running
+    const getData = () => {
+        fetch('http://localhost:8080/api/activity/${userId}')
+            .then(response => response.json())
+            .then(data => setActivity(data))
+            .catch(error => console.log(error));
+    };
+    useEffect(() => {
+        getData();
+    }, []);
 
     // this is the test data that we 'fetch' for testing while server is not yet running
-    let activityData = getData();
+    //  let activityData = getData();
 
-    return (    
+    return (
         <>
             <style>{"table{border:1px solid black;}"}
             </style>
@@ -38,7 +38,7 @@ export default function View() {
                         </tr>
                     </thead>
                     <tbody>
-                        {activityData.map(activity => (
+                        {getData.map(activity => (
                             <tr key={activity.activityId}>
                                 <td>{activity.activityName}</td>
                                 <td>{activity.location}</td>

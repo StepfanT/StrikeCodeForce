@@ -17,8 +17,8 @@ import NavBar from "./components/NavBar";
 
 
 function App() {
-
   const [token, setToken] = useState();
+
   const [userStatus, setUserStatus] = useState({
     user: null,
     login(username) {
@@ -40,7 +40,7 @@ function App() {
           <Route path="/" element={<Dashboard />} />
 
           <Route path="/home" element={<Home />} />
-          <Route path="/register" element={<Register />} />
+          <Route path="/authenticate/register" element={<Register />} />
 
           <Route path="/login" element=
             {userStatus.user ? (
