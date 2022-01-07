@@ -8,7 +8,8 @@ export default function View() {
     const [activities, setActivity] = useState([]);
     //implement when server is running
     const getData = () => {
-        fetch('http://localhost:8080/api/activity/${userId}')
+        //fetch('http://localhost:8080/api/activity/${userId}')
+        fetch('http://localhost:8080/api/activity')
             .then(response => response.json())
             .then(data => setActivity(data))
             .catch(error => console.log(error));
@@ -17,8 +18,6 @@ export default function View() {
         getData();
     }, []);
 
-    // this is the test data that we 'fetch' for testing while server is not yet running
-    //  let activityData = getData();
 
     return (
         <>

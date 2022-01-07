@@ -1,16 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import '../App.css';
+import Login from "./Login";
 
-
-export default function Dashboard() {
+export default function Dashboard(props) {
     const [activities, setActivity] = useState([]);
+
 
     const { id } = useParams();
     const history = useNavigate();
+    
+
 
     const getActivity = () => {
         fetch(`http://localhost:8080/api/activity/1`)
+            //    fetch(`http://localhost:8080/api/activity/${userId}`)
             .then(response => response.json())
             .then(data => setActivity(data))
             .catch(error => console.log(error));
@@ -19,14 +23,14 @@ export default function Dashboard() {
     useEffect(() => {
         getActivity();
     }, []);
-    
+
 
     return (
         <>
             <style>{"table{border:1px solid black;}"}
             </style>
             <div>
-                <h2 className="my-4">Activities</h2>
+                <h2 className="my-4">Dashboard </h2>
                 <table style={{ "borderWidth": "1px", 'borderColor': "#aaaaaa", 'borderStyle': 'solid' }}
                     className="table table-striped table-hover">
                     <thead>
