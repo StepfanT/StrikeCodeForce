@@ -61,10 +61,10 @@ export default function Create() {
             location,
             date,
             time,
-            maxParticipant,
-            minParticipant,
+            "max":maxParticipant,
+            "min":minParticipant,
             createBy,
-            id
+            "userId":id
         };
         const init = {
             method: 'POST',

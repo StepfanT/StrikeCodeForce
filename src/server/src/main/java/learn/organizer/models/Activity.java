@@ -63,16 +63,16 @@ public class Activity {
         return maxParticipant;
     }
 
-    public void setMax(int max) {
-        this.maxParticipant = max;
+    public void setMax(int maxParticipant) {
+        this.maxParticipant = maxParticipant;
     }
 
     public int getMin() {
         return minParticipant;
     }
 
-    public void setMin(int min) {
-        this.minParticipant = min;
+    public void setMin(int minParticipant) {
+        this.minParticipant = minParticipant;
     }
 
     public String getCreateBy() {
@@ -108,8 +108,8 @@ public class Activity {
                 ", location='" + location + '\'' +
                 ", date=" + date +
                 ", time='" + time + '\'' +
-                ", max=" + maxParticipant +
-                ", min=" + minParticipant +
+                ", maxParticipant=" + maxParticipant +
+                ", minParticipant=" + minParticipant +
                 ", createBy='" + createBy + '\'' +
                 ", userId=" + userId +
                 ", description='" + description + '\'' +

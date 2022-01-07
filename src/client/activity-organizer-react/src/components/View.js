@@ -1,14 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState,useContext } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { getData } from "../testData";
+import AuthContext from "../context/AuthContext"
 import '../App.css';
 
 export default function View() {
 
     const [activities, setActivity] = useState([]);
+    const [userStatus,setUserStatus]=useContext(AuthContext);
     //implement when server is running
     const getData = () => {
-        fetch('http://localhost:8080/api/activity/${userId}')
+        fetch('http://localhost:8080/api/activity/'+userStatus.user.userId)
             .then(response => response.json())
             .then(data => setActivity(data))
             .catch(error => console.log(error));
@@ -38,7 +40,7 @@ export default function View() {
                         </tr>
                     </thead>
                     <tbody>
-                        {getData.map(activity => (
+                        {activities.map(activity => (
                             <tr key={activity.activityId}>
                                 <td>{activity.activityName}</td>
                                 <td>{activity.location}</td>
