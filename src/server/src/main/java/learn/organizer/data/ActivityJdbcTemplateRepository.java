@@ -3,12 +3,8 @@ package learn.organizer.data;
 import learn.organizer.data.Mappers.ActivityMapper;
 import learn.organizer.models.Activity;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.support.GeneratedKeyHolder;
-import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
-import java.sql.Date;
-import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.List;
@@ -33,6 +29,7 @@ public class ActivityJdbcTemplateRepository implements ActivityRepository{
 
     @Override
     public List<Activity> findByAppUserId(int appUserId) {
+
 
         final String sql = "select * "
                 + "from activity "
