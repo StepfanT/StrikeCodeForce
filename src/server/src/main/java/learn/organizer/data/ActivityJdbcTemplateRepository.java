@@ -30,7 +30,8 @@ public class ActivityJdbcTemplateRepository implements ActivityRepository{
     @Override
     public List<Activity> findByAppUserId(int appUserId) {
 
-        final String sql = "select activityId, activityName, location, date, time, maxParticipat, minParticipation, description "
+
+        final String sql = "select * "
                 + "from activity "
                 + "where userId = ?";
 
@@ -42,9 +43,19 @@ public class ActivityJdbcTemplateRepository implements ActivityRepository{
 
     @Override
     public boolean addActivity(Activity activity) {
-        String sql="insert into activity" +
-                "Values()";
-        return jdbcTemplate.update(sql)>0;
+        String sql="insert into activity"+
+                "(activityName," +
+                "description," +
+                "location," +
+                "date," +
+                "time," +
+                "userId," +
+                "maxParticipant," +
+                "minParticipant," +
+                "createBy) " +
+                "values(?,?,?,?,?,?,?,?,?)";
+        return jdbcTemplate.update(sql,activity.getActivityName(),activity.getDescription(),activity.getLocation()
+        ,activity.getDate(),activity.getTime(),activity.getUserId(),activity.getMax(),activity.getMin(),activity.getCreateBy())>0;
     }
 
     @Override
@@ -59,13 +70,13 @@ public class ActivityJdbcTemplateRepository implements ActivityRepository{
     public boolean editActivity(Activity activity) {
 
         final String sql = "update activity set "
-                + "activity_name = ?, "
+                + "activityName = ?, "
                 + "description = ?, "
                 + "location = ?, "
                 + "date = ?, "
                 + "time = ?, "
-                + "min = ?, "
-                + "max = ?, ";
+                + "minParticipant = ?, "
+                + "maxParticipant = ?, ";
 
 
         return jdbcTemplate.update(sql, activity.getActivityName(), activity.getDescription(),

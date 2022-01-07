@@ -22,20 +22,13 @@ export default function Register({ userStatus }) {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-
+        console.log(user);
         const response = await fetch("http://localhost:8080/authenticate/register", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({
-                username,
-                password,
-                firstName,
-                lastName,
-                email,
-                location
-            }),
+            body: JSON.stringify(Object.values(user)),
         });
 
         if (response.status === 200) {
