@@ -16,7 +16,7 @@ export default function NavBar() {
         {userStatus.user ? (
           <li>
             <button onClick={userStatus.logout}>
-              Logout {userStatus.user}
+              Logout {userStatus.user.sub}
             </button>
           </li>
 

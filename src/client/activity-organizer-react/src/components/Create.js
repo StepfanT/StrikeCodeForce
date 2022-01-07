@@ -9,9 +9,9 @@ export default function Create() {
     const [location, setLocation] = useState('');
     const [date, setDate] = useState('');
     const [time, setTime] = useState('');
-    const [userId, setUserId] = useState('');
-    const [maxParticipant, setMaxParticipant] = useState('');
-    const [minParticipant, setMinParticipant] = useState('');
+    const [userId, setUserId] = useState(-1);
+    const [maxParticipant, setMaxParticipant] = useState(0);
+    const [minParticipant, setMinParticipant] = useState(0);
     const [createBy, setCreateBy] = useState('');
     const [userStatus,setUserStatus]=useContext(AuthContext);
 
@@ -41,10 +41,10 @@ export default function Create() {
     };
 
     const maxParticipantOnChangeHandler = (event) => {
-        setMaxParticipant(event.target.value);
+        setMaxParticipant(parseInt(event.target.value));
     };
     const minParticipantOnChangeHandler = (event) => {
-        setMinParticipant(event.target.value);
+        setMinParticipant(parseInt(event.target.value));
     };
     const createByOnChangeHandler = (event) => {
         setCreateBy(event.target.value);
@@ -52,7 +52,9 @@ export default function Create() {
 
     const handleAddSubmit = (event) => {
         event.preventDefault();
-
+        //setUserId(userStatus.user.userId);
+        var id=userStatus.user.userId;
+        console.log(id);
         const newActivity = {
             activityName,
             description,
@@ -62,7 +64,7 @@ export default function Create() {
             maxParticipant,
             minParticipant,
             createBy,
-            userId
+            id
         };
         const init = {
             method: 'POST',
