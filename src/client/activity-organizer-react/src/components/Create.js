@@ -12,6 +12,7 @@ export default function Create() {
     const [maxParticipant, setMaxParticipant] = useState('');
     const [minParticipant, setMinParticipant] = useState('');
     const [createBy, setCreateBy] = useState('');
+
     const { activityId } = useParams();
     const [errors, setErrors] = useState([]);
 
@@ -33,6 +34,9 @@ export default function Create() {
     const timeOnChangeHandler = (event) => {
         setTime(event.target.value);
     };
+    const userIdHandler = (event) => {
+        setUserId(event.target.value);
+    };
 
     const maxParticipantOnChangeHandler = (event) => {
         setMaxParticipant(event.target.value);
@@ -53,9 +57,9 @@ export default function Create() {
             location,
             date,
             time,
-            userId,
             maxParticipant,
-            minParticipant
+            minParticipant,
+            createBy,
         };
         const init = {
             method: 'POST',
@@ -65,7 +69,7 @@ export default function Create() {
             body: JSON.stringify(newActivity)
         };
 
-        fetch('http://localhost:8080/api/agent', init)
+        fetch('http://localhost:8080/api/activity', init)
             .then(response => {
                 if (response.status === 201 || response.status === 400) {
                     return response.json();
@@ -74,14 +78,14 @@ export default function Create() {
             })
             .then(data => {
                 // we either created the recorded...
-                if (data.id) {
+                if (data.activityId) {
                     // redirect the user back to the home page
-                    history.push('/');
+                    history('/');
                 } else {
                     // we have error messages
                     data = Array.from(data);
                     setErrors(data);
-                    history.push('/');
+                    history('/');
                 }
             })
             .catch(error => console.log(error));
@@ -89,16 +93,16 @@ export default function Create() {
 
     return (
         <>
-            <h2 className="my-4">Edit Activity</h2>
+            <h2 className="my-4">Create Activity</h2>
             <form onSubmit={handleAddSubmit}>
 
                 <div>
                     <label htmlFor="activityName">Activity Name</label>
                     <input type="text" id="activityName" name="activityName"
                         value={activityName} onChange={activityNameOnChangeHandler}
-                        placeholder={activityName}
                     />
                 </div>
+
 
                 <div>
                     <label htmlFor="description">Description</label>
@@ -145,7 +149,7 @@ export default function Create() {
 
                 <div className="mt-5">
                     <button className="btn btn-info" type="submit">
-                        <i className="bi bi-save"></i> Update Activity</button>
+                        <i className="bi bi-save"></i> Create Activity</button>
 
                     <Link to="/activity" className="btn btn-warning ml-2">
                         <i className="bi bi-x"></i> Cancel

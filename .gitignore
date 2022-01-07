@@ -47,3 +47,7 @@ yarn-error.log*
 src/client/node_modules/xtend/test.js
 Editactivity copypasta.txt
 Table Render attempt.txt
+Working App- render no function.txt
+Register Form setters.txt
+src/client/activity-organizer-react/src/test.http
+ActivityDatasetters.txt

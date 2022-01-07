@@ -26,7 +26,9 @@ public class ActivityMapper implements RowMapper<Activity> {
         activity.setUserId(resultSet.getInt("userId"));
         activity.setCreateBy(resultSet.getString("createBy"));
         activity.setDate(LocalDate.parse(resultSet.getString("date")));
-        activity.setTime(LocalTime.parse(resultSet.getString("time")));
+        activity.setTime(resultSet.getString("time"));
+
+
 
         return activity;
     }

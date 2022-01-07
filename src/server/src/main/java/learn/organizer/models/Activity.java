@@ -10,11 +10,13 @@ public class Activity {
     private String activityName;
     private String location;
     private LocalDate date;
-    private LocalTime time;
+    private String time;
     private int max;
     private int min;
+
     private String createBy;
     private int userId;
+
     private String description;
 
     public int getActivityId() {
@@ -49,11 +51,11 @@ public class Activity {
         this.date = date;
     }
 
-    public LocalTime getTime() {
+    public String getTime() {
         return time;
     }
 
-    public void setTime(LocalTime time) {
+    public void setTime(String time) {
         this.time = time;
     }
 
@@ -88,6 +90,7 @@ public class Activity {
     public int getUserId() {
         return userId;
     }
+
 
     public void setDescription(String description) {
         this.description=description;
