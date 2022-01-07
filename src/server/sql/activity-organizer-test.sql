@@ -14,9 +14,9 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 -- -----------------------------------------------------
 -- Schema Group-Activity-Organizer
 -- -----------------------------------------------------
+DROP DATABASE IF EXISTS `Group-Activity-Organizer`;
 CREATE SCHEMA IF NOT EXISTS `Group-Activity-Organizer` DEFAULT CHARACTER SET utf8 ;
 USE `Group-Activity-Organizer` ;
-
 -- -----------------------------------------------------
 -- Table `Group-Activity-Organizer`.`user`
 -- -----------------------------------------------------
@@ -25,7 +25,7 @@ DROP TABLE IF EXISTS `Group-Activity-Organizer`.`user` ;
 CREATE TABLE IF NOT EXISTS `Group-Activity-Organizer`.`user` (
   `userId` INT NOT NULL AUTO_INCREMENT,
   `username` VARCHAR(45) NOT NULL,
-  `password` VARCHAR(2040) NOT NULL,
+  `password` VARCHAR(2048) NOT NULL,
   `userRole` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`userId`))
 ENGINE = InnoDB;
@@ -110,9 +110,9 @@ begin
       
       
       insert into user(username, password, userRole) values
-        ('frigiid', 'SecretPassword', 'admin'),
-        ('loneWolf', 'IStrikeFirst', 'admin'),
-        ('guardians', 'OutOfTheBlue', 'admin');
+        ('frigiid', '$2a$10$ntB7CsRKQzuLoKY3rfoAQen5nNyiC/U60wBsWnnYrtQQi8Z3IZzQa', 'admin'),
+        ('loneWolf', '$2a$10$ntB7CsRKQzuLoKY3rfoAQen5nNyiC/U60wBsWnnYrtQQi8Z3IZzQa', 'admin'),
+        ('guardians', '$2a$10$ntB7CsRKQzuLoKY3rfoAQen5nNyiC/U60wBsWnnYrtQQi8Z3IZzQa', 'admin');
     
     insert into point(userId)
     values
