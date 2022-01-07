@@ -13,10 +13,9 @@ export default function Dashboard(props) {
 
 
     const getActivity = () => {
-        fetch(`http://localhost:8080/api/activity/1`)
-            //    fetch(`http://localhost:8080/api/activity/${userId}`)
+        fetch(`http://localhost:8080/api/activity`)
             .then(response => response.json())
-            .then(data => setActivity(data))
+            .then(data => {setActivity(data);console.log(data);})
             .catch(error => console.log(error));
     };
 

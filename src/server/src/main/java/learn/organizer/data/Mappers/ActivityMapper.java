@@ -21,8 +21,8 @@ public class ActivityMapper implements RowMapper<Activity> {
         activity.setActivityName(resultSet.getString("activityName"));
         activity.setDescription(resultSet.getString("description"));
         activity.setLocation(resultSet.getString("location"));
-        activity.setMin(resultSet.getInt("min"));
-        activity.setMax(resultSet.getInt("max"));
+        activity.setMin(resultSet.getInt("minParticipant"));
+        activity.setMax(resultSet.getInt("maxParticipant"));
         activity.setUserId(resultSet.getInt("userId"));
         activity.setCreateBy(resultSet.getString("createBy"));
         activity.setDate(LocalDate.parse(resultSet.getString("date")));

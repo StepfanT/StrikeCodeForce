@@ -1,5 +1,6 @@
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { useState } from 'react';
+import { useState,useContext } from 'react';
+import AuthContext from "../context/AuthContext";
 
 export default function Create() {
 
@@ -12,6 +13,7 @@ export default function Create() {
     const [maxParticipant, setMaxParticipant] = useState('');
     const [minParticipant, setMinParticipant] = useState('');
     const [createBy, setCreateBy] = useState('');
+    const [userStatus,setUserStatus]=useContext(AuthContext);
 
     const { activityId } = useParams();
     const [errors, setErrors] = useState([]);
@@ -60,12 +62,15 @@ export default function Create() {
             maxParticipant,
             minParticipant,
             createBy,
+            userId
         };
         const init = {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
+                "Authorization":"Bearer "+localStorage.getItem("token")
             },
+            
             body: JSON.stringify(newActivity)
         };
 

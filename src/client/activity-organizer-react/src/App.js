@@ -14,6 +14,7 @@ import Detail from './components/Detail';
 import TestApp from './TestApp';
 import Dashboard from './components/Dashboard';
 import NavBar from "./components/NavBar";
+import AuthContext from './context/AuthContext'
 
 
 function App() {
@@ -22,9 +23,10 @@ function App() {
 
   const [userStatus, setUserStatus] = useState({
     user: null,
-    login(username) {
+    login(userDetail) {
       // Use previous state to preserve login and logout methods when updating user
-      setUserStatus((prev) => ({ ...prev, user: username }));
+      setUserStatus((prev) => ({ ...prev, user: userDetail }));
+      console.log(this.user);
     },
     logout() {
       // "token" must match the name used in "/Login" route
@@ -40,6 +42,7 @@ function App() {
   return (
     <div className="wrapper">
       <BrowserRouter>
+        <AuthContext.Provider value={[userStatus, setUserStatus]}>
         <NavBar userStatus={userStatus} />
         <Routes>
           <Route path="/" element={<Dashboard />} />
@@ -51,7 +54,7 @@ function App() {
             {userStatus.user ? (
               <Navigate to="/" />
             ) : (
-              <Login userStatus={userStatus} />
+              <Login />
             )}
           />
 
@@ -77,6 +80,7 @@ function App() {
               </main>}
           />
         </Routes>
+        </AuthContext.Provider>
       </BrowserRouter>
     </div>
 

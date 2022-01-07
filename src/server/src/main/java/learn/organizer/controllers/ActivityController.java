@@ -35,6 +35,7 @@ public class ActivityController {
 
     @PostMapping
     public ResponseEntity<Object> addActivity(@RequestBody Activity activity) {
+        System.out.println(activity.toString());
         Result<Activity> result = service.addActivity(activity);
         if (result.isSuccess()) {
             return new ResponseEntity<>(result.getPayload(), HttpStatus.CREATED);
