@@ -25,15 +25,19 @@ export default function Browse() {
                 <thead>
                     <tr>
                         <th>Activity Name</th>
-                        <th>First Name</th>
-                        <th>Last Name</th>
+                        <th>Date</th>
+                        <th>Location</th>
+                        <th>Description</th>
+                        <th>Time</th>
+                        <th>Min Participants</th>
+                        <th>Max Participants</th>
+                        <th>Created By</th>
 
                     </tr>
                 </thead>
                 <tbody>
                     {activities.map(activity => (
                         <tr key={activity.userId}>
-                            <td>{activity.activityId}</td>
                             <td>{activity.activityName}</td>
                             <td>{activity.date}</td>
                             <td>{activity.location}</td>
@@ -45,8 +49,14 @@ export default function Browse() {
 
                             <td>
                                 <div className="float-right">
-                                    <Link to={`/dashboard`} className="btn btn-primary btn-sm">
+                                    <Link to={`/activity/detail/${activity.activityId}`} className="btn btn-primary btn-sm">
                                         <i className="bi bi-pencil"></i> Edit
+                                    </Link>
+                                </div>
+                                <div>
+                                    <Link to={`/`} className="btn btn-success btn-sm">
+                                        <i className="bi bi-pencil"></i>
+                                        Return Home
                                     </Link>
                                 </div>
                             </td>

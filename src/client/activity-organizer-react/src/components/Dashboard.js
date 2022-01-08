@@ -1,21 +1,21 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import '../App.css';
 import Login from "./Login";
+import AuthContext from "../context/AuthContext"
 
-export default function Dashboard(props) {
+export default function Dashboard() {
     const [activities, setActivity] = useState([]);
 
 
     const { id } = useParams();
     const history = useNavigate();
+    const [userStatus, setUserStatus] = useContext(AuthContext);
     
-
-
     const getActivity = () => {
         fetch(`http://localhost:8080/api/activity`)
             .then(response => response.json())
-            .then(data => {setActivity(data);console.log(data);})
+            .then(data => { setActivity(data); console.log(data); })
             .catch(error => console.log(error));
     };
 
@@ -23,7 +23,7 @@ export default function Dashboard(props) {
         getActivity();
     }, []);
 
-
+    console.log(userStatus.user.userId);
     return (
         <>
             <style>{"table{border:1px solid black;}"}
@@ -60,10 +60,6 @@ export default function Dashboard(props) {
                         ))}
                     </tbody>
                 </table>
-
-                <Link to={`/`} className="btn btn-success btn-sm">
-                    Return Home
-                </Link>
             </div>
         </>
     );
