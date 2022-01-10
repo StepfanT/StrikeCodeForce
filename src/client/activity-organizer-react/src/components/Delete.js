@@ -56,7 +56,7 @@ export default function Delete() {
             })
             .then(data => {
                 if (!data) {
-                    history.push('/');
+                    history('/');
                 } else {
                     // we have errors to display                  
                     setErrors(data);

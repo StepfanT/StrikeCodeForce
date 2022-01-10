@@ -1,16 +1,9 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import jwtDecode from "jwt-decode";
 import Errors from "./Errors";
 
 export default function Register({ userStatus }) {
     const [user, setUser] = useState([])
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
-    const [firstName, setFirstName] = useState("");
-    const [lastName, setLastName] = useState("");
-    const [email, setEmail] = useState("");
-    const [location, setLocation] = useState("");
     const [errors, setErrors] = useState([]);
 
     const history = useNavigate();
@@ -32,11 +25,6 @@ export default function Register({ userStatus }) {
         });
 
         if (response.status === 200) {
-            // const { jwt_token } = await response.json();
-            // console.log(jwtDecode(jwt_token));
-            // console.log(jwt_token);
-            // userStatus.login(username)
-            // userStatus.register(jwtDecode(jwt_token));
             history("/");
             console.log("Successful Registration!")
         } else if (response.status === 400) {

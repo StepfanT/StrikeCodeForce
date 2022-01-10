@@ -9,7 +9,7 @@ export default function Detail() {
 
     const [activityData, setActivityDetails] = useState([]);
     const [userStatus, setUserStatus] = useContext(AuthContext);
-
+    const history = useNavigate();
     //There is no specific activity getter. 
     //Get activity data via userId then filter via activityId?
     const getActivityData = () => {
@@ -28,14 +28,7 @@ export default function Detail() {
         event.preventDefault();
 
         const updatedDetail = {
-            activityName,
-            description,
-            location,
-            date,
-            time,
-            userId,
-            maxParticipant,
-            minParticipant
+            activityData
         };
         const init = {
             method: 'PUT',
@@ -56,7 +49,7 @@ export default function Detail() {
             })
             .then(data => {
                 if (!data) {
-                    history.push('/');
+                    history('/');
                 } else {
                     // setErrors(data);
                     console.log("This is where the errors would be!")
@@ -75,7 +68,7 @@ return (
                 <div>
                     <label htmlFor="activityName">Activity Name</label>
                     <input type="text" id="activityName" name="activityName"
-                        value={activityName} onChange={activityNameOnChangeHandler}
+                        value={activityData.activityName} onChange={editActivityFormSubmitHandler}
                         placeholder={activityData.activityName}
                     />
                 </div>
@@ -83,44 +76,44 @@ return (
                 <div>
                     <label htmlFor="description">Description</label>
                     <input type="description" id="description" name="description"
-                        value={description} onChange={descriptionOnChangeHandler} />
+                        value={activityData.description} onChange={editActivityFormSubmitHandler} />
                 </div>
 
                 <div>
                     <label htmlFor="location">Location of Activity</label>
                     <input type="text" id="location" name="location"
-                        value={location} onChange={locationOnChangeHandler} />
+                        value={activityData.location} onChange={editActivityFormSubmitHandler} />
                 </div>
 
                 <div>
                     <label htmlFor="date">Date</label>
                     <input type="date" id="date" name="date"
-                        value={date} onChange={dateOnChangeHandler} />
+                        value={activityData.date} onChange={editActivityFormSubmitHandler} />
                 </div>
 
                 <div>
                     <label htmlFor="time">Time</label>
                     <input type="time" id="time" name="time"
-                        value={time} onChange={timeOnChangeHandler} />
+                        value={activityData.time} onChange={editActivityFormSubmitHandler} />
                 </div>
 
                 <div>
                     <label htmlFor="maxParticipant">Max # of Participants</label>
                     <input type="number" pattern="[0-9]*" id="maxParticipant"
                         name="maxParticipant" min="6" max="50"
-                        value={maxParticipant} onChange={maxParticipantOnChangeHandler} />
+                        value={activityData.maxParticipant} onChange={editActivityFormSubmitHandler} />
                 </div>
                 <div>
                     <label htmlFor="minParticipant">Min # of Participants</label>
                     <input type="number" pattern="[0-9]*" id="minParticipant"
                         name="minParticipant" min="3" max="45"
-                        value={minParticipant} onChange={minParticipantOnChangeHandler} />
+                        value={activityData.minParticipant} onChange={editActivityFormSubmitHandler} />
                 </div>
 
                 <div>
                     <label htmlFor="createBy">Created By</label>
                     <input type="text" id="createBy" name="createBy"
-                        value={createBy} />
+                        value={activityData.createBy} />
                 </div>
 
                 <div className="mt-5">
