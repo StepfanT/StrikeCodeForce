@@ -19,6 +19,7 @@ import AuthContext from './context/AuthContext'
 
 function App() {
   const [token, setToken] = useState();
+  const [userIds, setUserId] = useState();
 
   const [userStatus, setUserStatus] = useState({
     user: null,
@@ -33,6 +34,10 @@ function App() {
       setUserStatus((prev) => ({ ...prev, user: null }));
     },
   });
+
+  const addUserId = userId => {
+    setUserId([...userIds, userId])
+  }
 
   return (
     <div className="wrapper">
@@ -55,13 +60,15 @@ function App() {
 
 
           <Route path="/contact" element={<Contact />} />
-          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/dashboard" element={<Dashboard addUserId={addUserId} />}
+          />
 
           <Route path="/activity" element={<View />} />
           <Route path="/activity/browse" element={<Browse />} />
           <Route path="/activity/create" element={<Create />} />
           <Route path="/activity/points" element={<Points />} />
           <Route path="/activity/detail/:activityId" element={<Detail />} />
+          <Route path="/activity/delete/:activityId" element={<Detail />} />          
 
 
           <Route path="/test" element={<TestApp />} />

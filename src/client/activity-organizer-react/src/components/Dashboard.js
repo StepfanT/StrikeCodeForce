@@ -1,32 +1,35 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import '../App.css';
-
+import Login from "./Login";
+import AuthContext from "../context/AuthContext"
 
 export default function Dashboard() {
     const [activities, setActivity] = useState([]);
 
+
     const { id } = useParams();
     const history = useNavigate();
-
+    const [userStatus, setUserStatus] = useContext(AuthContext);
+    
     const getActivity = () => {
         fetch(`http://localhost:8080/api/activity`)
             .then(response => response.json())
-            .then(data => {setActivity(data);console.log(data);})
+            .then(data => { setActivity(data); console.log(data); })
             .catch(error => console.log(error));
     };
 
     useEffect(() => {
         getActivity();
     }, []);
-    
 
+    console.log(userStatus.user.userId);
     return (
         <>
             <style>{"table{border:1px solid black;}"}
             </style>
             <div>
-                <h2 className="my-4">Activities</h2>
+                <h2 className="my-4">Dashboard </h2>
                 <table style={{ "borderWidth": "1px", 'borderColor': "#aaaaaa", 'borderStyle': 'solid' }}
                     className="table table-striped table-hover">
                     <thead>
@@ -57,10 +60,6 @@ export default function Dashboard() {
                         ))}
                     </tbody>
                 </table>
-
-                <Link to={`/`} className="btn btn-success btn-sm">
-                    Return Home
-                </Link>
             </div>
         </>
     );

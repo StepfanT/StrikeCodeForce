@@ -1,4 +1,4 @@
-import React, { useEffect, useState,useContext } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { getData } from "../testData";
 import AuthContext from "../context/AuthContext"
@@ -7,21 +7,17 @@ import '../App.css';
 export default function View() {
 
     const [activities, setActivity] = useState([]);
-    const [userStatus,setUserStatus]=useContext(AuthContext);
-    //implement when server is running
+    const [userStatus, setUserStatus] = useContext(AuthContext);
+
     const getData = () => {
-        fetch('http://localhost:8080/api/activity/'+userStatus.user.userId)
+        fetch('http://localhost:8080/api/activity/' + userStatus.user.userId)
             .then(response => response.json())
             .then(data => setActivity(data))
-            .catch(error => console.log(error));
+            .catch(error => console.log(error));            
     };
     useEffect(() => {
         getData();
-    }, []);
-
-    // this is the test data that we 'fetch' for testing while server is not yet running
-    //  let activityData = getData();
-
+    }, []);  
     return (
         <>
             <style>{"table{border:1px solid black;}"}
@@ -53,6 +49,14 @@ export default function View() {
                                             <i className="bi bi-pencil"></i> View Details
                                         </Link>
                                     </div>
+
+                                    <div className="float-right">
+                                        <Link to={`/activity/delete/${activity.activityId}`} className="btn btn-danger btn-sm">
+                                            <i className="bi bi-pencil"></i> Delete Activity
+                                        </Link>
+                                    </div>
+
+
                                 </td>
                             </tr>
                         ))}
