@@ -68,6 +68,7 @@ function App() {
           <Route path="/activity/create" element={<Create />} />
           <Route path="/activity/points" element={<Points />} />
           <Route path="/activity/detail/:activityId" element={<Detail />} />
+          <Route path="/activity/delete/:activityId" element={<Detail />} />          
 
 
           <Route path="/test" element={<TestApp />} />

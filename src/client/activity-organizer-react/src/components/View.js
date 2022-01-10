@@ -49,6 +49,14 @@ export default function View() {
                                             <i className="bi bi-pencil"></i> View Details
                                         </Link>
                                     </div>
+
+                                    <div className="float-right">
+                                        <Link to={`/activity/delete/${activity.activityId}`} className="btn btn-danger btn-sm">
+                                            <i className="bi bi-pencil"></i> Delete Activity
+                                        </Link>
+                                    </div>
+
+
                                 </td>
                             </tr>
                         ))}
