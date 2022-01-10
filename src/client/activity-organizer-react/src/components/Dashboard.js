@@ -13,7 +13,7 @@ export default function Dashboard() {
     const [userStatus, setUserStatus] = useContext(AuthContext);
     
     const getActivity = () => {
-        fetch(`http://localhost:8080/api/activity`)
+        fetch('http://localhost:8080/api/activity/' + userStatus.user.userId)
             .then(response => response.json())
             .then(data => { setActivity(data); console.log(data); })
             .catch(error => console.log(error));
@@ -22,8 +22,7 @@ export default function Dashboard() {
     useEffect(() => {
         getActivity();
     }, []);
-
-    console.log(userStatus.user.userId);
+   
     return (
         <>
             <style>{"table{border:1px solid black;}"}

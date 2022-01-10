@@ -9,15 +9,44 @@ export default function View() {
     const [activities, setActivity] = useState([]);
     const [userStatus, setUserStatus] = useContext(AuthContext);
 
-    const getData = () => {
-        fetch('http://localhost:8080/api/activity/' + userStatus.user.userId)
-            .then(response => response.json())
-            .then(data => setActivity(data))
-            .catch(error => console.log(error));            
-    };
+    const [activityName, setActivityName] = useState('');
+    const [description, setDescription] = useState('');
+    const [location, setLocation] = useState('');
+    const [date, setDate] = useState('');
+    const [time, setTime] = useState('');
+    const [userId, setUserId] = useState('');
+    const [maxParticipant, setMaxParticipant] = useState('');
+    const [minParticipant, setMinParticipant] = useState('');
+    const [createBy, setCreateBy] = useState('');
+    
+    const { activityId } = useParams();
+
+
     useEffect(() => {
-        getData();
-    }, []);  
+        fetch('http://localhost:8080/api/activity/')
+
+            .then(response => {
+                if (response.status === 404) {
+                    return Promise.reject(`Received 404 Not Found for Activity name: ${activityId.activityName}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                setActivityName(data.activityName);
+                setDescription(data.description);
+                setLocation(data.location);
+                setDate(data.data);
+                setTime(data.time);
+                setUserId(data.userId);
+                setMaxParticipant(data.maxParticipant);
+                setMinParticipant(data.minParticipant);
+                setCreateBy(data.createBy);
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    }, [activityId]);
+
     return (
         <>
             <style>{"table{border:1px solid black;}"}
@@ -46,7 +75,7 @@ export default function View() {
                                 <td>
                                     <div className="float-right">
                                         <Link to={`/activity/detail/${activity.activityId}`} className="btn btn-primary btn-sm">
-                                            <i className="bi bi-pencil"></i> View Details
+                                            <i className="bi bi-pencil"></i> View/Edit Details
                                         </Link>
                                     </div>
 

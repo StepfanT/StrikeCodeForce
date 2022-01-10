@@ -43,7 +43,7 @@ export default function Login() {
             //userStatus.login(jwtDecode(jwt_token));
             setUserStatus({user:jwtDecode(jwt_token)});
             localStorage.setItem("token", jwt_token);
-            history("/");
+            history("/dashboard");
             console.log("Successful Login!")
         } else if (response.status === 400) {
             const errors = await response.json();

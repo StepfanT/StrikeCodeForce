@@ -1,22 +1,25 @@
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-
+import AuthContext from "../context/AuthContext"
+import { useContext } from "react";
 
 export default function Browse() {
-
+    const [userStatus, setUserStatus] = useContext(AuthContext);
     const [activities, setActivity] = useState([]);
 
     const getActivities = () => {
         fetch('http://localhost:8080/api/activity')
             .then(response => response.json())
-            .then(data => setActivity(data))
+            .then(data => {setActivity(data);   console.log(data);})         
             .catch(error => console.log(error));
+            
     };
 
     useEffect(() => {
         getActivities();
     }, []);
-
+   
+    
     return (
         <div>
 
@@ -43,16 +46,24 @@ export default function Browse() {
                             <td>{activity.location}</td>
                             <td>{activity.description}</td>
                             <td>{activity.time}</td>
-                            <td>{activity.minParticipant}</td>
-                            <td>{activity.maxParticipant}</td>
+                            <td>{activity.max}</td>
+                            <td>{activity.min}</td>
                             <td>{activity.createBy}</td>
 
                             <td>
-                                <div className="float-right">
-                                    <Link to={`/activity/detail/${activity.activityId}`} className="btn btn-primary btn-sm">
-                                        <i className="bi bi-pencil"></i> Edit
-                                    </Link>
-                                </div>
+                                {userStatus.user.userId==activity.userId ? (
+                                    <div className="float-right">
+                                        <Link to={`/activity/detail/${activity.activityId}`} className="btn btn-primary btn-sm">
+                                            <i className="bi bi-pencil"></i> Edit
+                                        </Link>
+                                    </div>
+                                ) : (
+                                    <div className="float-right">
+                                        <Link to={`/activity/detail/${activity.activityId}`} className="btn btn-primary btn-sm">
+                                            <i className="bi bi-pencil"></i> View
+                                        </Link>
+                                    </div>
+                                )}
                                 <div>
                                     <Link to={`/`} className="btn btn-success btn-sm">
                                         <i className="bi bi-pencil"></i>
@@ -70,11 +81,5 @@ export default function Browse() {
 
 /*
 
-dashboard/${activity.userId}
-
-
-            <Link to="/agents/add" className="btn btn-primary mb-4">
-                <i className="bi bi-plus-circle-fill"></i> Add Agent
-            </Link>
 
 */
