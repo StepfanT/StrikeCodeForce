@@ -2,7 +2,6 @@ package learn.organizer.models;
 
 
 import java.time.LocalDate;
-import java.time.LocalTime;
 
 public class Activity {
 
@@ -18,6 +17,8 @@ public class Activity {
     private int userId;
 
     private String description;
+
+
 
     public int getActivityId() {
         return activityId;
@@ -115,4 +116,5 @@ public class Activity {
                 ", description='" + description + '\'' +
                 '}';
     }
+
 }

@@ -20,11 +20,13 @@ public class AppUserJdbcTemplateRepository implements AppUserRepository {
     private final JdbcTemplate jdbcTemplate;
     private final AppUserMapper appUserMapper;
     private final ContactRepository contactRepository;
+    private final ActivityRepository activityRepository;
 
-    public AppUserJdbcTemplateRepository(JdbcTemplate jdbcTemplate, AppUserMapper appUserMapper, ContactRepository contactRepository) {
+    public AppUserJdbcTemplateRepository(JdbcTemplate jdbcTemplate, AppUserMapper appUserMapper, ContactRepository contactRepository, ActivityRepository activityRepository) {
         this.jdbcTemplate = jdbcTemplate;
         this.appUserMapper = appUserMapper;
         this.contactRepository = contactRepository;
+        this.activityRepository = activityRepository;
     }
 
     @Override
@@ -100,7 +102,7 @@ public class AppUserJdbcTemplateRepository implements AppUserRepository {
         final String sql = "update user set "
                 + "username = ?, "
                 + "password = ?, "
-                + "role = ? "
+                + "userRole = ? "
                 + "where userId = ?";
 
         return jdbcTemplate.update(sql, appUser.getUsername(), appUser.getPassword(), appUser.getRole(), appUser.getAppUserId()) > 0;
@@ -109,11 +111,10 @@ public class AppUserJdbcTemplateRepository implements AppUserRepository {
     @Override
     @Transactional
     public boolean deleteById(int appUserId) {
-        //delete anything associated with user
-        //activity they created
-        //contacts
-        //user itself
-        return true;
+        activityRepository.deleteAllActivityFromUser(appUserId);
+        jdbcTemplate.update("delete from user where userId = ?;", appUserId);
+        return jdbcTemplate.update("delete from user where userId = ?;", appUserId) > 0;
+
     }
 
 

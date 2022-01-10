@@ -24,7 +24,7 @@ public class ActivityJdbcTemplateRepositoryTest {
     KnownGoodState knownGoodState;
 
     @BeforeEach
-    void setup() {
+    void set() {
         knownGoodState.set();
     }
 
@@ -37,49 +37,43 @@ public class ActivityJdbcTemplateRepositoryTest {
     }
 
     @Test
-    void shouldFindActivityByUserId() {
+    void shouldFindActivityByUserId1() {
        List<Activity> activity = repository.findByAppUserId(1);
 
        assertNotNull(activity);
        assertTrue(activity.size() >= 1);
-
-
-
-
-
+       assertFalse(activity.size() >= 2);
 
     }
+
 
     @Test
     void shouldAddActivity() {
         // all fields
         Activity activity = makeActivity();
-        boolean actual = repository.addActivity(activity);
+        Boolean actual = repository.addActivity(activity);
         assertNotNull(actual);
 
         List<Activity> all = repository.getAllActivities();
-        assertEquals(3, all.size());
+        assertEquals(4, all.size());
 
-        // null date
-//        activity = makeActivity();
-//        activity.setDate(null);
-//        actual = repository.addActivity(activity);
-//        assertNotNull(actual);
-////        assertEquals(NEXT_ID + 1, actual.getActivityId());
     }
 
 
-    @Test
+    @Test //this method updates all rows in database!
     void shouldEditActivity() {
         Activity activity = makeActivity();
-        activity.setActivityId(3);
+        activity.setActivityId(1);
+        activity.setMax(2);
         assertTrue(repository.editActivity(activity));
-        activity.setActivityId(13);
-        assertFalse(repository.editActivity(activity));
+        activity.setActivityId(3);
+        activity.setMax(500);
+        assertTrue(repository.editActivity(activity));
 
     }
 
     @Test
+    //bad Sql grammar
     void shouldDelete() {
         assertTrue(repository.deleteActivity(2));
         assertFalse(repository.deleteActivity(2));
@@ -90,10 +84,12 @@ public class ActivityJdbcTemplateRepositoryTest {
         activity.setActivityName("Test");
         activity.setLocation("location");
         activity.setDate(LocalDate.of(2022, 8, 8));
-        activity.setTime("6:30pm");
+        activity.setTime("6:30");
         activity.setMax(20);
         activity.setMin(2);
         activity.setDescription("description");
+        activity.setCreateBy("John");
+        activity.setUserId(3);
         return activity;
     }
 

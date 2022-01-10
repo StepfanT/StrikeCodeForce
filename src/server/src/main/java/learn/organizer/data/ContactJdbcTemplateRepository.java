@@ -44,7 +44,7 @@ public class ContactJdbcTemplateRepository implements ContactRepository{
     public boolean editContact(Contact contact) {
         String sql="update contact " +
                 "set firstName=?,lastName=?,email=?,location=?) " +
-                "where userId=?";
+                "where userId=? ";
         return jdbcTemplate.update(sql,contact.getFirstName(),contact.getLastName(),contact.getEmail(),contact.getLocation(),contact.getUserId())>0;
 
     }
