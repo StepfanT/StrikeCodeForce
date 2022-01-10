@@ -15,6 +15,7 @@ import TestApp from './TestApp';
 import Dashboard from './components/Dashboard';
 import NavBar from "./components/NavBar";
 import AuthContext from './context/AuthContext'
+import Delete from "./components/Delete";
 
 
 function App() {
@@ -68,7 +69,7 @@ function App() {
           <Route path="/activity/create" element={<Create />} />
           <Route path="/activity/points" element={<Points />} />
           <Route path="/activity/detail/:activityId" element={<Detail />} />
-          <Route path="/activity/delete/:activityId" element={<Detail />} />          
+          <Route path="/activity/delete/:activityId" element={<Delete />} />          
 
 
           <Route path="/test" element={<TestApp />} />

@@ -8,23 +8,36 @@ export default function Delete() {
 
     const [activityData, setActivityDetails] = useState([]);
     const [userStatus, setUserStatus] = useContext(AuthContext);
+    const history = useNavigate();
+    const { id } = useParams();
+
+    const [deleteActivityId, setDeleteActivityId] = useState('');
+    const [activityName, setActivityName] = useState('');
+    const [description, setDescription] = useState('');
+    const [location, setLocation] = useState('');
+    const [date, setDate] = useState('');
+    const [time, setTime] = useState('');
+    const [userId, setUserId] = useState('');
+    const [maxParticipant, setMaxParticipant] = useState('');
+    const [minParticipant, setMinParticipant] = useState('');
+    const [createBy, setCreateBy] = useState('');
 
     //same issue as in Details page,
     //There is no specific activity getter. 
     //Get activity data via userId then filter via activityId?
-    const getActivityData = () => {
-        fetch('http://localhost:8080/api/activity/' + userStatus.activity.activityId)
-            .then(response => response.json())
-            .then(data => { setActivityDetails(data); console.log(data); })
-            .catch(error => console.log(error));
-    };
+
     useEffect(() => {
+        fetch(`http://localhost:8080/api/activity/${id}`)
+            .then(response => response.json())
+            .then(data => {
+                setActivityDetails(data);
+                console.log(data);
+            })
+            .catch(error => console.log(error));
+    }, [id]);
 
-        getActivityData();
-    }, []);
 
-
-    const deleteToDoFormSubmitHandler = (event) => {
+    const deleteActivitySubmitHandler = (event) => {
         event.preventDefault();
 
         const deleteActivity = {
@@ -45,7 +58,7 @@ export default function Delete() {
             },
             body: JSON.stringify(deleteActivity)
         };
-        fetch(`http://localhost:8080/api/activity/${updatedDetail.activityId}`, init)
+        fetch(`http://localhost:8080/api/activity/${id}`, init)
             .then(response => {
                 if (response.status === 204) {
                     return null;
@@ -59,7 +72,8 @@ export default function Delete() {
                     history('/');
                 } else {
                     // we have errors to display                  
-                    setErrors(data);
+                    //    setErrors(data);
+                    console.log("this is where errors display");
                 }
             })
             .catch(error => console.log(error));
@@ -69,7 +83,7 @@ export default function Delete() {
         <>
             <style>{"table{border:1px solid black;}"}
             </style>
-            <form onSubmit={editActivityFormSubmitHandler}>
+            <form onSubmit={deleteActivitySubmitHandler}>
                 <h2 className="my-4">Activities</h2>
                 <div>
                     <label htmlFor="activityName">Activity Name</label>
@@ -81,7 +95,7 @@ export default function Delete() {
                 <div>
                     <label htmlFor="description">Description</label>
                     <input type="description" id="description" name="description"
-                        value={description} readOnly/>
+                        value={description} readOnly />
                 </div>
 
                 <div>
@@ -93,7 +107,7 @@ export default function Delete() {
                 <div>
                     <label htmlFor="date">Date</label>
                     <input type="date" id="date" name="date"
-                        value={date}readOnly />
+                        value={date} readOnly />
                 </div>
 
                 <div>
@@ -118,11 +132,10 @@ export default function Delete() {
                 <div>
                     <label htmlFor="createBy">Created By</label>
                     <input type="text" id="createBy" name="createBy"
-                        value={createBy} readOnly/>
+                        value={createBy} readOnly />
                 </div>
 
                 <div className="mt-5">
-
                     <div className="mt-5">
                         <button className="btn btn-danger" type="submit">
                             <i className="bi bi-save"></i> Delete Activity?</button>

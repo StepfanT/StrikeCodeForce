@@ -7,9 +7,10 @@ import Errors from './Errors';
 export default function Detail() {
 
     const [activityData, setActivityDetails] = useState([]);
-    const [userStatus, setUserStatus] = useContext(AuthContext);
-    const [errors, setErrors] = useState([]);   
+    const [errors, setErrors] = useState([]);
+
     const history = useNavigate();
+    const [userStatus, setUserStatus] = useContext(AuthContext);
 
     const [activityName, setActivityName] = useState('');
     const [description, setDescription] = useState('');
@@ -21,7 +22,7 @@ export default function Detail() {
     const [minParticipant, setMinParticipant] = useState('');
     const [createBy, setCreateBy] = useState('');
 
-    const { activityId } = useParams();
+    const { id } = useParams();
 
     const activityNameOnChangeHandler = (event) => {
         setActivityName(event.target.value);
@@ -49,45 +50,43 @@ export default function Detail() {
     const createByOnChangeHandler = (event) => {
         setCreateBy(event.target.value);
     };
-
+   
     useEffect(() => {
-        //fetch(`http://localhost:8080/api/activity/${activityId}`)
-        fetch('http://localhost:8080/api/activity/' + activityId)
+        //fetch(`http://localhost:8080/api/activity/${id}`)
+        fetch('http://localhost:8080/api/activity/' + userStatus.user.userId)
             .then(response => {
                 if (response.status === 404) {
-                    return Promise.reject(`Received 404 Not Found for Activity name: ${activityData.activityName}`);
+                    return Promise.reject(`Received 404 Not Found for Activity `);
                 }
                 return response.json();
             })
-            .then(data => {  
+            .then(data => {
                 setActivityDetails(data);
                 setActivityName(data.activityName);
                 setDescription(data.description);
                 setLocation(data.location);
-                setDate(data.date);        
-                setTime(data.time);       
+                setDate(data.date);
+                setTime(data.time);
                 setMaxParticipant(data.maxParticipant);
                 setMinParticipant(data.minParticipant);
-                setCreateBy(data.createBy);
-                console.log(data);
-                //console.log(activityData.description);
+                setCreateBy(data.createBy);     
             })
             .catch(error => {
                 console.log(error);
             });
-    }, [activityId]);
+    }, [id]);
 
-//Include some way to only edit information if the UserId matches the Activities Created User
+    //Include way to only edit/delete activity if the UserId matches the Activities Created User
 
     const editActivitySubmitHandler = (event) => {
         event.preventDefault();
-
+        
         const updatedDetail = {
             activityName,
             description,
             location,
             date,
-            time,        
+            time,
             maxParticipant,
             minParticipant,
             createBy
@@ -101,7 +100,7 @@ export default function Detail() {
             body: JSON.stringify(updatedDetail)
         };
         //fetch(`http://localhost:8080/api/activity/detail/${activityId}`, init)
-        fetch('http://localhost:8080/api/activity/' + activityId, init)
+        fetch('http://localhost:8080/api/activity/' + userStatus.user.userId, init)
             .then(response => {
                 if (response.status === 204) {
                     return null;
@@ -122,7 +121,7 @@ export default function Detail() {
             })
             .catch(error => console.log(error));
     };
-  
+
     return (
         <>
             <style>{"table{border:1px solid black;}"}
@@ -134,7 +133,7 @@ export default function Detail() {
                     <div>
                         <label htmlFor="activityName">Activity Name</label>
                         <input type="text" id="activityName" name="activityName"
-                            value={activityName} onChange={activityNameOnChangeHandler}                         
+                            value={activityName} onChange={activityNameOnChangeHandler}
                         />
                     </div>
 
@@ -184,15 +183,13 @@ export default function Detail() {
                     <div className="mt-5">
                         <button className="btn btn-info" type="submit">
                             <i className="bi bi-save"></i> Update Activity</button>
-
-                        <Link to="/activity" className="btn btn-warning ml-2">
-                            <i className="bi bi-x"></i> Cancel
+                        <Link to={`/activity/delete/${activityData.activityId}`} className="btn btn-danger ml-2">
+                            <i className="bi bi-x"></i> Delete
                         </Link>
-
+                        <Link to="/activity/browse" className="btn btn-warning ml-2">
+                            <i className="bi bi-x"></i> Return To List
+                        </Link>                    
                     </div>
-                    <Link to={`/activity/browse`} className="btn btn-success btn-sm">
-                        Return to List
-                    </Link>
                 </div>
             </form>
         </>
