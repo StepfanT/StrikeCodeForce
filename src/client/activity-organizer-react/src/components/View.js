@@ -47,7 +47,7 @@ export default function View() {
     }, [activityId]);
 
     const getActivitiesFromUser = () => {
-        fetch('http://localhost:8080/api/activity/user' + userId)
+        fetch('http://localhost:8080/api/activity/user' + userStatus.user.userId)
             .then(response => {
                 if (response.status === 404) {
                     return Promise.reject(`Received 404 Not Found for Activity name: ${activityId.activityName}`);

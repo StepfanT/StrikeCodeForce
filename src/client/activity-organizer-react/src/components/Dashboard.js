@@ -14,7 +14,14 @@ const [activities, setActivity] = useState([]);
      const [userStatus, setUserStatus] = useContext(AuthContext);
      
      const getActivity = () => {
-         fetch('http://localhost:8080/api/activity/user' + userStatus.user.userId)
+         const init={
+             method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization":"Bearer "+localStorage.getItem("token")
+            }
+         }
+         fetch('http://localhost:8080/api/activity/user/' + userStatus.user.userId,init)
              .then(response => response.json())
              .then(data => { setActivity(data); console.log(data); })
              .catch(error => console.log(error));
