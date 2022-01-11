@@ -16,9 +16,10 @@ public class UserActivityJdbcTemplateRepository implements UserActivityRepositor
     private ActivityMapper activityMapper;
     private PointsRepository pointsRepository;
 
-    public UserActivityJdbcTemplateRepository(JdbcTemplate jdbcTemplate, ActivityMapper activityMapper){
+    public UserActivityJdbcTemplateRepository(JdbcTemplate jdbcTemplate, ActivityMapper activityMapper,PointsRepository pointsRepository){
         this.jdbcTemplate=jdbcTemplate;
         this.activityMapper=activityMapper;
+        this.pointsRepository=pointsRepository;
     }
 
 

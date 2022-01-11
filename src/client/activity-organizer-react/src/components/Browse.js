@@ -7,6 +7,20 @@ export default function Browse() {
     const [userStatus, setUserStatus] = useContext(AuthContext);
     const [activities, setActivity] = useState([]);
 
+    const joinActivity = (activityId) =>{
+        const init={
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization":"Bearer "+localStorage.getItem("token")
+            }
+        }
+        fetch('http://localhost:8080/api/activity/user/'+userStatus.user.userId+'/'+activityId,init)
+            .then(response => response.json())
+            .then(data => { console.log(data);})         
+            .catch(error => console.log(error));
+    }
+
     const getActivities = () => {
         fetch('http://localhost:8080/api/activity')
             .then(response => response.json())
@@ -59,9 +73,9 @@ export default function Browse() {
                                     </div>
                                 ) : (
                                     <div className="float-right">
-                                        <Link to={`/activity/detail/${activity.activityId}`} className="btn btn-primary btn-sm">
-                                            <i className="bi bi-pencil"></i> View
-                                        </Link>
+                                        <div onClick={()=>joinActivity(activity.activityId)} className="btn btn-primary btn-sm">
+                                            <i className="bi bi-pencil"></i> Add
+                                        </div>
                                     </div>
                                 )}
                                 <div>

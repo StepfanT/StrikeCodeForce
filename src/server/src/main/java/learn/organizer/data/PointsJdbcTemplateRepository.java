@@ -29,14 +29,14 @@ public class PointsJdbcTemplateRepository implements PointsRepository{
 
     @Override
     public boolean addPoints(Points points) {
-        String sql="insert into points (point,userId,activityId,activityCompleted) " +
-                "values (?,?,?,?,?)";
+        String sql="insert into points (points,userId,activityId,activityCompleted) " +
+                "values (?,?,?,?)";
         return jdbcTemplate.update(sql,points.getPoint(),points.getUserId(),points.getActivityId(),points.isCompleted())>0;
     }
 
     @Override
     public boolean editPoints(Points points) {
-        String sql="update point " +
+        String sql="update points " +
                 "set points=?,userId=?,activityId=?,activityCompleted=?) " +
                 "where userId=? and activityId=?";
         return jdbcTemplate.update(sql,points.getPoint(),points.getUserId(),points.getActivityId(),points.isCompleted(),points.getUserId(),points.getActivityId())>0;
@@ -45,14 +45,14 @@ public class PointsJdbcTemplateRepository implements PointsRepository{
 
     @Override
     public boolean deletePoints(int userId, int activityId) {
-        String sql="delete from point " +
+        String sql="delete from points " +
                 "where userId=? and activityId=?";
         return jdbcTemplate.update(sql,userId,activityId)>0;
     }
 
     @Override
     public boolean deleteAllPointsFromUser(int userId){
-        String sql="delete from point " +
+        String sql="delete from points " +
                 "where userId=?";
         return jdbcTemplate.update(sql,userId)>0;
     }
