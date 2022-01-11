@@ -62,6 +62,14 @@ public class ActivityJdbcTemplateRepository implements ActivityRepository {
     }
 
     @Override
+    public Activity findActivityById(int activityId) {
+        final String sql="select * from activity " +
+                "where activityId=?";
+        return jdbcTemplate.query(sql,activityMapper,activityId).stream()
+                .findFirst().orElse(null);
+    }
+
+    @Override
     public boolean deleteActivity(int id) {
         String sql = "delete from activity " +
                 "where activityId = ?";

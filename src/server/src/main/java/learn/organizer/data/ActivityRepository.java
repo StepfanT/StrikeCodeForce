@@ -17,4 +17,6 @@ public interface ActivityRepository {
     boolean deleteActivity(int activityId);
 
     boolean deleteAllActivityFromUser(int userId);
+
+    Activity findActivityById(int activityId);
 }

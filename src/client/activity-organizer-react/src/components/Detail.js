@@ -28,8 +28,9 @@ export default function Detail(props) {
     const [minParticipant, setMinParticipant] = useState('');
     const [createBy, setCreateBy] = useState('');
 
-    const { id } = useParams();
+    const { activityId } = useParams();
 
+    console.log(activityId);
     const activityNameOnChangeHandler = (event) => {
         setActivityName(event.target.value);
     };
@@ -48,10 +49,10 @@ export default function Detail(props) {
     };
 
     const maxParticipantOnChangeHandler = (event) => {
-        setMaxParticipant(event.target.value);
+        setMaxParticipant(parseInt(event.target.value));
     };
     const minParticipantOnChangeHandler = (event) => {
-        setMinParticipant(event.target.value);
+        setMinParticipant(parseInt(event.target.value));
     };
     const createByOnChangeHandler = (event) => {
         setCreateBy(event.target.value);
@@ -68,14 +69,15 @@ export default function Detail(props) {
             })
             .then(data => {
                 //  setActivityDetails(data);
-                setActivityName(data.activityName);
-                setDescription(data.description);
-                setLocation(data.location);
-                setDate(data.date);
-                setTime(data.time);
-                setMaxParticipant(data.maxParticipant);
-                setMinParticipant(data.minParticipant);
-                setCreateBy(data.createBy);
+                setActivityName(data[0].activityName);
+                setDescription(data[0].description);
+                setLocation(data[0].location);
+                setDate(data[0].date);
+                setTime(data[0].time);
+                setMaxParticipant(data[0].max);
+                setMinParticipant(data[0].min);
+                setCreateBy(data[0].createBy);
+                console.log(data);
             })
             .catch(error => {
                 console.log(error);
@@ -84,7 +86,7 @@ export default function Detail(props) {
 
     useEffect(() => {
         getActivityData();
-    }, [id]);
+    }, []);
 
     // console.log(activityName);
     //Include way to only edit/delete activity if the UserId matches the Activities Created User
@@ -103,15 +105,15 @@ export default function Detail(props) {
             createBy
         };
         const init = {
-            method: 'PUT',
-            credentials: 'same-origin',
+            method: "PUT",
             headers: {
-                'Content-Type': 'application/json'
+                "Content-Type": "application/json",
+                "Authorization":"Bearer "+localStorage.getItem("token")
             },
-            body: JSON.stringify(updatedDetail)
+            body:JSON.stringify(updatedDetail)
         };
         //fetch(`http://localhost:8080/api/activity/detail/${activityId}`, init)
-        fetch('http://localhost:8080/api/activity/' + userStatus.user.userId, init)
+        fetch('http://localhost:8080/api/activity/' + activityId, init)
             .then(response => {
                 if (response.status === 204) {
                     return null;
@@ -144,7 +146,7 @@ export default function Detail(props) {
                     <div>
                         <label htmlFor="activityName">Activity Name</label>
                         <input type="text" id="activityName" name="activityName"
-                            value={activityName} onChange={activityNameOnChangeHandler}
+                            placeholder={activityName} onChange={activityNameOnChangeHandler}
                         />
                     </div>
 
