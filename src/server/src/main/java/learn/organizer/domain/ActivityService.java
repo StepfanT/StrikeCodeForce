@@ -43,7 +43,7 @@ public class ActivityService {
         return result;
     }
 
-    public Result<Activity> EditActivity(Activity activity) {
+    public Result<Activity> editActivity(Activity activity) {
         Result<Activity> result = validate(activity);
         if (!result.isSuccess()) {
             return result;

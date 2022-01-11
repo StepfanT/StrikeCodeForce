@@ -66,8 +66,8 @@ public class ActivityController {
         if (activityId != activity.getActivityId()) {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
-
-        Result<Activity> result = activityService.EditActivity(activity);
+        System.out.println(activity.toString());
+        Result<Activity> result = activityService.editActivity(activity);
         if (result.isSuccess()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }

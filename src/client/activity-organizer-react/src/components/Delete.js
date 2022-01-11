@@ -9,7 +9,7 @@ export default function Delete() {
     const [activityData, setActivityDetails] = useState([]);
     const [userStatus, setUserStatus] = useContext(AuthContext);
     const history = useNavigate();
-    const { id } = useParams();
+    const { activityId } = useParams();
 
     const [deleteActivityId, setDeleteActivityId] = useState('');
     const [activityName, setActivityName] = useState('');
@@ -27,38 +27,27 @@ export default function Delete() {
     //Get activity data via userId then filter via activityId?
 
     useEffect(() => {
-        fetch(`http://localhost:8080/api/activity/${id}`)
+        fetch(`http://localhost:8080/api/activity/${activityId}`)
             .then(response => response.json())
             .then(data => {
                 setActivityDetails(data);
                 console.log(data);
             })
             .catch(error => console.log(error));
-    }, [id]);
+    }, []);
 
 
     const deleteActivitySubmitHandler = (event) => {
         event.preventDefault();
 
-        const deleteActivity = {
-            activityName,
-            description,
-            location,
-            date,
-            time,
-            userId,
-            maxParticipant,
-            minParticipant
-        };
-
         const init = {
             method: 'DELETE',
             headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(deleteActivity)
+                'Content-Type': 'application/json',
+                "Authorization":"Bearer "+localStorage.getItem("token")
+            }
         };
-        fetch(`http://localhost:8080/api/activity/${id}`, init)
+        fetch(`http://localhost:8080/api/activity/${activityId}`, init)
             .then(response => {
                 if (response.status === 204) {
                     return null;
@@ -88,51 +77,51 @@ export default function Delete() {
                 <div>
                     <label htmlFor="activityName">Activity Name</label>
                     <input type="text" id="activityName" name="activityName"
-                        value={activityName} readOnly
+                        value={activityData.activityName} readOnly
                     />
                 </div>
 
                 <div>
                     <label htmlFor="description">Description</label>
                     <input type="description" id="description" name="description"
-                        value={description} readOnly />
+                        value={activityData.description} readOnly />
                 </div>
 
                 <div>
                     <label htmlFor="location">Location of Activity</label>
                     <input type="text" id="location" name="location"
-                        value={location} readOnly />
+                        value={activityData.location} readOnly />
                 </div>
 
                 <div>
                     <label htmlFor="date">Date</label>
                     <input type="date" id="date" name="date"
-                        value={date} readOnly />
+                        value={activityData.date} readOnly />
                 </div>
 
                 <div>
                     <label htmlFor="time">Time</label>
                     <input type="time" id="time" name="time"
-                        value={time} readOnly />
+                        value={activityData.time} readOnly />
                 </div>
 
                 <div>
                     <label htmlFor="maxParticipant">Max # of Participants</label>
                     <input type="number" pattern="[0-9]*" id="maxParticipant"
                         name="maxParticipant" min="6" max="50"
-                        value={maxParticipant} readOnly />
+                        value={activityData.max} readOnly />
                 </div>
                 <div>
                     <label htmlFor="minParticipant">Min # of Participants</label>
                     <input type="number" pattern="[0-9]*" id="minParticipant"
                         name="minParticipant" min="3" max="45"
-                        value={minParticipant} readOnly />
+                        value={activityData.min} readOnly />
                 </div>
 
                 <div>
                     <label htmlFor="createBy">Created By</label>
                     <input type="text" id="createBy" name="createBy"
-                        value={createBy} readOnly />
+                        value={activityData.createBy} readOnly />
                 </div>
 
                 <div className="mt-5">

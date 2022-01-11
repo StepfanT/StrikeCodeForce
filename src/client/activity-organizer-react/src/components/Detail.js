@@ -69,14 +69,14 @@ export default function Detail() {
             })
             .then(data => {
                 //  setActivityDetails(data);
-                setActivityName(data[0].activityName);
-                setDescription(data[0].description);
-                setLocation(data[0].location);
-                setDate(data[0].date);
-                setTime(data[0].time);
-                setMaxParticipant(data[0].max);
-                setMinParticipant(data[0].min);
-                setCreateBy(data[0].createBy);
+                setActivityName(data.activityName);
+                setDescription(data.description);
+                setLocation(data.location);
+                setDate(data.date);
+                setTime(data.time);
+                setMaxParticipant(data.max);
+                setMinParticipant(data.min);
+                setCreateBy(data.createBy);
                 console.log(data);
             })
             .catch(error => {
@@ -95,13 +95,15 @@ export default function Detail() {
         event.preventDefault();
 
         const updatedDetail = {
+            activityId,
             activityName,
             description,
             location,
             date,
             time,
-            maxParticipant,
-            minParticipant,
+            'max':maxParticipant,
+            'min':minParticipant,
+            'userId':userStatus.user.userId,
             createBy
         };
         const init = {
@@ -196,7 +198,7 @@ export default function Detail() {
                     <div className="mt-5">
                         <button className="btn btn-info" type="submit">
                             <i className="bi bi-save"></i> Update Activity</button>
-                        <Link to={`/activity/delete/${activityData.activityId}`} className="btn btn-danger ml-2">
+                        <Link to={`/activity/delete/${activityId}`} className="btn btn-danger ml-2">
                             <i className="bi bi-x"></i> Delete
                         </Link>
                         <Link to="/activity/browse" className="btn btn-warning ml-2">
