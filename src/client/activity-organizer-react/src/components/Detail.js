@@ -1,10 +1,16 @@
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useLocation, Link, useNavigate, useParams } from 'react-router-dom';
 import React, { useEffect, useState, useContext } from "react";
-import { getData } from "../testData";
 import AuthContext from "../context/AuthContext"
 import Errors from './Errors';
 
+
 export default function Detail() {
+
+    //passing prop via state from View Link
+    const stateLocation = useLocation();
+    //const {from } = stateLocation.state;
+  //  console.log(stateLocation);
+
 
     const [activityData, setActivityDetails] = useState([]);
     const [errors, setErrors] = useState([]);
@@ -50,10 +56,10 @@ export default function Detail() {
     const createByOnChangeHandler = (event) => {
         setCreateBy(event.target.value);
     };
-   
-    useEffect(() => {
+
+    const getActivityData = () => {
         //fetch(`http://localhost:8080/api/activity/${id}`)
-        fetch('http://localhost:8080/api/activity/' + userStatus.user.userId)
+        fetch('http://localhost:8080/api/activity/' + 1)
             .then(response => {
                 if (response.status === 404) {
                     return Promise.reject(`Received 404 Not Found for Activity `);
@@ -61,7 +67,7 @@ export default function Detail() {
                 return response.json();
             })
             .then(data => {
-                setActivityDetails(data);
+                //  setActivityDetails(data);
                 setActivityName(data.activityName);
                 setDescription(data.description);
                 setLocation(data.location);
@@ -69,18 +75,23 @@ export default function Detail() {
                 setTime(data.time);
                 setMaxParticipant(data.maxParticipant);
                 setMinParticipant(data.minParticipant);
-                setCreateBy(data.createBy);     
+                setCreateBy(data.createBy);
             })
             .catch(error => {
                 console.log(error);
             });
+    }
+
+    useEffect(() => {
+        getActivityData();
     }, [id]);
 
+    // console.log(activityName);
     //Include way to only edit/delete activity if the UserId matches the Activities Created User
 
     const editActivitySubmitHandler = (event) => {
         event.preventDefault();
-        
+
         const updatedDetail = {
             activityName,
             description,
@@ -188,7 +199,7 @@ export default function Detail() {
                         </Link>
                         <Link to="/activity/browse" className="btn btn-warning ml-2">
                             <i className="bi bi-x"></i> Return To List
-                        </Link>                    
+                        </Link>
                     </div>
                 </div>
             </form>

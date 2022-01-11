@@ -30,8 +30,6 @@ public class ActivityController {
         return activityService.getAllActivities();
     }
 
-
-
     @GetMapping("/{userId}")
     public List<Activity> findByAppUserId(@PathVariable int userId) throws DataAccessException {
         return activityService.findByAppUserId(userId);

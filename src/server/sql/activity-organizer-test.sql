@@ -17,6 +17,7 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 DROP DATABASE IF EXISTS `Group-Activity-Organizer`;
 CREATE SCHEMA IF NOT EXISTS `Group-Activity-Organizer` DEFAULT CHARACTER SET utf8 ;
 USE `Group-Activity-Organizer` ;
+
 -- -----------------------------------------------------
 -- Table `Group-Activity-Organizer`.`user`
 -- -----------------------------------------------------
@@ -65,9 +66,11 @@ DROP TABLE IF EXISTS `Group-Activity-Organizer`.`point` ;
 CREATE TABLE IF NOT EXISTS `Group-Activity-Organizer`.`point` (
   `points` INT NOT NULL DEFAULT 1,
   `userId` INT NOT NULL,
+  `activityId` INT NOT NULL,
   `activityCompleted` TINYINT NOT NULL DEFAULT 0,
-  INDEX `fk_Points_Users1_idx` (`userId` ASC) VISIBLE,
-  PRIMARY KEY (`userId`),
+  constraint fk_point_activityId
+        foreign key (activityId)
+        references activityId(activityId),
   CONSTRAINT `fk_Points_Users1`
     FOREIGN KEY (`userId`)
     REFERENCES `Group-Activity-Organizer`.`user` (`userId`)
@@ -75,6 +78,23 @@ CREATE TABLE IF NOT EXISTS `Group-Activity-Organizer`.`point` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
+-- -----------------------------------------------------
+-- Table `Group-Activity-Organizer`.`user_activity`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `Group-Activity-Organizer`.`user_activity` ;
+
+CREATE TABLE IF NOT EXISTS `Group-Activity-Organizer`.`user_activity` (
+  `userId` INT NOT NULL,
+  `activityId` INT NOT NULL,
+  constraint fk_user_activity_activityId
+        foreign key (activityId)
+        references activity(activityId),
+  CONSTRAINT `fk_user_activity_userId`
+    FOREIGN KEY (`userId`)
+    REFERENCES `Group-Activity-Organizer`.`user` (`userId`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
 
 -- -----------------------------------------------------
 -- Table `Group-Activity-Organizer`.`contact`
@@ -113,12 +133,6 @@ begin
         ('frigiid', '$2a$10$ntB7CsRKQzuLoKY3rfoAQen5nNyiC/U60wBsWnnYrtQQi8Z3IZzQa', 'admin'),
         ('loneWolf', '$2a$10$ntB7CsRKQzuLoKY3rfoAQen5nNyiC/U60wBsWnnYrtQQi8Z3IZzQa', 'admin'),
         ('guardians', '$2a$10$ntB7CsRKQzuLoKY3rfoAQen5nNyiC/U60wBsWnnYrtQQi8Z3IZzQa', 'admin');
-    
-    insert into point(userId)
-    values
-    ('1'),
-    ('2'),  
-    ('3');   
         
 	insert into activity(activityName, description, location, date, time, userId, maxParticipant, minParticipant, createBy)
     values
@@ -132,6 +146,10 @@ begin
 	('1','Stepfan', 'Thelemaque', null, 'Milwaukee'),
   	('2','John', 'Rambo', null, 'The Forest'),
     ('3','Mister', 'Blue Sky', 'ELO@old.com', 'Sydney');
+    
+    insert into user_activity
+    values
+    (1,1),(1,2),(2,2),(3,1),(2,3);
     
 end //
 -- 4. Change the statement terminator back to the original.
