@@ -27,6 +27,7 @@ public class ActivityService {
         return repository.findByAppUserId(appUserId);
     }
 
+    public Activity findActivityById(int activityId){return repository.findActivityById(activityId);}
 
     public Result<Activity> addActivity(Activity activity) {
         Result<Activity> result = validate(activity);
