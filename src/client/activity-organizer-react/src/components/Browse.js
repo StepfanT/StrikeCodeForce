@@ -2,7 +2,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import AuthContext from "../context/AuthContext"
 import { useContext } from "react";
-import ReactPaginate from 'react-paginate';
+
 
 export default function Browse() {
     const [userStatus, setUserStatus] = useContext(AuthContext);
@@ -34,22 +34,7 @@ export default function Browse() {
         getActivities();
     }, []);
 
-    // Example items, to simulate fetching from another resources.
-const items = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
-
-function Items({ currentItems }) {
-  return (
-    <>
-      {currentItems &&
-        currentItems.map((item) => (
-          <div>
-            <h3>Item #{item}</h3>
-          </div>
-        ))}
-    </>
-  );
-}
-
+  
     return (
         <div>
 
@@ -61,9 +46,9 @@ function Items({ currentItems }) {
                         <th>Date</th>
                         <th>Location</th>
                         <th>Description</th>
-                        <th>Time</th>
-                        <th>Min Participants</th>
+                        <th>Time</th>                       
                         <th>Max Participants</th>
+                        <th>Min Participants</th>
                         <th>Created By</th>
 
                     </tr>

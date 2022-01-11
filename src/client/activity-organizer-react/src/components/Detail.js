@@ -7,9 +7,9 @@ import Errors from './Errors';
 export default function Detail(props) {
 
     //passing prop via state from View Link
-    const stateLocation = useLocation();
-    //const {from } = stateLocation.state;
-    console.log(stateLocation);
+    // const stateLocation = useLocation();
+    // //const {from } = stateLocation.state;
+    // console.log(stateLocation);
 
 
     const [activityData, setActivityDetails] = useState([]);
@@ -29,8 +29,7 @@ export default function Detail(props) {
     const [createBy, setCreateBy] = useState('');
 
     const { activityId } = useParams();
-
-    console.log(activityId);
+ 
     const activityNameOnChangeHandler = (event) => {
         setActivityName(event.target.value);
     };
@@ -78,6 +77,7 @@ export default function Detail(props) {
                 setMinParticipant(data[0].min);
                 setCreateBy(data[0].createBy);
                 console.log(data);
+                console.log(activityName);
             })
             .catch(error => {
                 console.log(error);
