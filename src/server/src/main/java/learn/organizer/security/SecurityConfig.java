@@ -42,15 +42,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET,
                         "/api/activity", "/api/activity/*").permitAll()
                 .antMatchers(HttpMethod.POST,
-                        "/api/activity").hasAnyRole("user", "admin")
+                        "/api/activity","/api/activity/*","/api/points","/api/activity/user/*").hasAnyRole("user", "admin")
                 .antMatchers(HttpMethod.PUT,
-                        "/api/activity").hasAnyRole("user", "admin")
+                        "/api/activity","/api/activity/*","/api/points/*").hasAnyRole("user", "admin")
                 .antMatchers(HttpMethod.DELETE,
-                        "/api/activity/*").hasAnyRole("user","admin")
+                        "/api/activity","/api/activity/*","/api/points","/api/points/*","/api/activity/user/*").hasAnyRole("user","admin")
                 .antMatchers(HttpMethod.PUT,
                         "/api/contact/*").hasAnyRole("user", "admin")
                 .antMatchers(HttpMethod.GET,
-                        "/api/contact/*").hasAnyRole("user","admin")
+                        "/api/contact/*","/api/points","/api/activity/user/*").hasAnyRole("user","admin")
                 .antMatchers("/**").denyAll()
                 .anyRequest().authenticated()
                 .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)

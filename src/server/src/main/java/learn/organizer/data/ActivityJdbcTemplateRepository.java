@@ -86,4 +86,5 @@ public class ActivityJdbcTemplateRepository implements ActivityRepository {
         return jdbcTemplate.update(sql, activity.getActivityName(), activity.getDescription(),
                 activity.getLocation(), activity.getDate(), activity.getTime(), activity.getMin(), activity.getMax(), activity.getActivityId()) > 0;
     }
+
 }
