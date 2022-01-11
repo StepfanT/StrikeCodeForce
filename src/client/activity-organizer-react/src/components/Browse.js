@@ -2,7 +2,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import AuthContext from "../context/AuthContext"
 import { useContext } from "react";
-
+import Pagination from '@material-ui/lab/Pagination';
 
 export default function Browse() {
     const [userStatus, setUserStatus] = useContext(AuthContext);
@@ -34,7 +34,7 @@ export default function Browse() {
         getActivities();
     }, []);
 
-  
+    // Imported Pagination Component from https://mui.com/components/pagination/ 
     return (
         <div>
 
@@ -46,7 +46,7 @@ export default function Browse() {
                         <th>Date</th>
                         <th>Location</th>
                         <th>Description</th>
-                        <th>Time</th>                       
+                        <th>Time</th>
                         <th>Max Participants</th>
                         <th>Min Participants</th>
                         <th>Created By</th>
@@ -85,9 +85,17 @@ export default function Browse() {
                                         Return Home
                                     </Link>
                                 </div>
+
                             </td>
                         </tr>
+
                     ))}
+                    
+                    <div
+                        style={{ display: 'inline', padding: 30 }}>
+                        <h4>Pagination</h4>
+                        <Pagination count={5} />
+                    </div>
                 </tbody>
             </table>
         </div>
