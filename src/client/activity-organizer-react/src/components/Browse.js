@@ -2,38 +2,54 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import AuthContext from "../context/AuthContext"
 import { useContext } from "react";
+import ReactPaginate from 'react-paginate';
 
 export default function Browse() {
     const [userStatus, setUserStatus] = useContext(AuthContext);
     const [activities, setActivity] = useState([]);
 
-    const joinActivity = (activityId) =>{
-        const init={
+    const joinActivity = (activityId) => {
+        const init = {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                "Authorization":"Bearer "+localStorage.getItem("token")
+                "Authorization": "Bearer " + localStorage.getItem("token")
             }
         }
-        fetch('http://localhost:8080/api/activity/user/'+userStatus.user.userId+'/'+activityId,init)
+        fetch('http://localhost:8080/api/activity/user/' + userStatus.user.userId + '/' + activityId, init)
             .then(response => response.json())
-            .then(data => { console.log(data);})         
+            .then(data => { console.log(data); })
             .catch(error => console.log(error));
     }
 
     const getActivities = () => {
         fetch('http://localhost:8080/api/activity')
             .then(response => response.json())
-            .then(data => {setActivity(data);   console.log(data);})         
+            .then(data => { setActivity(data); console.log(data); })
             .catch(error => console.log(error));
-            
+
     };
 
     useEffect(() => {
         getActivities();
     }, []);
-   
-    
+
+    // Example items, to simulate fetching from another resources.
+const items = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
+
+function Items({ currentItems }) {
+  return (
+    <>
+      {currentItems &&
+        currentItems.map((item) => (
+          <div>
+            <h3>Item #{item}</h3>
+          </div>
+        ))}
+    </>
+  );
+}
+
     return (
         <div>
 
@@ -65,7 +81,7 @@ export default function Browse() {
                             <td>{activity.createBy}</td>
 
                             <td>
-                                {userStatus.user.userId==activity.userId ? (
+                                {userStatus.user.userId == activity.userId ? (
                                     <div className="float-right">
                                         <Link to={`/activity/detail/${activity.activityId}`} className="btn btn-primary btn-sm">
                                             <i className="bi bi-pencil"></i> Edit
@@ -73,8 +89,8 @@ export default function Browse() {
                                     </div>
                                 ) : (
                                     <div className="float-right">
-                                        <div onClick={()=>joinActivity(activity.activityId)} className="btn btn-primary btn-sm">
-                                            <i className="bi bi-pencil"></i> Add
+                                        <div onClick={() => joinActivity(activity.activityId)} className="btn btn-primary btn-sm">
+                                            <i className="bi bi-pencil"></i> Join
                                         </div>
                                     </div>
                                 )}

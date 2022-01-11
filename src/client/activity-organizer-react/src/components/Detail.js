@@ -4,12 +4,12 @@ import AuthContext from "../context/AuthContext"
 import Errors from './Errors';
 
 
-export default function Detail() {
+export default function Detail(props) {
 
     //passing prop via state from View Link
     const stateLocation = useLocation();
     //const {from } = stateLocation.state;
-  //  console.log(stateLocation);
+    console.log(stateLocation);
 
 
     const [activityData, setActivityDetails] = useState([]);
@@ -59,7 +59,7 @@ export default function Detail() {
 
     const getActivityData = () => {
         //fetch(`http://localhost:8080/api/activity/${id}`)
-        fetch('http://localhost:8080/api/activity/' + 1)
+        fetch('http://localhost:8080/api/activity/' + userStatus.user.userId)
             .then(response => {
                 if (response.status === 404) {
                     return Promise.reject(`Received 404 Not Found for Activity `);

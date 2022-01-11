@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import AuthContext from "../context/AuthContext"
 import '../App.css';
 
@@ -46,30 +46,14 @@ export default function View() {
             });
     }, [activityId]);
 
-    const getActivitiesFromUser = () => {
-        fetch('http://localhost:8080/api/activity/user' + userStatus.user.userId)
-            .then(response => {
-                if (response.status === 404) {
-                    return Promise.reject(`Received 404 Not Found for Activity name: ${activityId.activityName}`);
-                }
-                return response.json();
-            })
-            .then(data => {
-                setActivity(data);
-                setActivityName(data.activityName);
-                setDescription(data.description);
-                setLocation(data.location);
-                setDate(data.data);
-                setTime(data.time);
-                setUserId(data.userId);
-                setMaxParticipant(data.maxParticipant);
-                setMinParticipant(data.minParticipant);
-                setCreateBy(data.createBy);
-            })
-            .catch(error => {
-                console.log(error);
-            });
+    const navigate = useNavigate();
+
+    const handleClick = () => {
+        navigate(`/activity/detail/${activityId}`,{state: {from: "View" } }  ) 
+
+
     }
+
 
 
     return (
@@ -100,12 +84,18 @@ export default function View() {
                                 <td>{activity.createBy}</td>
                                 <td>
                                     <div className="float-right">
-                                        <Link
+                                        {/* <Link 
                                             to={'/activity/detail/${activity.activityId}'}
+                                            state={ {from: 'occupation' } }                                           
                                             className="btn btn-primary btn-sm">
                                             <i className="bi bi-pencil"></i>
                                             View/Edit Details
-                                        </Link>
+                                        </Link> */}
+                                        <button onClick={handleClick} className="btn btn-primary btn-sm">
+                                            View/Edit Details
+                                        </button>
+
+
                                     </div>
 
                                     <div className="float-right">
@@ -113,10 +103,6 @@ export default function View() {
                                             <i className="bi bi-pencil"></i> Delete Activity
                                         </Link>
                                     </div>
-
-                                    <button onClick={getActivitiesFromUser} className="btn btn-primary btn-sm">
-
-                                    </button>
                                 </td>
                             </tr>
                         ))}
