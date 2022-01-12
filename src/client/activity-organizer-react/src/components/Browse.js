@@ -32,7 +32,7 @@ export default function Browse() {
         setLoading(true);
         fetch('http://localhost:8080/api/activity')
             .then(response => response.json())
-            .then(data => { setActivity(data); setPosts(data) })
+            .then(data => { setPosts(data);console.log(data); })
             .catch(error => console.log(error));
         setLoading(false);
     };

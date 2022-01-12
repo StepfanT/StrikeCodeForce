@@ -56,4 +56,12 @@ public class PointsJdbcTemplateRepository implements PointsRepository{
                 "where userId=?";
         return jdbcTemplate.update(sql,userId)>0;
     }
+
+    @Override
+    public boolean confirmPoints(int activityId,int userId){
+        String sql="update points " +
+                "set activityCompleted=true " +
+                "where activityId=? and userId=?;";
+        return jdbcTemplate.update(sql,activityId,userId)>0;
+    }
 }

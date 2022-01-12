@@ -1,6 +1,6 @@
 import { render } from "react-dom";
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate  } from "react-router-dom";
 import './App.css';
 import Home from './components/Home';
 import Create from './components/Create';
@@ -16,6 +16,7 @@ import Dashboard from './components/Dashboard';
 import NavBar from "./components/NavBar";
 import AuthContext from './context/AuthContext'
 import Delete from "./components/Delete";
+import Welcome from "./components/Welcome";
 
 
 function App() {
@@ -32,6 +33,7 @@ function App() {
       console.log(this.user);
     },
     logout() {
+      console.log("logged out");
       // "token" must match the name used in "/Login" route
       localStorage.removeItem("token");
       setUserStatus((prev) => ({ ...prev, user: null }));
@@ -52,13 +54,13 @@ function App() {
         <AuthContext.Provider value={[userStatus, setUserStatus]}>
           <NavBar userStatus={userStatus} />
           <Routes>
-            <Route path="/" element={<Dashboard />} />
+            <Route path="/" element={ userStatus?.user ? (<Dashboard />):(<Welcome />)} />
 
             <Route path="/home" element={<Home />} />
             <Route path="/authenticate/register" element={<Register />} />
 
             <Route path="/login" element=
-              {userStatus.user ? (
+              {userStatus?.user ? (
                 <Navigate to="/" />
               ) : (
                 <Login />

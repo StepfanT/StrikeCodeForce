@@ -39,7 +39,7 @@ const Posts = ({ posts, loading }) => {
             </thead>
             <tbody>
                 {posts.map(post => (
-                    <tr key={post.id} >
+                    <tr key={post.activityId} >
                         <td>{post.activityName}</td>
                         <td>{post.date}</td>
                         <td>{post.location}</td>
@@ -49,8 +49,8 @@ const Posts = ({ posts, loading }) => {
                         <td>{post.min}</td>
                         <td>{post.createBy}</td>
                         <td>
-
-                            {userStatus.user.userId == post.userId ? (
+                            {console.log(post)}
+                            {userStatus.user.userId === post.userId ? (
                                 <div className="float-right">
                                     <Link to={`/activity/detail/${post.activityId}`} className="btn btn-primary btn-sm">
                                         <i className="bi bi-pencil"></i> Edit
