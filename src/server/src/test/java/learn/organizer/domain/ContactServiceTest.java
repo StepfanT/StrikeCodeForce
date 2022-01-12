@@ -21,8 +21,10 @@ public class ContactServiceTest {
 
     @Test
     void shouldGetContactByUserId(){
-        Contact stepfan = service.getContactByUserId(1);
+        Contact contact = new Contact(1, "Stepfan", "Thelemaque", null, "Milwaulkee");
 
+        when(contactRepository.getContactByUserId(1)).thenReturn(contact);
+        Contact stepfan = service.getContactByUserId(1);
 
         assertEquals("Stepfan", stepfan.getFirstName());
 
