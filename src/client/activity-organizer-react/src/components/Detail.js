@@ -59,7 +59,7 @@ export default function Detail(props) {
 
     const getActivityData = () => {
         //fetch(`http://localhost:8080/api/activity/${id}`)
-        fetch('http://localhost:8080/api/activity/' + userStatus.user.userId)
+        fetch('http://localhost:8080/api/activity/' + activityId)
             .then(response => {
                 if (response.status === 404) {
                     return Promise.reject(`Received 404 Not Found for Activity `);

@@ -30,7 +30,8 @@ export default function Dashboard() {
     };
 
     useEffect(() => {
-        getActivity();
+        if(userStatus.user!=null)
+            getActivity();
     }, []);
 
     const getActivitiesFromUser = () => {
@@ -52,8 +53,8 @@ export default function Dashboard() {
 
     const navigate = useNavigate();
 
-    const handleClick = () => {
-        navigate('/activity/detail/'+ userStatus.user.userId, { state: { id: userStatus.user.userId } })
+    const handleClick = (activityId) => {
+        navigate('/activity/detail/'+ activityId, { state: { id: userStatus.user.userId } })
     }
 
     return (
@@ -90,7 +91,7 @@ export default function Dashboard() {
                                             <i className="bi bi-pencil"></i> View Details
                                         </Link> */}
 
-                                        <button onClick={handleClick} className="btn btn-primary btn-sm">
+                                        <button onClick={()=>handleClick(activity.activityId)} className="btn btn-primary btn-sm">
                                             View/Edit Details
                                         </button>
                                     </div>
