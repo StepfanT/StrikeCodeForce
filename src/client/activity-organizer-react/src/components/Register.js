@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Errors from "./Errors";
+import Alert from 'react-popup-alert'
+import './style.css';
 
 export default function Register({ userStatus }) {
     const [user, setUser] = useState([])
@@ -12,6 +14,7 @@ export default function Register({ userStatus }) {
         const { name, value } = event.target;
         setUser({ ...user, [name]: value });
     }
+    const delay = ms => new Promise(res => setTimeout(res, ms));
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -24,8 +27,10 @@ export default function Register({ userStatus }) {
             body: JSON.stringify(Object.values(user)),
         });
 
-        if (response.status === 200) {
-            history("/");
+        if (response.status === 200 || response.status === 201) {
+            onShowAlert();
+            await delay(1000);
+            history('/');
             console.log("Successful Registration!")
         } else if (response.status === 400) {
             const errors = await response.json();
@@ -37,8 +42,38 @@ export default function Register({ userStatus }) {
         }
     };
 
+    const [alert, setAlert] = React.useState({
+        type: 'error',
+        text: 'This is a alert message',
+        show: false
+    })
+
+  
+    function onShowAlert(type) {
+        setAlert({
+            type: type,
+            text: 'Sending Confirmation',
+            show: true            
+        })
+    }
+
+//Using Notification/Alert from https://www.npmjs.com/package/react-popup-alert
     return (
         <div>
+           
+            <Alert
+                header={'Registration Successful'}
+                btnText={'Close'}
+                text={alert.text}
+                type={alert.type}
+                show={alert.show}               
+                pressCloseOnOutsideClick={true}
+                showBorderBottom={true}
+                alertStyles={{}}
+                headerStyles={{}}
+                textStyles={{}}
+                buttonStyles={{}}
+            />
             <h2>Register New User</h2>
 
             <form onSubmit={handleSubmit}>

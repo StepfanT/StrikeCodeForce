@@ -3,10 +3,12 @@ package learn.organizer.domain;
 import learn.organizer.data.PointsRepository;
 import learn.organizer.data.UserActivityRepository;
 import learn.organizer.models.Activity;
+import learn.organizer.models.AppUser;
 import learn.organizer.models.Points;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class UserActivityService {
@@ -20,6 +22,10 @@ public class UserActivityService {
 
     public List<Activity> findActivitiesFromAppUserId(int userId){
         return repository.findActivitiesFromAppUserId(userId);
+    }
+
+    public List<AppUser> getUsersFromActivityId(int activityId){
+        return repository.getUsersFromActivityId(activityId);
     }
 
     public Result<Boolean> addUserToActivity(int userId,int activityId){

@@ -2,9 +2,11 @@ package learn.organizer.controllers;
 
 
 import learn.organizer.domain.ActivityService;
+import learn.organizer.domain.PointsService;
 import learn.organizer.domain.Result;
 import learn.organizer.domain.UserActivityService;
 import learn.organizer.models.Activity;
+import learn.organizer.models.AppUser;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,10 +21,12 @@ public class ActivityController {
 
     private final ActivityService activityService;
     private final UserActivityService userActivityService;
+    private final PointsService pointsService;
 
-    public ActivityController(ActivityService service, UserActivityService userActivityService) {
+    public ActivityController(ActivityService service, UserActivityService userActivityService, PointsService pointsService) {
         this.activityService = service;
         this.userActivityService = userActivityService;
+        this.pointsService = pointsService;
     }
 
     @GetMapping
@@ -38,6 +42,11 @@ public class ActivityController {
     @GetMapping("/user/{userId}")
     public List<Activity> findActivitiesFromAppUserId(@PathVariable int userId) {
         return userActivityService.findActivitiesFromAppUserId(userId);
+    }
+
+    @GetMapping("/participants/{activityId}")
+    public List<AppUser> findParticipantsFromActivity(@PathVariable int activityId) {
+        return userActivityService.getUsersFromActivityId(activityId);
     }
 
     @PostMapping
@@ -68,6 +77,17 @@ public class ActivityController {
         }
         System.out.println(activity.toString());
         Result<Activity> result = activityService.editActivity(activity);
+        if (result.isSuccess()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+
+        return ErrorResponse.build(result);
+    }
+
+    @PutMapping("/participants/{activityId}/{userId}")
+    public ResponseEntity<Object> updateParticipant(@PathVariable int activityId,@PathVariable int userId) {
+
+        Result<Boolean> result = pointsService.confirmPoints(activityId,userId);
         if (result.isSuccess()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }

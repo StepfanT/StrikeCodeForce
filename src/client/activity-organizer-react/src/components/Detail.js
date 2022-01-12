@@ -2,6 +2,7 @@ import { useLocation, Link, useNavigate, useParams } from 'react-router-dom';
 import React, { useEffect, useState, useContext } from "react";
 import AuthContext from "../context/AuthContext"
 import Errors from './Errors';
+import Participants from "./Participants"
 
 
 export default function Detail(props) {
@@ -75,6 +76,7 @@ export default function Detail(props) {
                 setTime(data.time);
                 setMaxParticipant(data.max);
                 setMinParticipant(data.min);
+                setUserId(data.userId);
                 setCreateBy(data.createBy);
                 console.log(data);
                 console.log(activityName);
@@ -148,65 +150,69 @@ export default function Detail(props) {
                     <div>
                         <label htmlFor="activityName">Activity Name</label>
                         <input type="text" id="activityName" name="activityName"
-                            placeholder={activityName} onChange={activityNameOnChangeHandler}
+                            value={activityName} onChange={activityNameOnChangeHandler}
+                            readOnly={userId!==userStatus.user.userId}
                         />
                     </div>
 
                     <div>
                         <label htmlFor="description">Description</label>
                         <input type="description" id="description" name="description"
-                            value={description} onChange={descriptionOnChangeHandler} />
+                            value={description} onChange={descriptionOnChangeHandler} readOnly={userId!==userStatus.user.userId}/>
                     </div>
 
                     <div>
                         <label htmlFor="location">Location of Activity</label>
                         <input type="text" id="location" name="location"
-                            value={location} onChange={locationOnChangeHandler} />
+                            value={location} onChange={locationOnChangeHandler} readOnly={userId!==userStatus.user.userId}/>
                     </div>
 
                     <div>
                         <label htmlFor="date">Date</label>
                         <input type="date" id="date" name="date"
-                            value={date} onChange={dateOnChangeHandler} />
+                            value={date} onChange={dateOnChangeHandler} readOnly={userId!==userStatus.user.userId}/>
                     </div>
 
                     <div>
                         <label htmlFor="time">Time</label>
                         <input type="time" id="time" name="time"
-                            value={time} onChange={timeOnChangeHandler} />
+                            value={time} onChange={timeOnChangeHandler} readOnly={userId!==userStatus.user.userId}/>
                     </div>
 
                     <div>
                         <label htmlFor="maxParticipant">Max # of Participants</label>
                         <input type="number" pattern="[0-9]*" id="maxParticipant"
                             name="maxParticipant" min="6" max="50"
-                            value={maxParticipant} onChange={maxParticipantOnChangeHandler} />
+                            value={maxParticipant} onChange={maxParticipantOnChangeHandler} readOnly={userId!==userStatus.user.userId}/>
                     </div>
                     <div>
                         <label htmlFor="minParticipant">Min # of Participants</label>
                         <input type="number" pattern="[0-9]*" id="minParticipant"
                             name="minParticipant" min="3" max="45"
-                            value={minParticipant} onChange={minParticipantOnChangeHandler} />
+                            value={minParticipant} onChange={minParticipantOnChangeHandler} readOnly={userId!==userStatus.user.userId}/>
                     </div>
 
                     <div>
                         <label htmlFor="createBy">Created By</label>
                         <input type="text" id="createBy" name="createBy"
-                            value={createBy} onChange={createByOnChangeHandler} />
+                            value={createBy} onChange={createByOnChangeHandler} readOnly={userId!==userStatus.user.userId}/>
                     </div>
 
                     <div className="mt-5">
-                        <button className="btn btn-info" type="submit">
+                    {userId==userStatus.user.userId?(<><button className="btn btn-info" type="submit">
                             <i className="bi bi-save"></i> Update Activity</button>
                         <Link to={`/activity/delete/${activityId}`} className="btn btn-danger ml-2">
                             <i className="bi bi-x"></i> Delete
-                        </Link>
+                        </Link></>):("")}
+                        
                         <Link to="/activity/browse" className="btn btn-warning ml-2">
                             <i className="bi bi-x"></i> Return To List
                         </Link>
                     </div>
                 </div>
             </form>
+
+            <Participants activityId={activityId} isCreator={userId==userStatus.user.userId}/>
         </>
     );
 };

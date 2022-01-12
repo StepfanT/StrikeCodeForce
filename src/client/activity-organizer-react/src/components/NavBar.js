@@ -1,10 +1,11 @@
-import { Link } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
 import AuthContext from "../context/AuthContext"
 import { useContext } from "react";
 
 export default function NavBar() {
   const [userStatus, setUserStatus] = useContext(AuthContext);
 
+  const history = useNavigate();
   return (
     <div>
       <nav
@@ -13,9 +14,12 @@ export default function NavBar() {
           paddingBottom: "1rem"
         }}
       >
-        {userStatus.user ? (
+        {userStatus?.user ? (
           <li>
-            <button onClick={userStatus.logout}>
+            <button onClick={() => {setUserStatus(null);
+                localStorage.removeItem("token");
+                history("/login");
+              }}>
               Logout {userStatus.user.sub}
             </button>
           </li>
@@ -23,15 +27,20 @@ export default function NavBar() {
         ) : (
           <li>
             <Link to="/login">Login</Link>
+
           </li>
         )}
-        <Link to="/dashboard">User Dashboard</Link> |{" "}       
+
+        {userStatus?.user ? (
+          <>
+        <Link to="/dashboard">User Dashboard</Link> |{" "}
         <Link to="/activity/browse">Browse Activities</Link> |{" "}
         <Link to="/activity/create">Create An Activity</Link> |{" "}
         <Link to="/activity/points">View Points</Link> |{" "}
+        </>):("")}
         <Link to="/home">About Us</Link> |{" "}
         <Link to="/contact">Contact</Link> |{" "}
-        <Link to="/authenticate/register">Register New User</Link>   
+        <Link to="/authenticate/register">Register New User</Link> |{" "}
 
       </nav>
     </div>
