@@ -40,7 +40,7 @@ public class PointsService {
         Result<Points> result=new Result<>();
         result.setPayload(points);
         if(!repository.editPoints(points)){
-            result.addMessage("Failed to update contact",ResultType.INVALID);
+            result.addMessage("Failed to edit points",ResultType.INVALID);
         }
         return result;
     }
@@ -49,7 +49,7 @@ public class PointsService {
         Result<Points> result=new Result<>();
         result.setPayload(points);
         if(!repository.editPoints(points)){
-            result.addMessage("Failed to update contact",ResultType.INVALID);
+            result.addMessage("Failed to delete points",ResultType.INVALID);
         }
         return result;
     }
@@ -60,6 +60,16 @@ public class PointsService {
         result.setPayload(isDeleted);
         if(!isDeleted){
             result.addMessage("Failed to delete all points",ResultType.INVALID);
+        }
+        return result;
+    }
+
+    public Result<Boolean> confirmPoints(int activityId,int userId){
+        Result<Boolean> result=new Result<>();
+        boolean isConfirmed=repository.confirmPoints(activityId,userId);
+        result.setPayload(isConfirmed);
+        if(!isConfirmed){
+            result.addMessage("Failed to confirm points",ResultType.INVALID);
         }
         return result;
     }

@@ -72,7 +72,8 @@ const Posts = ({ posts, loading }) => {
             </thead>
             <tbody >
                 {posts.map(post => (
-                    <tr key={post.id} >
+
+                    <tr key={post.activityId} >
                         <td style={{ border: 'solid 1px black' }}>{post.activityName}</td>
                         <td style={{ border: 'solid 1px black' }}>{post.date}</td>
                         <td style={{ border: 'solid 1px black' }}>{post.location}</td>
@@ -82,7 +83,7 @@ const Posts = ({ posts, loading }) => {
                         <td style={{ border: 'solid 1px black' }}>{post.min}</td>
                         <td style={{ border: 'solid 1px black' }}>{post.createBy}</td>
                         <td style={{ border: 'solid 1px black' }}>
-
+                            {console.log(post)}
                             {userStatus.user.userId === post.userId ? (
                                 <div className="float-right">
                                     <Link to={`/activity/detail/${post.activityId}`} className="btn btn-primary btn-sm">

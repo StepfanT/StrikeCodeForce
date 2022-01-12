@@ -16,4 +16,6 @@ public interface PointsRepository {
     boolean deletePoints(int userId,int activityId);
 
     boolean deleteAllPointsFromUser(int userId);
+
+    boolean confirmPoints(int activityId,int userId);
 }
