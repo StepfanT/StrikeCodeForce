@@ -16,6 +16,7 @@ import Dashboard from './components/Dashboard';
 import NavBar from "./components/NavBar";
 import AuthContext from './context/AuthContext'
 import Delete from "./components/Delete";
+import axios from 'axios';
 
 
 function App() {
@@ -41,8 +42,6 @@ function App() {
   const addUserId = userId => {
     setUserId([...userIds, userId])
   }
-
-  
 
   return (
 

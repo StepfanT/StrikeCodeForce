@@ -34,7 +34,7 @@ export default function Browse() {
             .then(response => response.json())
             .then(data => { setActivity(data); setPosts(data) })
             .catch(error => console.log(error));
-        setLoading(false);
+        setLoading(false);        
     };
 
     //UseEffect runs when the component updates or mounts
@@ -42,7 +42,7 @@ export default function Browse() {
         getActivities();
 
     }, []); //[] contains no dependencies, stops the useEffect
-    
+
     //Get current activities
 
     const indexOfLastActivity = currentPage * postsPerPage;
