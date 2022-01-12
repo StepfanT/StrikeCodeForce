@@ -37,7 +37,7 @@ public class PointsJdbcTemplateRepository implements PointsRepository{
     @Override
     public boolean editPoints(Points points) {
         String sql="update points " +
-                "set points=?,userId=?,activityId=?,activityCompleted=?) " +
+                "set points=?,userId=?,activityId=?,activityCompleted=? " +
                 "where userId=? and activityId=?";
         return jdbcTemplate.update(sql,points.getPoint(),points.getUserId(),points.getActivityId(),points.isCompleted(),points.getUserId(),points.getActivityId())>0;
 
