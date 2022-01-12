@@ -37,7 +37,7 @@ public class AppUserJdbcTemplateRepositoryTest {
     }
 
     @Test
-    void ShouldFindLoneWolf() {
+    void ShouldFindById() {
         AppUser loneWolf = repository.findById(2);
         assertEquals(2, loneWolf.getAppUserId());
         assertEquals("loneWolf", loneWolf.getUsername());
@@ -60,7 +60,7 @@ public class AppUserJdbcTemplateRepositoryTest {
           assertEquals(NEXT_ID, actual.getAppUserId());
 
     }
-// TOdo add method for getName in AppUser
+
     @Test
     void shouldUpdateUser() {
         AppUser user = makeAppUser();

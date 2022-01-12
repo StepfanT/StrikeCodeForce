@@ -32,7 +32,7 @@ public class ContactJdbcTemplateRepositoryTest {
 
 
     @Test
-    void shouldGetContactByUserRambo() {
+    void shouldGetContactByUserId() {
         Contact rambo = repository.getContactByUserId(2);
         assertEquals(2, rambo.getUserId());
         assertEquals("John", rambo.getFirstName() );
@@ -41,24 +41,23 @@ public class ContactJdbcTemplateRepositoryTest {
 
     }
 
-//    @Test
-//    void shouldAddContact() { //foreign key constraint
-//        Contact contact = makeContact();
-//        boolean actual = repository.addContact(contact);
-//        assertNotNull(actual);
+    @Test
+    void shouldAddContact() { //foreign key constraint
+        Contact contact = makeContacts();
+        boolean actual = repository.addContact(contact);
+        assertNotNull(actual);
+        assertEquals(4, contact.getUserId());
+        assertEquals("Test", contact.getFirstName());
 
-//    }
+    }
 
-    @Test //bad sql grammar
+    @Test
     void shouldEditContact() {
         AppUser user = makeContact();
         user.getContact().setFirstName("Dan");
         assertTrue(repository.editContact(user.getContact()));
-//        user.getContact().
-//        assertFalse(repository.editContact(contact));
     }
 
-    //do we ever delete a contact? probably not.
 
 
     private AppUser makeContact(){
@@ -66,5 +65,10 @@ public class ContactJdbcTemplateRepositoryTest {
         Contact contact = new Contact(1, "Jane", "Doe", "Jane@gmail", "Kenosha");
         user.setContact(contact);
         return user;
+    }
+
+    private Contact makeContacts(){
+        Contact contact = new Contact(4, "Test", "TestLast", "Test@gmail", "Mars");
+        return contact;
     }
 }

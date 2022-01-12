@@ -23,10 +23,8 @@ public class ActivityServiceTest {
     @Autowired
     ActivityService service;
 
-    //todo: figure out how to handle state(known good state class
-    //is in separate package)
-    @Autowired
-    KnownGoodState knownGoodState;
+    @MockBean
+    ActivityRepository repository;
 
 
 
@@ -51,6 +49,10 @@ public class ActivityServiceTest {
 
     @Test
     void shouldNotAddWhenValid() {
+        Activity expected = makeActivity();
+        Activity arg = makeActivity();
+        arg.setActivityId(0);
+
     }
 
     Activity makeActivity(){
