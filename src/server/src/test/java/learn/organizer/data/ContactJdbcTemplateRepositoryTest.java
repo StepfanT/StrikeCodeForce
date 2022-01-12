@@ -25,6 +25,9 @@ public class ContactJdbcTemplateRepositoryTest {
     UserService service;
 
     @Autowired
+    AppUserJdbcTemplateRepository appUserJdbcTemplateRepository;
+
+    @Autowired
     KnownGoodState knownGoodState;
 
     @BeforeEach
@@ -43,11 +46,11 @@ public class ContactJdbcTemplateRepositoryTest {
 
     @Test
     void shouldAddContact() { //foreign key constraint
-        Contact contact = makeContacts();
-        boolean actual = repository.addContact(contact);
-        assertNotNull(actual);
-        assertEquals(4, contact.getUserId());
-        assertEquals("Test", contact.getFirstName());
+        AppUser appUser = makeContact();
+        appUser = appUserJdbcTemplateRepository.add(appUser);
+        assertNotNull(appUser);
+        assertEquals(4, appUser.getAppUserId());
+        assertEquals("Jane", appUser.getContact().getFirstName());
 
     }
 

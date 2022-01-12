@@ -64,10 +64,8 @@ public class AppUserJdbcTemplateRepositoryTest {
     @Test
     void shouldUpdateUser() {
         AppUser user = makeAppUser();
-//        user.setName(4);
+        user.setAppUserId(2);
         assertTrue(repository.update(user));
-        user.setAppUserId(5);
-        assertFalse(repository.update(user));
     }
 
     @Test //cannot delete or update a parent row: foreign key constraint fails
