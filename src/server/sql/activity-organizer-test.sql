@@ -61,16 +61,16 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `Group-Activity-Organizer`.`point`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `Group-Activity-Organizer`.`point` ;
+DROP TABLE IF EXISTS `Group-Activity-Organizer`.`points` ;
 
-CREATE TABLE IF NOT EXISTS `Group-Activity-Organizer`.`point` (
+CREATE TABLE IF NOT EXISTS `Group-Activity-Organizer`.`points` (
   `points` INT NOT NULL DEFAULT 1,
   `userId` INT NOT NULL,
   `activityId` INT NOT NULL,
   `activityCompleted` TINYINT NOT NULL DEFAULT 0,
   constraint fk_point_activityId
         foreign key (activityId)
-        references activityId(activityId),
+        references activity(activityId),
   CONSTRAINT `fk_Points_Users1`
     FOREIGN KEY (`userId`)
     REFERENCES `Group-Activity-Organizer`.`user` (`userId`)
@@ -86,6 +86,7 @@ DROP TABLE IF EXISTS `Group-Activity-Organizer`.`user_activity` ;
 CREATE TABLE IF NOT EXISTS `Group-Activity-Organizer`.`user_activity` (
   `userId` INT NOT NULL,
   `activityId` INT NOT NULL,
+  PRIMARY KEY (userId, activityId),
   constraint fk_user_activity_activityId
         foreign key (activityId)
         references activity(activityId),
@@ -122,7 +123,7 @@ create procedure set_known_good_state()
 begin  
 
     delete from contact;	
-    delete from point;
+    delete from points;
     delete from activity;
     alter table activity auto_increment = 1;    
     delete from user;
@@ -137,8 +138,22 @@ begin
 	insert into activity(activityName, description, location, date, time, userId, maxParticipant, minParticipant, createBy)
     values
     ('soccer','9v9', 'That one place in Milwaukee','2022-01-11', '15:00', '1', '25', '18', 'Stepfan Thelemaque'),
-    ('basketball','5v5', 'Court beside the waterfall','2022-01-15','05:00', '2', '15','10','John Rambo'),
-	('football','5v5, flag football', 'Outer Space','2022-01-23', '12:00', '3', '25','10','Mister Blue Sky');
+    ('basketball','5v5', 'Court near Waterfall: Hope, Washington','2022-01-15','05:00', '2', '15','10','John Rambo'),
+	('football','5v5, flag football', 'Outer Space','2022-01-23', '12:00', '3', '25','10','Mister Blue Sky'),
+    ('soccer','11v11', 'Milwaukee','2022-01-11', '15:00', '1', '25', '18', 'Stepfan Thelemaque'),
+    ('basketball','5v5', 'Crypto Arena','2022-02-15','05:00', '2', '15','10','John Rambo'),
+	('football','12v12, touch tackle football', 'Gridiron Gang','2022-03-23', '12:00', '3', '25','10','Mister Blue Sky'),
+    ('Hockey','9v9', 'H-E-Double Hockeysticks','2022-03-11', '15:00', '1', '25', '18', 'Stepfan Thelemaque'),
+    ('curling','2v2, contact curling', 'Ice Age Plaza','2022-03-13', '2:00', '3', '6','4','Mister Blue Sky'),
+    ('Hockey','9v9', 'H-E-Double Hockeysticks','2022-03-11', '15:00', '1', '25', '18', 'Stepfan Thelemaque'),
+     ('basketball','5v5', 'Court near Waterfall: Hope, Washington','2022-04-15','05:00', '2', '15','10','John Rambo'),
+	('football','5v5, flag football', 'Outer Space','2022-06-23', '12:00', '3', '25','10','Mister Blue Sky'),
+    ('soccer','11v11', 'Milwaukee','2022-06-11', '15:00', '1', '25', '18', 'Stepfan Thelemaque'),
+    ('football','12v12, touch tackle football', 'Gridiron Gang','2022-06-23', '12:00', '3', '25','10','Mister Blue Sky'),
+    ('Hockey','9v9', 'H-E-Double Hockeysticks','2022-08-11', '15:00', '1', '25', '18', 'Stepfan Thelemaque'),
+    ('curling','2v2, contact curling', 'Ice Age Plaza','2022-12-13', '2:00', '3', '6','4','Mister Blue Sky'),
+    
+    ('Running','free run', 'Mount Colossus','2022-04-25','06:00', '2', '15','5','John Rambo');
     
     
     insert into contact (userId, firstName, lastName, email, location)

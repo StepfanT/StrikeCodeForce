@@ -2,7 +2,9 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import AuthContext from "../context/AuthContext"
 import { useContext } from "react";
-import Pagination from '@material-ui/lab/Pagination';
+import Posts from './Posts';
+import axios from 'axios';
+import Pagination from './Pagination';
 
 export default function Browse() {
     const [userStatus, setUserStatus] = useContext(AuthContext);
@@ -21,88 +23,40 @@ export default function Browse() {
             .then(data => { console.log(data); })
             .catch(error => console.log(error));
     }
+    const [posts, setPosts] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [postsPerPage] = useState(5);
 
     const getActivities = () => {
+        setLoading(true);
         fetch('http://localhost:8080/api/activity')
             .then(response => response.json())
-            .then(data => { setActivity(data); console.log(data); })
+            .then(data => { setActivity(data); setPosts(data) })
             .catch(error => console.log(error));
-
+        setLoading(false);
     };
 
+    //UseEffect runs when the component updates or mounts
     useEffect(() => {
         getActivities();
-    }, []);
 
-    // Imported Pagination Component from https://mui.com/components/pagination/ 
+    }, []); //[] contains no dependencies, stops the useEffect
+    
+    //Get current activities
+
+    const indexOfLastActivity = currentPage * postsPerPage;
+    const indexOfFirstActivity = indexOfLastActivity - postsPerPage;
+    const currentActivity = posts.slice(indexOfFirstActivity, indexOfLastActivity);
+
+    // Change page
+    const paginate = (pageNumber) => setCurrentPage(pageNumber); //pagenumber coming from pagination.js as prop {number}
+    
     return (
         <div>
-
-            <h2 className="my-4">Activities</h2>
-            <table className="table table-striped table-hover">
-                <thead>
-                    <tr>
-                        <th>Activity Name</th>
-                        <th>Date</th>
-                        <th>Location</th>
-                        <th>Description</th>
-                        <th>Time</th>
-                        <th>Max Participants</th>
-                        <th>Min Participants</th>
-                        <th>Created By</th>
-
-                    </tr>
-                </thead>
-                <tbody>
-                    {activities.map(activity => (
-                        <tr key={activity.userId}>
-                            <td>{activity.activityName}</td>
-                            <td>{activity.date}</td>
-                            <td>{activity.location}</td>
-                            <td>{activity.description}</td>
-                            <td>{activity.time}</td>
-                            <td>{activity.max}</td>
-                            <td>{activity.min}</td>
-                            <td>{activity.createBy}</td>
-
-                            <td>
-                                {userStatus.user.userId == activity.userId ? (
-                                    <div className="float-right">
-                                        <Link to={`/activity/detail/${activity.activityId}`} className="btn btn-primary btn-sm">
-                                            <i className="bi bi-pencil"></i> Edit
-                                        </Link>
-                                    </div>
-                                ) : (
-                                    <div className="float-right">
-                                        <div onClick={() => joinActivity(activity.activityId)} className="btn btn-primary btn-sm">
-                                            <i className="bi bi-pencil"></i> Join
-                                        </div>
-                                    </div>
-                                )}
-
-                                <div>
-                                    <Link to={`/`} className="btn btn-success btn-sm">
-                                        <i className="bi bi-pencil"></i>
-                                        Return Home
-                                    </Link>
-                                </div>
-                            </td>
-                        </tr>
-
-                    ))}
-                    
-                    <div
-                        style={{ display: 'inline', padding: 30 }}>
-                        <h4>Pagination</h4>
-                        <Pagination count={5} />
-                    </div>
-                </tbody>
-            </table>
+            <h2 className="my-4">Activities</h2>          
+            <Posts posts={currentActivity} loading={loading}></Posts>
+            <Pagination postsPerPage={postsPerPage} totalPosts={posts.length} paginate={paginate} />
         </div>
     );
 }
-
-/*
-
-
-*/

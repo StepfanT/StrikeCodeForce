@@ -1,5 +1,5 @@
 import { render } from "react-dom";
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import './App.css';
 import Home from './components/Home';
@@ -19,28 +19,7 @@ import Delete from "./components/Delete";
 
 
 function App() {
-
-  const [alert, setAlert] = React.useState({
-    type: 'error',
-    text: 'This is a alert message',
-    show: false
-  })
-
-  function onCloseAlert() {
-    setAlert({
-      type: '',
-      text: '',
-      show: false
-    })
-  }
-
-  function onShowAlert(type) {
-    setAlert({
-      type: type,
-      text: 'Demo alert',
-      show: true
-    })
-  }
+ 
 
   const [token, setToken] = useState();
   const [userIds, setUserId] = useState();
@@ -63,10 +42,12 @@ function App() {
     setUserId([...userIds, userId])
   }
 
+  
+
   return (
 
     <div className="wrapper">
-     
+
       <BrowserRouter>
         <AuthContext.Provider value={[userStatus, setUserStatus]}>
           <NavBar userStatus={userStatus} />
