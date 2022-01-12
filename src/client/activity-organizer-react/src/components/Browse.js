@@ -79,13 +79,13 @@ export default function Browse() {
                                         </div>
                                     </div>
                                 )}
+
                                 <div>
                                     <Link to={`/`} className="btn btn-success btn-sm">
                                         <i className="bi bi-pencil"></i>
                                         Return Home
                                     </Link>
                                 </div>
-
                             </td>
                         </tr>
 

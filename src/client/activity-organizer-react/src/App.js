@@ -18,9 +18,30 @@ import AuthContext from './context/AuthContext'
 import Delete from "./components/Delete";
 
 
-
-
 function App() {
+
+  const [alert, setAlert] = React.useState({
+    type: 'error',
+    text: 'This is a alert message',
+    show: false
+  })
+
+  function onCloseAlert() {
+    setAlert({
+      type: '',
+      text: '',
+      show: false
+    })
+  }
+
+  function onShowAlert(type) {
+    setAlert({
+      type: type,
+      text: 'Demo alert',
+      show: true
+    })
+  }
+
   const [token, setToken] = useState();
   const [userIds, setUserId] = useState();
 
@@ -62,7 +83,6 @@ function App() {
                 <Login />
               )}
             />
-
 
             <Route path="/contact" element={<Contact />} />
             <Route path="/dashboard" element={<Dashboard addUserId={addUserId} />}
