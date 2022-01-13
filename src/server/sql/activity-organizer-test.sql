@@ -134,33 +134,56 @@ begin
       insert into user(username, password, userRole) values
         ('frigiid', '$2a$10$ntB7CsRKQzuLoKY3rfoAQen5nNyiC/U60wBsWnnYrtQQi8Z3IZzQa', 'admin'),
         ('loneWolf', '$2a$10$ntB7CsRKQzuLoKY3rfoAQen5nNyiC/U60wBsWnnYrtQQi8Z3IZzQa', 'admin'),
-        ('guardians', '$2a$10$ntB7CsRKQzuLoKY3rfoAQen5nNyiC/U60wBsWnnYrtQQi8Z3IZzQa', 'admin');
+        ('guardians', '$2a$10$ntB7CsRKQzuLoKY3rfoAQen5nNyiC/U60wBsWnnYrtQQi8Z3IZzQa','admin'),
+        ('ello', '$2a$10$ntB7CsRKQzuLoKY3rfoAQen5nNyiC/U60wBsWnnYrtQQi8Z3IZzQa', 'admin'),
+        ('Poppet', '$2a$10$ntB7CsRKQzuLoKY3rfoAQen5nNyiC/U60wBsWnnYrtQQi8Z3IZzQa', 'admin'),
+        ('ThisisA', '$2a$10$ntB7CsRKQzuLoKY3rfoAQen5nNyiC/U60wBsWnnYrtQQi8Z3IZzQa', 'admin'),
+        ('referenceTo', '$2a$10$ntB7CsRKQzuLoKY3rfoAQen5nNyiC/U60wBsWnnYrtQQi8Z3IZzQa', 'admin'),
+        ('PirateOf', '$2a$10$ntB7CsRKQzuLoKY3rfoAQen5nNyiC/U60wBsWnnYrtQQi8Z3IZzQa', 'admin'),
+        ('TheCarribean', '$2a$10$ntB7CsRKQzuLoKY3rfoAQen5nNyiC/U60wBsWnnYrtQQi8Z3IZzQa', 'admin'),
+        ('BecauseItwas', '$2a$10$ntB7CsRKQzuLoKY3rfoAQen5nNyiC/U60wBsWnnYrtQQi8Z3IZzQa', 'admin'),
+        ('AModernMasterpiece', '$2a$10$ntB7CsRKQzuLoKY3rfoAQen5nNyiC/U60wBsWnnYrtQQi8Z3IZzQa', 'admin'),
+        ('OfBlockbusterStory', '$2a$10$ntB7CsRKQzuLoKY3rfoAQen5nNyiC/U60wBsWnnYrtQQi8Z3IZzQa', 'admin'),
+        ('TellingAnd', '$2a$10$ntB7CsRKQzuLoKY3rfoAQen5nNyiC/U60wBsWnnYrtQQi8Z3IZzQa', 'admin'),
+        ('Itshouldbeknown', '$2a$10$ntB7CsRKQzuLoKY3rfoAQen5nNyiC/U60wBsWnnYrtQQi8Z3IZzQa', 'admin'),
+        ('ThankYou', '$2a$10$ntB7CsRKQzuLoKY3rfoAQen5nNyiC/U60wBsWnnYrtQQi8Z3IZzQa', 'admin');
         
 	insert into activity(activityName, description, location, date, time, userId, maxParticipant, minParticipant, createBy)
     values
-    ('soccer','9v9', 'That one place in Milwaukee','2022-01-11', '15:00', '1', '25', '18', 'Stepfan Thelemaque'),
-    ('basketball','5v5', 'Court near Waterfall: Hope, Washington','2022-01-15','05:00', '2', '15','10','John Rambo'),
+	('soccer','9v9', 'That one place in Milwaukee','2022-01-11', '15:00', '1', '25', '18', 'Stepfan Thelemaque'),
+    ('Paintball','5v5', 'Court near Waterfall: Hope, Washington','2022-01-15','05:00', '2', '15','10','John Rambo'),
 	('football','5v5, flag football', 'Outer Space','2022-01-23', '12:00', '3', '25','10','Mister Blue Sky'),
-    ('soccer','11v11', 'Milwaukee','2022-01-11', '15:00', '1', '25', '18', 'Stepfan Thelemaque'),
-    ('basketball','5v5', 'Crypto Arena','2022-02-15','05:00', '2', '15','10','John Rambo'),
-	('football','Iron bar tackle football', 'Gridiron Gang','2022-03-23', '12:00', '3', '25','10','Mister Blue Sky'),
-    ('Hockey','9v9', 'H-E-Double Hockeysticks','2022-03-11', '15:00', '1', '25', '18', 'Stepfan Thelemaque'),
-    ('curling','2v2, contact curling', 'Ice Age Plaza','2022-03-13', '2:00', '3', '6','4','Mister Blue Sky'),
-    ('Hockey','9v9', 'Referee is Chad Bloominshine','2022-03-11', '15:00', '1', '25', '18', 'Stepfan Thelemaque'),
-     ('basketball','5v5', 'Court near Waterfall: Hope, Washington','2022-04-15','05:00', '2', '15','10','John Rambo'),
-	('football','12v5, Unwinnable', 'Outer Space','2022-05-23', '12:00', '3', '25','10','Mister Blue Sky'),
-    ('soccer','11v11', 'Kansas City','2022-06-11', '15:00', '1', '25', '5', 'Stepfan Thelemaque'),
-    ('football','12v12, touch tackle football', 'Gridiron Gang','2022-06-23', '12:00', '3', '25','10','Mister Blue Sky'),
-    ('Hockey','9v9, Go Ducks!', 'If you know you know','2022-08-11', '15:00', '1', '25', '18', 'Stepfan Thelemaque'),
-    ('curling','2v2, contact curling', 'Jamaican Bobsled Team','2022-12-13', '2:00', '3', '6','4','Mister Blue Sky'),    
-    ('Running','free run', 'Mount Colossus','2023-01-25','06:00', '2', '15','5','John Rambo');
+    ('Hot Lava Tag','Anyone can join!', 'Mount Vesuvius','2022-01-25', '15:00', '5', '25', '18', 'Noah Ark'),
+    ('basketball','5v5', 'Crypto Arena','2022-02-15','05:00', '4', '15','10','Oprah Winfrey'),
+	('football','Iron bar tackle football', 'Gridiron Gang','2022-03-23', '12:00', '10', '25','10','John Connor'),
+    ('Hockey','9v9', 'H-E-Double Hockeysticks','2022-03-11', '15:00', '11', '25', '18', 'Emilio Estevez Estevehz'),
+    ('curling','2v2, contact curling', 'Ice Age Plaza','2022-03-13', '2:00', '9', '6','4','The Dude'),
+    ('Darts','3v3, ft Chad Bloominshine', 'Coyote Ugly','2022-03-11', '15:00', '8', '25', '18', 'Edgar Poe'),
+     ('basketball','5v5', 'Court near Waterfall: Hope, Washington','2022-04-15','05:00', '7', '15','10','Julius Caesar'),
+	('football','12v5, Unwinnable', 'Outer Space','2022-05-23', '12:00', '6', '25','10','Gordon Ramsay'),
+    ('soccer','11v11', 'Kansas City','2022-06-11', '15:00', '1', '25', '13', 'Meghan Markle'),
+    ('Skeet Shooting','Duck Hunt time!', 'If you know you know','2022-08-11', '15:00', '12', '25', '18', 'Neil Armstrong'),
+    ('Ice run','Feel the rhythm ', 'Jamaican Bobsled Team','2022-12-13', '2:00', '15', '6','4','Homer Simpson'),    
+    ('Running','free run', 'Mount Colossus','2023-01-25','06:00', '14', '15','5','LeRon James');
     
     
     insert into contact (userId, firstName, lastName, email, location)
     values 
 	('1','Stepfan', 'Thelemaque', null, 'Milwaukee'),
   	('2','John', 'Rambo', null, 'The Forest'),
-    ('3','Mister', 'Blue Sky', 'ELO@old.com', 'Sydney');
+    ('3','Mister', 'Blue Sky', 'ELO@old.com', 'Sydney'),
+    ('4','Oprah', 'Winfrey', 'ELO@old.com', 'Los Angeles'),
+    ('5','Noah', 'Ark', null, 'The literal ocean'),
+  	('6','Gordon', 'Ramsay', 'IdiotSandwich@chefRus.com', 'Fox Network, Sunday nights'),
+    ('7','Julius', 'Ceasar', 'EtTu@dead.com', 'Idk Rome or something'),
+    ('8','Edgar', 'Poe', 'POEtry@raven.com', 'Cellar'),
+    ('9','The', 'Dude', null, 'Bowling Alley'),
+  	('10','John', 'Connor', null, 'Do not look for me'),
+    ('11','Emilio', 'Estevez Estevehz', 'Falco@song.com', 'Rock me Wolfgang'),
+    ('12','Neil', 'Armstrong', 'SpaceLuvr@nasa.com', 'Moon'),
+    ('13','Meghan', 'Markle', 'TheSuperiorPrincess@Windsor.com' , 'London'),
+  	('14','LeRon', 'James', 'notThatOne@typo.com', 'Kansas City'),
+    ('15','Homer', 'Simpson', 'Odyssey@epic.com', 'Greece');  
     
     insert into user_activity
     values
