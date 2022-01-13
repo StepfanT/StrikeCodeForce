@@ -56,13 +56,15 @@ export default function Dashboard() {
                     </thead>
                     <tbody>
                         {activities.map(activity => (
+                            
                             <tr key={activity.activityId}>
                                 <td>{activity.activityName}</td>
                                 <td>{activity.location}</td>
-                                <td>{activity.date}</td>
+                                <td>{activity.date.join("/")}</td>
                                 <td>{activity.time}</td>
                                 <td>{activity.createBy}</td>
                                 <td>
+                                {console.log(activity.date)}
                                     <div className="float-right">
                                         <div className="float-right">
                                             <button onClick={() => handleClick(activity.activityId)} className="btn btn-primary btn-sm">

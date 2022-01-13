@@ -50,7 +50,7 @@ const Posts = ({ posts, loading }) => {
                 {posts.map(post => (
                     <tr key={post.activityId} >
                         <td style={{ border: 'solid 1px black' }}>{post.activityName}</td>
-                        <td style={{ border: 'solid 1px black' }}>{post.date}</td>
+                        <td style={{ border: 'solid 1px black' }}>{post.date.join("/")}</td>
                         <td style={{ border: 'solid 1px black' }}>{post.location}</td>
                         <td style={{ border: 'solid 1px black' }}>{post.description}</td>
                         <td style={{ border: 'solid 1px black' }}>{post.time}</td>

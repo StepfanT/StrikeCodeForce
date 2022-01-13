@@ -40,7 +40,8 @@ export default function NavBar() {
         </>):("")}
         <Link to="/home">About Us</Link> |{" "}
         <Link to="/contact">Contact</Link> |{" "}
-        <Link to="/authenticate/register">Register New User</Link> |{" "}
+        {!userStatus?.user ? (<>
+        <Link to="/authenticate/register">Register New User</Link> |{" "}</>):("")}
 
       </nav>
     </div>

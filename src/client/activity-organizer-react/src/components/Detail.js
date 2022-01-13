@@ -58,6 +58,15 @@ export default function Detail(props) {
         setCreateBy(event.target.value);
     };
 
+    const formatDate=(date)=>{
+        if(date[1]<10){
+            date[1]='0'+date[1]
+        }
+        if(date[2]<10){
+            date[2]='0'+date[2]
+        }
+        return date.join("-");
+    }
     const getActivityData = () => {
         //fetch(`http://localhost:8080/api/activity/${id}`)
         fetch('http://localhost:8080/api/activity/' + activityId)
@@ -72,7 +81,7 @@ export default function Detail(props) {
                 setActivityName(data.activityName);
                 setDescription(data.description);
                 setLocation(data.location);
-                setDate(data.date);
+                setDate(formatDate(data.date));
                 setTime(data.time);
                 setMaxParticipant(data.max);
                 setMinParticipant(data.min);
@@ -182,13 +191,13 @@ export default function Detail(props) {
                     <div>
                         <label htmlFor="maxParticipant">Max # of Participants</label>
                         <input type="number" pattern="[0-9]*" id="maxParticipant"
-                            name="maxParticipant" min="6" max="50"
+                            name="maxParticipant" min="2" max="500"
                             value={maxParticipant} onChange={maxParticipantOnChangeHandler} readOnly={userId!==userStatus.user.userId}/>
                     </div>
                     <div>
                         <label htmlFor="minParticipant">Min # of Participants</label>
                         <input type="number" pattern="[0-9]*" id="minParticipant"
-                            name="minParticipant" min="3" max="45"
+                            name="minParticipant" min="2" max="500"
                             value={minParticipant} onChange={minParticipantOnChangeHandler} readOnly={userId!==userStatus.user.userId}/>
                     </div>
 
