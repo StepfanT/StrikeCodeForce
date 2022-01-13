@@ -1,6 +1,7 @@
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { useState,useContext } from 'react';
+import { useState, useContext } from 'react';
 import AuthContext from "../context/AuthContext";
+import Errors from './Errors';
 
 export default function Create() {
 
@@ -13,9 +14,8 @@ export default function Create() {
     const [maxParticipant, setMaxParticipant] = useState(0);
     const [minParticipant, setMinParticipant] = useState(0);
     const [createBy, setCreateBy] = useState('');
-    const [userStatus,setUserStatus]=useContext(AuthContext);
-
-    const { activityId } = useParams();
+    const [userStatus, setUserStatus] = useContext(AuthContext);
+    
     const [errors, setErrors] = useState([]);
 
     const history = useNavigate();
@@ -53,7 +53,7 @@ export default function Create() {
     const handleAddSubmit = (event) => {
         event.preventDefault();
         //setUserId(userStatus.user.userId);
-        var id=userStatus.user.userId;
+        var id = userStatus.user.userId;
         console.log(id);
         const newActivity = {
             activityName,
@@ -61,18 +61,18 @@ export default function Create() {
             location,
             date,
             time,
-            "max":maxParticipant,
-            "min":minParticipant,
+            "max": maxParticipant,
+            "min": minParticipant,
             createBy,
-            "userId":id
+            "userId": id
         };
         const init = {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                "Authorization":"Bearer "+localStorage.getItem("token")
+                "Authorization": "Bearer " + localStorage.getItem("token")
             },
-            
+
             body: JSON.stringify(newActivity)
         };
 
@@ -100,6 +100,7 @@ export default function Create() {
 
     return (
         <>
+        <Errors errors={errors}/>
             <h2 className="my-4">Create Activity</h2>
             <form onSubmit={handleAddSubmit}>
 

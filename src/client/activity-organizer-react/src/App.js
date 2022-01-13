@@ -44,8 +44,6 @@ function App() {
     setUserId([...userIds, userId])
   }
 
-  
-
   return (
 
     <div className="wrapper">

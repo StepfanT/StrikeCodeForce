@@ -1,10 +1,7 @@
 import React, { useEffect, useState, createContext, useContext } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import '../App.css';
-import Login from "./Login";
 import AuthContext from "../context/AuthContext"
-import ReactDOM from "react-dom";
-
 
 export default function Dashboard() {
 
@@ -30,35 +27,18 @@ export default function Dashboard() {
     };
 
     useEffect(() => {
-        if(userStatus.user!=null)
+        if (userStatus.user != null)
             getActivity();
     }, []);
-
-    const getActivitiesFromUser = () => {
-        fetch('http://localhost:8080/api/activity/user/' + userStatus.user.userId)
-            .then(response => {
-                if (response.status === 404) {
-                    return Promise.reject(`Received 404 Not Found for Activity name`);
-                }
-                return response.json();
-            })
-            .then(data => {
-                //setUserActivities(data);
-                console.log(data);
-            })
-            .catch(error => {
-                console.log(error);
-            });
-    }
 
     const navigate = useNavigate();
 
     const handleClick = (activityId) => {
-        navigate('/activity/detail/'+ activityId, { state: { id: userStatus.user.userId } })
+        navigate('/activity/detail/' + activityId, { state: { id: userStatus.user.userId } })
     }
 
     return (
-        <>
+        <>            
             <style>{"table{border:1px solid black;}"}
             </style>
             <div>
@@ -84,21 +64,13 @@ export default function Dashboard() {
                                 <td>{activity.createBy}</td>
                                 <td>
                                     <div className="float-right">
-                                        {/* <Link
-                                            to={`/activity/detail/${activity.activityId}`}
-                                            state={{ activityId }}
-                                            className="btn btn-primary btn-sm">
-                                            <i className="bi bi-pencil"></i> View Details
-                                        </Link> */}
+                                        <div className="float-right">
+                                            <button onClick={() => handleClick(activity.activityId)} className="btn btn-primary btn-sm">
+                                                Details
+                                            </button>
+                                        </div>
 
-                                        <button onClick={()=>handleClick(activity.activityId)} className="btn btn-primary btn-sm">
-                                            View/Edit Details
-                                        </button>
                                     </div>
-                                    <button onClick={getActivitiesFromUser}
-                                        className="btn btn-primary btn-sm">
-                                        User Activity
-                                    </button>
                                 </td>
                             </tr>
                         ))}

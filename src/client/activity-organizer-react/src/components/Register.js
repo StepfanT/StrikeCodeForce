@@ -48,25 +48,25 @@ export default function Register({ userStatus }) {
         show: false
     })
 
-  
+
     function onShowAlert(type) {
         setAlert({
             type: type,
             text: 'Sending Confirmation',
-            show: true            
+            show: true
         })
     }
 
-//Using Notification/Alert from https://www.npmjs.com/package/react-popup-alert
+    //Using Notification/Alert from https://www.npmjs.com/package/react-popup-alert
     return (
         <div>
-           
+            <Errors errors={errors} />
             <Alert
                 header={'Registration Successful'}
                 btnText={'Close'}
                 text={alert.text}
                 type={alert.type}
-                show={alert.show}               
+                show={alert.show}
                 pressCloseOnOutsideClick={true}
                 showBorderBottom={true}
                 alertStyles={{}}
