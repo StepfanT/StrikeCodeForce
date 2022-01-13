@@ -57,12 +57,19 @@ public class PointsJdbcTemplateRepositoryTest {
 
     @Test
     void shouldDeletePoints(){
+        boolean deleted=repository.deletePoints(1,1);
+        assertTrue(deleted);
+
+        deleted=repository.deletePoints(1,1);
+        assertFalse(deleted);
+
 
     }
 
     @Test
     void shouldDeleteAllPointsFromUser(){
-
+        boolean deleted=repository.deleteAllPointsFromUser(1);
+        assertTrue(deleted);
     }
 
 
