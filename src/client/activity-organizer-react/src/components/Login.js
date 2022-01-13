@@ -1,4 +1,4 @@
-import React, { useState,useContext } from "react";
+import React, { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import jwtDecode from "jwt-decode";
 import Errors from "./Errors";
@@ -41,7 +41,7 @@ export default function Login() {
             console.log(jwt_token);
             //userStatus.login(username)
             //userStatus.login(jwtDecode(jwt_token));
-            setUserStatus({user:jwtDecode(jwt_token)});
+            setUserStatus({ user: jwtDecode(jwt_token) });
             localStorage.setItem("token", jwt_token);
             history("/dashboard");
             console.log("Successful Login!")
@@ -61,7 +61,7 @@ export default function Login() {
         <div>
             <h2>Login</h2>
 
-
+            <Errors errors={errors} />
 
             <form onSubmit={handleSubmit}>
                 <div>
