@@ -161,7 +161,7 @@ begin
     ('Darts','3v3, ft Chad Bloominshine', 'Coyote Ugly','2022-03-11', '15:00', '8', '25', '18', 'Edgar Poe'),
      ('basketball','5v5', 'Court near Waterfall: Hope, Washington','2022-04-15','05:00', '7', '15','10','Julius Caesar'),
 	('football','12v5, Unwinnable', 'Outer Space','2022-05-23', '12:00', '6', '25','10','Gordon Ramsay'),
-    ('soccer','11v11', 'Kansas City','2022-06-11', '15:00', '1', '25', '13', 'Meghan Markle'),
+    ('soccer','11v11', 'Kansas City','2022-06-11', '15:00', '13', '25', '13', 'Meghan Markle'),
     ('Skeet Shooting','Duck Hunt time!', 'If you know you know','2022-08-11', '15:00', '12', '25', '18', 'Neil Armstrong'),
     ('Ice run','Feel the rhythm ', 'Jamaican Bobsled Team','2022-12-13', '2:00', '15', '6','4','Homer Simpson'),    
     ('Running','free run', 'Mount Colossus','2023-01-25','06:00', '14', '15','5','LeRon James');
