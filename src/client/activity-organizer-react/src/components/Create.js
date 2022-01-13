@@ -2,6 +2,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useState, useContext } from 'react';
 import AuthContext from "../context/AuthContext";
 import Errors from './Errors';
+import './Styles/Form.css';
 
 export default function Create() {
 
@@ -15,7 +16,7 @@ export default function Create() {
     const [minParticipant, setMinParticipant] = useState(0);
     const [createBy, setCreateBy] = useState('');
     const [userStatus, setUserStatus] = useContext(AuthContext);
-    
+
     const [errors, setErrors] = useState([]);
 
     const history = useNavigate();
@@ -99,8 +100,9 @@ export default function Create() {
     };
 
     return (
-        <>
-        <Errors errors={errors}/>
+        <div className = "form-box">
+           
+            <Errors errors={errors} />
             <h2 className="my-4">Create Activity</h2>
             <form onSubmit={handleAddSubmit}>
 
@@ -139,13 +141,13 @@ export default function Create() {
                 <div>
                     <label htmlFor="maxParticipant">Max # of Participants</label>
                     <input type="number" pattern="[0-9]*" id="maxParticipant"
-                        name="maxParticipant" min="6" max="50"
+                        name="maxParticipant" min="3" max="50"
                         value={maxParticipant} onChange={maxParticipantOnChangeHandler} />
                 </div>
                 <div>
                     <label htmlFor="minParticipant">Min # of Participants</label>
                     <input type="number" pattern="[0-9]*" id="minParticipant"
-                        name="minParticipant" min="3" max="45"
+                        name="minParticipant" min="2" max="45"
                         value={minParticipant} onChange={minParticipantOnChangeHandler} />
                 </div>
 
@@ -156,7 +158,7 @@ export default function Create() {
                 </div>
 
                 <div className="mt-5">
-                    <button className="btn btn-info" type="submit">
+                    <button className="info" type="submit">
                         <i className="bi bi-save"></i> Create Activity</button>
 
                     <Link to="/activity" className="btn btn-warning ml-2">
@@ -165,6 +167,6 @@ export default function Create() {
 
                 </div>
             </form>
-        </>
+        </div>
     )
 };

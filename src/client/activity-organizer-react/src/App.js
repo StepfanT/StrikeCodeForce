@@ -5,7 +5,6 @@ import './App.css';
 import Home from './components/Home';
 import Create from './components/Create';
 import Browse from './components/Browse';
-import View from './components/View';
 import Points from './components/Points';
 import Register from './components/Register';
 import Login from './components/Login';
@@ -68,8 +67,7 @@ function App() {
             <Route path="/contact" element={<Contact />} />
             <Route path="/dashboard" element={<Dashboard addUserId={addUserId} />}
             />
-
-            <Route path="/activity" element={<View />} />
+            
             <Route path="/activity/browse" element={<Browse />} />
             <Route path="/activity/create" element={<Create />} />
             <Route path="/activity/points" element={<Points />} />

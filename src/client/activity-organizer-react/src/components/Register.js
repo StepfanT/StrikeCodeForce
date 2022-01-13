@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Errors from "./Errors";
 import Alert from 'react-popup-alert'
-import './style.css';
 
 export default function Register({ userStatus }) {
     const [user, setUser] = useState([])

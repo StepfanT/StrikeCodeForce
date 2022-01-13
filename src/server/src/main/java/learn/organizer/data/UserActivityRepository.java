@@ -14,6 +14,8 @@ public interface UserActivityRepository {
 
     boolean deleteUserFromActivity(int userId,int activityId);
 
+    boolean deleteAllFromActivityId(int activityId);
+
     boolean deleteAllUserActivity(int userId);
 
     List<AppUser> getUsersFromActivityId(int activityId);

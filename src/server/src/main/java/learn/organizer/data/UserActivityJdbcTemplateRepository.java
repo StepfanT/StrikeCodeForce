@@ -83,4 +83,11 @@ public class UserActivityJdbcTemplateRepository implements UserActivityRepositor
         },activityId);
 
     }
+
+    public boolean deleteAllFromActivityId(int activityId){
+        final String sql="delete from user_activity " +
+                "where activityId=?";
+
+        return jdbcTemplate.update(sql,activityId)>0;
+    }
 }

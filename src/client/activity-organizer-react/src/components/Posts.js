@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState} from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import AuthContext from "../context/AuthContext";
 import '../index.css';
@@ -13,6 +13,7 @@ const Posts = ({ posts, loading }) => {
     }
 
     const joinActivity = (activityId) => {
+        
         const init = {
             method: "POST",
             headers: {
@@ -27,36 +28,11 @@ const Posts = ({ posts, loading }) => {
         
     };
 
-    // const [alert, setAlert] = React.useState({
-    //     type: 'error',
-    //     text: 'This is a alert message',
-    //     show: false
-    // });
-//  onShowAlert();
-    // function onShowAlert(type) {
-    //     setAlert({
-    //         type: type,
-    //         text: 'Joined Activity',
-    //         show: true
-    //     })
-    // };
-
-    //
+   
     return (
+        
         <table className="table table-striped table-hover" >
-            <Alert
-                header={'Registration Successful'}
-                btnText={'Close'}
-                text={alert.text}
-                type={alert.type}
-                show={alert.show}
-                pressCloseOnOutsideClick={true}
-                showBorderBottom={true}
-                alertStyles={{}}
-                headerStyles={{}}
-                textStyles={{}}
-                buttonStyles={{}}
-            />
+          
             <thead>
                 <tr>
                     <th>Activity</th>
@@ -72,18 +48,16 @@ const Posts = ({ posts, loading }) => {
             </thead>
             <tbody >
                 {posts.map(post => (
-
                     <tr key={post.activityId} >
                         <td style={{ border: 'solid 1px black' }}>{post.activityName}</td>
-                        <td style={{ border: 'solid 1px black' }}>{post.date}</td>
+                        <td style={{ border: 'solid 1px black' }}>{post.date.join("/")}</td>
                         <td style={{ border: 'solid 1px black' }}>{post.location}</td>
                         <td style={{ border: 'solid 1px black' }}>{post.description}</td>
                         <td style={{ border: 'solid 1px black' }}>{post.time}</td>
                         <td style={{ border: 'solid 1px black' }}>{post.max}</td>
                         <td style={{ border: 'solid 1px black' }}>{post.min}</td>
                         <td style={{ border: 'solid 1px black' }}>{post.createBy}</td>
-                        <td style={{ border: 'solid 1px black' }}>
-                            {console.log(post)}
+                        <td style={{ border: 'solid 1px black' }}>                     
                             {userStatus.user.userId === post.userId ? (
                                 <div className="float-right">
                                     <Link to={`/activity/detail/${post.activityId}`} className="btn btn-primary btn-sm">

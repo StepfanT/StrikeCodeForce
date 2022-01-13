@@ -2,6 +2,7 @@ import React, { useEffect, useState, createContext, useContext } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import '../App.css';
 import AuthContext from "../context/AuthContext"
+import styled from 'styled-components';
 
 export default function Dashboard() {
 
@@ -35,15 +36,56 @@ export default function Dashboard() {
 
     const handleClick = (activityId) => {
         navigate('/activity/detail/' + activityId, { state: { id: userStatus.user.userId } })
-    }
+    };
+
+    const styles = {
+        section: {
+            fontFamily: "-apple-system",
+            fontSize: "1rem",
+            fontWeight: 1.5,
+            lineHeight: 1.5,
+            color: "#292b2c",
+            backgroundColor: "#fff",
+            padding: "0 2em"
+        },
+        wrapper: {
+            textAlign: "center",
+            maxWidth: "950px",
+            margin: "0 auto",
+            border: "1px solid #e6e6e6",
+            padding: "40px 25px",
+            marginTop: "50px"
+        },
+        avatar: {
+            margin: "-90px auto 30px",
+            width: "100px",
+            borderRadius: "50%",
+            objectFit: "cover",
+            marginBottom: "0"
+        },
+        quote: {
+            lineHeight: 1.5,
+            fontWeight: 300,
+            marginBottom: "25px",
+            fontSize: "1.375rem"
+        },
+        data: {
+            marginBottom: "0",
+            fontWeight: 400,
+            fontSize: "1rem",
+            border: "1px solid black"
+        },
+        position: { fontWeight: 400 }
+    };
 
     return (
-        <>            
-            <style>{"table{border:1px solid black;}"}
-            </style>
+        <>
+
+            <h2>
+                Dashboard
+            </h2>
             <div>
-                <h2 className="my-4">Dashboard </h2>
-                <table style={{ "borderWidth": "1px", 'borderColor': "#aaaaaa", 'borderStyle': 'solid' }}
+                <table
                     className="table table-striped table-hover">
                     <thead>
                         <tr>
@@ -57,15 +99,17 @@ export default function Dashboard() {
                     <tbody>
                         {activities.map(activity => (
                             <tr key={activity.activityId}>
-                                <td>{activity.activityName}</td>
-                                <td>{activity.location}</td>
-                                <td>{activity.date}</td>
-                                <td>{activity.time}</td>
-                                <td>{activity.createBy}</td>
+                                <td style={styles.data}>{activity.activityName}</td>
+                                <td style={styles.data}>{activity.location}</td>
+                                <td style={styles.data}>{activity.date.join("/")}</td>
+                                <td style={styles.data}>{activity.time}</td>
+                                <td style={styles.data}>{activity.createBy}</td>
                                 <td>
+                                    {console.log(activity.date)}
                                     <div className="float-right">
                                         <div className="float-right">
-                                            <button onClick={() => handleClick(activity.activityId)} className="btn btn-primary btn-sm">
+                                            <button
+                                                onClick={() => handleClick(activity.activityId)} className="btn btn-primary btn-sm">
                                                 Details
                                             </button>
                                         </div>

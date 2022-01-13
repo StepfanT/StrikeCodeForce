@@ -64,4 +64,11 @@ public class PointsJdbcTemplateRepository implements PointsRepository{
                 "where activityId=? and userId=?;";
         return jdbcTemplate.update(sql,activityId,userId)>0;
     }
+
+    @Override
+    public boolean deleteAllActivityPoints(int activityId){
+        String sql="delete from points " +
+                "where activityId=?";
+        return jdbcTemplate.update(sql,activityId)>0;
+    }
 }

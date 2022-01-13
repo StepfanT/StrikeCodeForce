@@ -20,11 +20,13 @@ public class ActivityJdbcTemplateRepository implements ActivityRepository {
     private JdbcTemplate jdbcTemplate;
     private ActivityMapper activityMapper;
     private UserActivityRepository userActivityRepository;
+    private PointsRepository pointsRepository;
 
-    public ActivityJdbcTemplateRepository(JdbcTemplate jdbcTemplate, ActivityMapper activityMapper,UserActivityRepository userActivityRepository) {
+    public ActivityJdbcTemplateRepository(JdbcTemplate jdbcTemplate, ActivityMapper activityMapper,UserActivityRepository userActivityRepository,PointsRepository pointsRepository) {
         this.jdbcTemplate = jdbcTemplate;
         this.activityMapper = activityMapper;
         this.userActivityRepository=userActivityRepository;
+        this.pointsRepository=pointsRepository;
     }
 
     @Override
@@ -104,9 +106,17 @@ public class ActivityJdbcTemplateRepository implements ActivityRepository {
 
     @Override
     public boolean deleteActivity(int id) {
-        String sql = "delete from activity " +
-                "where activityId = ?";
-        return jdbcTemplate.update(sql, id) > 0;
+        //delete points
+        //delete user_activity
+        //
+        if(pointsRepository.deleteAllActivityPoints(id)){
+            if(userActivityRepository.deleteAllFromActivityId(id)){
+                String sql = "delete from activity " +
+                        "where activityId = ?";
+                return jdbcTemplate.update(sql, id) > 0;
+            }
+        }
+        return false;
     }
 
 
@@ -120,12 +130,13 @@ public class ActivityJdbcTemplateRepository implements ActivityRepository {
                 + "date = ?, "
                 + "time = ?, "
                 + "minParticipant = ?, "
-                + "maxParticipant = ? "
+                + "maxParticipant = ?, "
+                + "createBy = ? "
                 + "where activityId = ?;";
 
 
         return jdbcTemplate.update(sql, activity.getActivityName(), activity.getDescription(),
-                activity.getLocation(), activity.getDate(), activity.getTime(), activity.getMin(), activity.getMax(), activity.getActivityId()) > 0;
+                activity.getLocation(), activity.getDate(), activity.getTime(), activity.getMin(), activity.getMax(),activity.getCreateBy(), activity.getActivityId()) > 0;
     }
 
 }

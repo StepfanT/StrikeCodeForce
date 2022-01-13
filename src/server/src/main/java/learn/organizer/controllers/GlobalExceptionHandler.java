@@ -2,6 +2,7 @@ package learn.organizer.controllers;
 
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -53,6 +54,14 @@ public class GlobalExceptionHandler {
 
         return new ResponseEntity<String>(
                 ex.getMessage(),
+                HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(DuplicateKeyException.class)
+    public ResponseEntity<String> handleException(DuplicateKeyException ex) {
+
+        return new ResponseEntity<String>(
+                "Something went wrong in our database. Try again later",
                 HttpStatus.BAD_REQUEST);
     }
    // @ExceptionHandler(HttpMediaTypeNotSupportedException.class)

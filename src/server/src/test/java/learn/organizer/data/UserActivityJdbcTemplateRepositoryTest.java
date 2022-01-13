@@ -30,18 +30,24 @@ public class UserActivityJdbcTemplateRepositoryTest {
 
     @Test
     void shouldAddUserToActivity(){
-
+        boolean added=repository.addUserToActivity(2,1);
+        assertTrue(added);
 
     }
 
     @Test
     void shouldDeleteUserFromActivity(){
+        boolean deleted=repository.deleteUserFromActivity(1,1);
+        assertTrue(deleted);
 
+        deleted=repository.deleteUserFromActivity(1,1);
+        assertFalse(deleted);
     }
 
     @Test
     void shouldDeleteAllUserActivity(){
-
+        boolean deleted=repository.deleteAllUserActivity(1);
+        assertTrue(deleted);
     }
 
 
