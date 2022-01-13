@@ -8,7 +8,7 @@ export default function Welcome() {
             <style>{"table{border:1px solid black;}"}
             </style>
             <div>
-                <h2 className="my-4"> Welcome </h2>
+                <h2 className="my-4"> Welcome to So Many Activities! </h2>
                 <p>So you've found us. Great, the next step is to log in to join millions of users in the group</p>
             </div>
         </>
