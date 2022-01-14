@@ -1,8 +1,8 @@
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import React, { useEffect, useState, useContext } from "react";
-import { getData } from "../testData";
 import AuthContext from "../context/AuthContext"
 // import Errors from './Errors';
+import { store } from 'react-notifications-component';
 
 export default function Delete() {
 
@@ -10,21 +10,6 @@ export default function Delete() {
     const [userStatus, setUserStatus] = useContext(AuthContext);
     const history = useNavigate();
     const { activityId } = useParams();
-
-    const [deleteActivityId, setDeleteActivityId] = useState('');
-    const [activityName, setActivityName] = useState('');
-    const [description, setDescription] = useState('');
-    const [location, setLocation] = useState('');
-    const [date, setDate] = useState('');
-    const [time, setTime] = useState('');
-    const [userId, setUserId] = useState('');
-    const [maxParticipant, setMaxParticipant] = useState('');
-    const [minParticipant, setMinParticipant] = useState('');
-    const [createBy, setCreateBy] = useState('');
-
-    //same issue as in Details page,
-    //There is no specific activity getter. 
-    //Get activity data via userId then filter via activityId?
 
     useEffect(() => {
         fetch(`http://localhost:8080/api/activity/${activityId}`)
@@ -58,6 +43,20 @@ export default function Delete() {
             })
             .then(data => {
                 if (!data) {
+                    store.addNotification({
+                        title: "Deletion Confirmed",
+                        message: "Returning to Dashboard",
+                        type: "success",
+                        insert: "top",
+                        container: "top-right",
+                        animationIn: ["animate__animated", "animate__fadeIn"],
+                        animationOut: ["animate__animated", "animate__fadeOut"],
+                        dismiss: {
+                            duration: 3000,
+                            onScreen: true
+                        }
+                    });
+                    
                     history('/');
                 } else {
                     // we have errors to display                  

@@ -1,6 +1,5 @@
-import { render } from "react-dom";
-import React, { useState, useEffect } from 'react';
-import { BrowserRouter, Routes, Route, Navigate  } from "react-router-dom";
+import React, { useState } from 'react';
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import './App.css';
 import Home from './components/Home';
 import Create from './components/Create';
@@ -16,10 +15,11 @@ import NavBar from "./components/NavBar";
 import AuthContext from './context/AuthContext'
 import Delete from "./components/Delete";
 import Welcome from "./components/Welcome";
+import ReactNotification from 'react-notifications-component';
+import 'react-notifications-component/dist/theme.css'
 
 
 function App() {
- 
 
   const [token, setToken] = useState();
   const [userIds, setUserId] = useState();
@@ -46,12 +46,12 @@ function App() {
   return (
 
     <div className="wrapper">
-
+      <ReactNotification />
       <BrowserRouter>
         <AuthContext.Provider value={[userStatus, setUserStatus]}>
           <NavBar userStatus={userStatus} />
           <Routes>
-            <Route path="/" element={ userStatus?.user ? (<Dashboard />):(<Welcome />)} />
+            <Route path="/" element={userStatus?.user ? (<Dashboard />) : (<Welcome />)} />
 
             <Route path="/home" element={<Home />} />
             <Route path="/authenticate/register" element={<Register />} />
@@ -67,7 +67,7 @@ function App() {
             <Route path="/contact" element={<Contact />} />
             <Route path="/dashboard" element={<Dashboard addUserId={addUserId} />}
             />
-            
+
             <Route path="/activity/browse" element={<Browse />} />
             <Route path="/activity/create" element={<Create />} />
             <Route path="/activity/points" element={<Points />} />

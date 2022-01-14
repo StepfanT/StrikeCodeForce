@@ -1,8 +1,8 @@
-import React, { useContext, useState} from 'react';
+import React, { useContext, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import AuthContext from "../context/AuthContext";
 import '../index.css';
-import Alert from 'react-popup-alert'
+import { store } from 'react-notifications-component';
 
 // Repurposed Pagination/Posts code came from https://www.youtube.com/watch?v=IYCa1F-OWmk
 const Posts = ({ posts, loading }) => {
@@ -13,7 +13,7 @@ const Posts = ({ posts, loading }) => {
     }
 
     const joinActivity = (activityId) => {
-        
+
         const init = {
             method: "POST",
             headers: {
@@ -25,14 +25,24 @@ const Posts = ({ posts, loading }) => {
             .then(response => response.json())
             .then(data => { console.log(data); })
             .catch(error => console.log(error));
-        
+        store.addNotification({
+            title: "Sending notification to Group Admin...",
+            message: "Activity joined!",
+            type: "success",
+            insert: "top",
+            container: "top-right",
+            animationIn: ["animate__animated", "animate__fadeIn"],
+            animationOut: ["animate__animated", "animate__fadeOut"],
+            dismiss: {
+                duration: 3000,
+                onScreen: true
+            }
+        });
     };
 
-   
+
     return (
-        
         <table className="table table-striped table-hover" >
-          
             <thead>
                 <tr>
                     <th>Activity</th>
@@ -43,7 +53,6 @@ const Posts = ({ posts, loading }) => {
                     <th>Max Participants</th>
                     <th>Min Participants</th>
                     <th>Created By</th>
-
                 </tr>
             </thead>
             <tbody >
@@ -57,7 +66,7 @@ const Posts = ({ posts, loading }) => {
                         <td style={{ border: 'solid 1px black' }}>{post.max}</td>
                         <td style={{ border: 'solid 1px black' }}>{post.min}</td>
                         <td style={{ border: 'solid 1px black' }}>{post.createBy}</td>
-                        <td style={{ border: 'solid 1px black' }}>                     
+                        <td style={{ border: 'solid 1px black' }}>                           
                             {userStatus.user.userId === post.userId ? (
                                 <div className="float-right">
                                     <Link to={`/activity/detail/${post.activityId}`} className="btn btn-primary btn-sm">

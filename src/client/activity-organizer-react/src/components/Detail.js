@@ -1,20 +1,11 @@
-import { useLocation, Link, useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import React, { useEffect, useState, useContext } from "react";
 import AuthContext from "../context/AuthContext"
 import Errors from './Errors';
-import Participants from "./Participants"
-
+import Participants from "./Participants";
+import { store } from 'react-notifications-component';
 
 export default function Detail(props) {
-
-    //passing prop via state from View Link
-    // const stateLocation = useLocation();
-    // //const {from } = stateLocation.state;
-    // console.log(stateLocation);
-
-
-    const [activityData, setActivityDetails] = useState([]);
-    const [errors, setErrors] = useState([]);
 
     const history = useNavigate();
     const [userStatus, setUserStatus] = useContext(AuthContext);
@@ -30,7 +21,7 @@ export default function Detail(props) {
     const [createBy, setCreateBy] = useState('');
 
     const { activityId } = useParams();
- 
+
     const activityNameOnChangeHandler = (event) => {
         setActivityName(event.target.value);
     };
@@ -58,17 +49,16 @@ export default function Detail(props) {
         setCreateBy(event.target.value);
     };
 
-    const formatDate=(date)=>{
-        if(date[1]<10){
-            date[1]='0'+date[1]
+    const formatDate = (date) => {
+        if (date[1] < 10) {
+            date[1] = '0' + date[1]
         }
-        if(date[2]<10){
-            date[2]='0'+date[2]
+        if (date[2] < 10) {
+            date[2] = '0' + date[2]
         }
         return date.join("-");
     }
     const getActivityData = () => {
-        //fetch(`http://localhost:8080/api/activity/${id}`)
         fetch('http://localhost:8080/api/activity/' + activityId)
             .then(response => {
                 if (response.status === 404) {
@@ -77,7 +67,6 @@ export default function Detail(props) {
                 return response.json();
             })
             .then(data => {
-                //  setActivityDetails(data);
                 setActivityName(data.activityName);
                 setDescription(data.description);
                 setLocation(data.location);
@@ -99,9 +88,6 @@ export default function Detail(props) {
         getActivityData();
     }, []);
 
-    // console.log(activityName);
-    //Include way to only edit/delete activity if the UserId matches the Activities Created User
-
     const editActivitySubmitHandler = (event) => {
         event.preventDefault();
 
@@ -112,20 +98,19 @@ export default function Detail(props) {
             location,
             date,
             time,
-            'max':maxParticipant,
-            'min':minParticipant,
-            'userId':userStatus.user.userId,
+            'max': maxParticipant,
+            'min': minParticipant,
+            'userId': userStatus.user.userId,
             createBy
         };
         const init = {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
-                "Authorization":"Bearer "+localStorage.getItem("token")
+                "Authorization": "Bearer " + localStorage.getItem("token")
             },
-            body:JSON.stringify(updatedDetail)
+            body: JSON.stringify(updatedDetail)
         };
-        //fetch(`http://localhost:8080/api/activity/detail/${activityId}`, init)
         fetch('http://localhost:8080/api/activity/' + activityId, init)
             .then(response => {
                 if (response.status === 204) {
@@ -138,6 +123,19 @@ export default function Detail(props) {
             .then(data => {
                 if (!data) {
                     // redirect the user back to the /home route
+                    store.addNotification({
+                        title: activityName + " updated!",
+                        message: "Returning to Dashboard",
+                        type: "success",
+                        insert: "top",
+                        container: "top-right",
+                        animationIn: ["animate__animated", "animate__fadeIn"],
+                        animationOut: ["animate__animated", "animate__fadeOut"],
+                        dismiss: {
+                            duration: 1500,
+                            onScreen: true
+                        }
+                    });
                     history('/');
                 } else {
                     // we have errors to display
@@ -160,60 +158,60 @@ export default function Detail(props) {
                         <label htmlFor="activityName">Activity Name</label>
                         <input type="text" id="activityName" name="activityName"
                             value={activityName} onChange={activityNameOnChangeHandler}
-                            readOnly={userId!==userStatus.user.userId}
+                            readOnly={userId !== userStatus.user.userId}
                         />
                     </div>
 
                     <div>
                         <label htmlFor="description">Description</label>
                         <input type="description" id="description" name="description"
-                            value={description} onChange={descriptionOnChangeHandler} readOnly={userId!==userStatus.user.userId}/>
+                            value={description} onChange={descriptionOnChangeHandler} readOnly={userId !== userStatus.user.userId} />
                     </div>
 
                     <div>
                         <label htmlFor="location">Location of Activity</label>
                         <input type="text" id="location" name="location"
-                            value={location} onChange={locationOnChangeHandler} readOnly={userId!==userStatus.user.userId}/>
+                            value={location} onChange={locationOnChangeHandler} readOnly={userId !== userStatus.user.userId} />
                     </div>
 
                     <div>
                         <label htmlFor="date">Date</label>
                         <input type="date" id="date" name="date"
-                            value={date} onChange={dateOnChangeHandler} readOnly={userId!==userStatus.user.userId}/>
+                            value={date} onChange={dateOnChangeHandler} readOnly={userId !== userStatus.user.userId} />
                     </div>
 
                     <div>
                         <label htmlFor="time">Time</label>
                         <input type="time" id="time" name="time"
-                            value={time} onChange={timeOnChangeHandler} readOnly={userId!==userStatus.user.userId}/>
+                            value={time} onChange={timeOnChangeHandler} readOnly={userId !== userStatus.user.userId} />
                     </div>
 
                     <div>
                         <label htmlFor="maxParticipant">Max # of Participants</label>
                         <input type="number" pattern="[0-9]*" id="maxParticipant"
                             name="maxParticipant" min="2" max="500"
-                            value={maxParticipant} onChange={maxParticipantOnChangeHandler} readOnly={userId!==userStatus.user.userId}/>
+                            value={maxParticipant} onChange={maxParticipantOnChangeHandler} readOnly={userId !== userStatus.user.userId} />
                     </div>
                     <div>
                         <label htmlFor="minParticipant">Min # of Participants</label>
                         <input type="number" pattern="[0-9]*" id="minParticipant"
                             name="minParticipant" min="2" max="500"
-                            value={minParticipant} onChange={minParticipantOnChangeHandler} readOnly={userId!==userStatus.user.userId}/>
+                            value={minParticipant} onChange={minParticipantOnChangeHandler} readOnly={userId !== userStatus.user.userId} />
                     </div>
 
                     <div>
                         <label htmlFor="createBy">Created By</label>
                         <input type="text" id="createBy" name="createBy"
-                            value={createBy} onChange={createByOnChangeHandler} readOnly={userId!==userStatus.user.userId}/>
+                            value={createBy} onChange={createByOnChangeHandler} readOnly={userId !== userStatus.user.userId} />
                     </div>
 
                     <div className="mt-5">
-                    {userId==userStatus.user.userId?(<><button className="btn btn-info" type="submit">
+                        {userId == userStatus.user.userId ? (<><button className="btn btn-info" type="submit">
                             <i className="bi bi-save"></i> Update Activity</button>
-                        <Link to={`/activity/delete/${activityId}`} className="btn btn-danger ml-2">
-                            <i className="bi bi-x"></i> Delete
-                        </Link></>):("")}
-                        
+                            <Link to={`/activity/delete/${activityId}`} className="btn btn-danger ml-2">
+                                <i className="bi bi-x"></i> Delete
+                            </Link></>) : ("")}
+
                         <Link to="/activity/browse" className="btn btn-warning ml-2">
                             <i className="bi bi-x"></i> Return To List
                         </Link>
@@ -221,7 +219,7 @@ export default function Detail(props) {
                 </div>
             </form>
 
-            <Participants activityId={activityId} isCreator={userId==userStatus.user.userId}/>
+            <Participants activityId={activityId} isCreator={userId == userStatus.user.userId} />
         </>
     );
 };

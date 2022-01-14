@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import jwtDecode from "jwt-decode";
 import Errors from "./Errors";
 import AuthContext from "../context/AuthContext";
@@ -38,9 +38,7 @@ export default function Login() {
             const { jwt_token } = await response.json();
 
             console.log(jwtDecode(jwt_token));
-            console.log(jwt_token);
-            //userStatus.login(username)
-            //userStatus.login(jwtDecode(jwt_token));
+            console.log(jwt_token);         
             setUserStatus({ user: jwtDecode(jwt_token) });
             localStorage.setItem("token", jwt_token);
             history("/dashboard");
@@ -88,10 +86,3 @@ export default function Login() {
     );
 };
 
-/*
-P@ssw0rd!
-           {errors.map((error, i) => (
-                <Errors key={i} msg={error} />
-            ))}
-
-*/
