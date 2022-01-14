@@ -1,8 +1,9 @@
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useState, useContext } from 'react';
 import AuthContext from "../context/AuthContext";
 import Errors from './Errors';
 import './Styles/Form.css';
+import { store } from 'react-notifications-component';
 
 export default function Create() {
 
@@ -88,6 +89,19 @@ export default function Create() {
                 // we either created the recorded...
                 if (data.activityId) {
                     // redirect the user back to the home page
+                    store.addNotification({
+                        title: activityName +" created!",
+                        message: "Returning to Dashboard",
+                        type: "success",
+                        insert: "top",
+                        container: "top-right",
+                        animationIn: ["animate__animated", "animate__fadeIn"],
+                        animationOut: ["animate__animated", "animate__fadeOut"],
+                        dismiss: {
+                            duration: 2500,
+                            onScreen: true
+                        }
+                    });
                     history('/');
                 } else {
                     // we have error messages
@@ -100,8 +114,8 @@ export default function Create() {
     };
 
     return (
-        <div className = "form-box">
-           
+        <div className="form-box">
+
             <Errors errors={errors} />
             <h2 className="my-4">Create Activity</h2>
             <form onSubmit={handleAddSubmit}>
@@ -112,7 +126,6 @@ export default function Create() {
                         value={activityName} onChange={activityNameOnChangeHandler}
                     />
                 </div>
-
 
                 <div>
                     <label htmlFor="description">Description</label>

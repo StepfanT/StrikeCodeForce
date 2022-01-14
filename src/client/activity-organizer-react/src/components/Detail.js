@@ -1,20 +1,11 @@
-import { useLocation, Link, useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import React, { useEffect, useState, useContext } from "react";
 import AuthContext from "../context/AuthContext"
 import Errors from './Errors';
-import Participants from "./Participants"
+import Participants from "./Participants";
 
 
 export default function Detail(props) {
-
-    //passing prop via state from View Link
-    // const stateLocation = useLocation();
-    // //const {from } = stateLocation.state;
-    // console.log(stateLocation);
-
-
-    const [activityData, setActivityDetails] = useState([]);
-    const [errors, setErrors] = useState([]);
 
     const history = useNavigate();
     const [userStatus, setUserStatus] = useContext(AuthContext);
@@ -67,8 +58,7 @@ export default function Detail(props) {
         }
         return date.join("-");
     }
-    const getActivityData = () => {
-        //fetch(`http://localhost:8080/api/activity/${id}`)
+    const getActivityData = () => {       
         fetch('http://localhost:8080/api/activity/' + activityId)
             .then(response => {
                 if (response.status === 404) {
@@ -76,8 +66,7 @@ export default function Detail(props) {
                 }
                 return response.json();
             })
-            .then(data => {
-                //  setActivityDetails(data);
+            .then(data => {              
                 setActivityName(data.activityName);
                 setDescription(data.description);
                 setLocation(data.location);
@@ -97,10 +86,7 @@ export default function Detail(props) {
 
     useEffect(() => {
         getActivityData();
-    }, []);
-
-    // console.log(activityName);
-    //Include way to only edit/delete activity if the UserId matches the Activities Created User
+    }, []);    
 
     const editActivitySubmitHandler = (event) => {
         event.preventDefault();

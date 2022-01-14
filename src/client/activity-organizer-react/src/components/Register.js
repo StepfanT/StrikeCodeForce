@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Errors from "./Errors";
-import Alert from 'react-popup-alert'
+import { store } from 'react-notifications-component';
 
 export default function Register({ userStatus }) {
     const [user, setUser] = useState([])
@@ -13,7 +13,6 @@ export default function Register({ userStatus }) {
         const { name, value } = event.target;
         setUser({ ...user, [name]: value });
     }
-    const delay = ms => new Promise(res => setTimeout(res, ms));
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -27,8 +26,19 @@ export default function Register({ userStatus }) {
         });
 
         if (response.status === 200 || response.status === 201) {
-            onShowAlert();
-            await delay(1000);
+            store.addNotification({
+                title: "Registration Success",
+                message: "User Created",
+                type: "success",
+                insert: "top",
+                container: "top-right",
+                animationIn: ["animate__animated", "animate__fadeIn"],
+                animationOut: ["animate__animated", "animate__fadeOut"],
+                dismiss: {
+                    duration: 1500,
+                    onScreen: true
+                }
+            });
             history('/');
             console.log("Successful Registration!")
         } else if (response.status === 400) {
@@ -41,38 +51,11 @@ export default function Register({ userStatus }) {
         }
     };
 
-    const [alert, setAlert] = React.useState({
-        type: 'error',
-        text: 'This is a alert message',
-        show: false
-    })
-
-
-    function onShowAlert(type) {
-        setAlert({
-            type: type,
-            text: 'Sending Confirmation',
-            show: true
-        })
-    }
-
-    //Using Notification/Alert from https://www.npmjs.com/package/react-popup-alert
+  
+    //Using Notification from https://www.npmjs.com/package/react-notifications-component
     return (
         <div>
-            <Errors errors={errors} />
-            <Alert
-                header={'Registration Successful'}
-                btnText={'Close'}
-                text={alert.text}
-                type={alert.type}
-                show={alert.show}
-                pressCloseOnOutsideClick={true}
-                showBorderBottom={true}
-                alertStyles={{}}
-                headerStyles={{}}
-                textStyles={{}}
-                buttonStyles={{}}
-            />
+            <Errors errors={errors} />           
             <h2>Register New User</h2>
 
             <form onSubmit={handleSubmit}>

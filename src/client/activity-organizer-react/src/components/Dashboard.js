@@ -1,16 +1,11 @@
-import React, { useEffect, useState, createContext, useContext } from 'react';
-import { useParams, Link, useNavigate } from 'react-router-dom';
+import React, { useEffect, useState, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import '../App.css';
 import AuthContext from "../context/AuthContext"
-import styled from 'styled-components';
 
 export default function Dashboard() {
 
-    const [activities, setActivity] = useState([]);
-    const [userActivities, setUserActivities] = useState([]);
-
-    const { activityId } = useParams();
-    const history = useNavigate();
+    const [activities, setActivity] = useState([]);       
     const [userStatus, setUserStatus] = useContext(AuthContext);
 
     const getActivity = () => {
