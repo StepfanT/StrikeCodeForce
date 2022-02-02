@@ -16,7 +16,7 @@ import AuthContext from './context/AuthContext'
 import Delete from "./components/Delete";
 import Welcome from "./components/Welcome";
 import ReactNotification from 'react-notifications-component';
-import 'react-notifications-component/dist/theme.css'
+import 'react-notifications-component/dist/theme.css';
 
 
 function App() {

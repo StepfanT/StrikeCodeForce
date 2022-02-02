@@ -1,9 +1,9 @@
-import { Link, useNavigate, useParams } from 'react-router-dom';
+
 import { useState, useEffect } from 'react';
 import AuthContext from "../context/AuthContext"
 import { useContext } from "react";
 import Posts from './Posts';
-import axios from 'axios';
+
 import Pagination from './Pagination';
 
 export default function Browse() {
